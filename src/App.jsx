@@ -7,6 +7,7 @@ import StudentLayout from "./pages/Student/StudentLayout";
 import StudentDashboard from "./pages/Student/Dashboard";
 import StudentApplications from "./pages/Student/Applications";
 import StudentProfile from "./pages/Student/Profile";
+import PostJob from "./pages/Recruiter/PostJob";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         element={<div style={{ padding: 40 }}>Page not found</div>}
       />
       <Route path="/student/profile" element={<StudentProfile />} />
+      <Route path="/recruiter/post-job" element={<PostJob />} />
     </Routes>
   );
 }

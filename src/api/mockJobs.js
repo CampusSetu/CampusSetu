@@ -16,3 +16,10 @@ export async function getJobById(id) {
   const job = jobs.find((j) => Number(j.id) === Number(id));
   return new Promise((resolve) => setTimeout(() => resolve(job || null), 80));
 }
+
+export const createJob = (job) => {
+  const id = jobs.length ? Math.max(...jobs.map((j) => j.id)) + 1 : 1;
+  const newJob = { id, ...job, createdAt: new Date().toISOString() };
+  jobs.push(newJob);
+  return newJob;
+};
