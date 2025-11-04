@@ -1,16 +1,38 @@
-# React + Vite
+# Campus SETU
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a web application for a campus job portal, built with React and Vite.
 
-Currently, two official plugins are available:
+## Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application includes the following pages:
 
-## React Compiler
+- **Home (`src/pages/Home/Home.jsx`):** The main landing page.
+- **Authentication (Modal):** A modal overlay on the homepage handles user login and registration.
+- **Job Details (`src/pages/JobDetails/JobDetails.jsx`):** Shows the detailed description of a single job posting.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Student Section
 
-## Expanding the ESLint configuration
+- **Student Dashboard (`src/pages/Student/Dashboard.jsx`):** The main dashboard for students after logging in.
+- **My Applications (`src/pages/Student/Applications.jsx`):** Lists all the jobs a student has applied to.
+- **My Profile (`src/pages/Student/Profile.jsx`):** Allows students to view and edit their profile information.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Recruiter Section
+
+- **Post a Job (`src/pages/Recruiter/PostJob.jsx`):** A form for recruiters to create new job listings.
+- **Job Listings (`src/pages/Recruiter/JobListings.jsx`):** A view for recruiters to see and manage all the jobs they have posted.
+- **Applicants (`src/pages/Recruiter/Applicants.jsx`):** Allows recruiters to see a table of all students who have applied to a specific job.
+
+## Authentication
+
+This project uses a mock, frontend-only authentication system. User sessions and details are stored in the browser's `localStorage`.
+
+### How it Works
+
+- **Login / Registration:** When a user clicks "Get Started", a modal appears. The default view is for signing in, but users can toggle to a sign-up form.
+- **User Data:** User information is saved to `localStorage` upon registration.
+- **Protected Routes:** The student and recruiter dashboards (e.g., `/student` and `/recruiter`) are protected. If a user is not logged in, they will be redirected to the homepage, and can open the authentication modal from there.
+- **Session Persistence:** The user's session persists across page reloads by loading the authentication state from `localStorage` when the app starts.
+
+---
+
+*This README was updated by Gemini.*

@@ -1,25 +1,37 @@
-import jobs from "../data/jobs.json";
+import jobsData from "../data/jobs.json";
 
-export async function getJobs(params = {}) {
-  // params: { approved = true, _limit }
-  const { approved = true, _limit } = params;
-  let res = jobs.slice();
+let jobs = [...jobsData];
 
-  if (approved) res = res.filter((j) => j.approved === true);
-  if (_limit && Number.isFinite(Number(_limit)))
-    res = res.slice(0, Number(_limit));
-  // simulate async behaviour
-  return new Promise((resolve) => setTimeout(() => resolve(res), 120));
-}
+export const getJobs = async (filter = {}) => {
+  let filtered = jobs;
+  if (filter.postedBy) {
+    filtered = filtered.filter((j) => j.postedBy === filter.postedBy);
+  }
+  if (filter.approved) {
+    filtered = filtered.filter((j) => j.approved);
+  }
+  if (filter._limit) {
+    filtered = filtered.slice(0, filter._limit);
+  }
+  return Promise.resolve(filtered);
+};
 
-export async function getJobById(id) {
-  const job = jobs.find((j) => Number(j.id) === Number(id));
-  return new Promise((resolve) => setTimeout(() => resolve(job || null), 80));
-}
+export const getJobById = async (id) => {
+  const job = jobs.find((j) => j.id === Number(id));
+  return Promise.resolve(job);
+};
 
-export const createJob = (job) => {
-  const id = jobs.length ? Math.max(...jobs.map((j) => j.id)) + 1 : 1;
-  const newJob = { id, ...job, createdAt: new Date().toISOString() };
+export const createJob = async (job) => {
+  const newJob = {
+    ...job,
+    id: Date.now(),
+    createdAt: new Date().toISOString(),
+  };
   jobs.push(newJob);
-  return newJob;
+  return Promise.resolve(newJob);
+};
+
+export const deleteJob = async (id) => {
+  jobs = jobs.filter((j) => j.id !== id);
+  return Promise.resolve(true);
 };

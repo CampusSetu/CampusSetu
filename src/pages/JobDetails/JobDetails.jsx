@@ -54,7 +54,7 @@ export default function JobDetails() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-semibold">{job.title}</h1>
-            <div className="text-sm text-muted mt-1">{job.companyName} • {job.location}</div>
+            <div className="text-sm text-muted mt-1">{company?.name} • {company?.location}</div>
           </div>
           <div>
             <div className="text-sm text-muted mb-2">{job.type}</div>

@@ -30,12 +30,12 @@ const Hero = () => {
           <Button variant="primary">Try Beta</Button>
           <Button variant="ghost">Explore Jobs</Button>
         </div>
-        <div className="mt-12">
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-soft overflow-hidden">
+        <div className="mt-12 relative z-10">
+          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-soft overflow-hidden transform -rotate-3 hover:rotate-0 transition-transform duration-500 ease-in-out">
             <img
-              src="/assets/hero-mock.png"
-              alt="App preview"
-              className="w-full h-60 object-cover"
+              src="https://picsum.photos/seed/campus-setu/1200/600"
+              alt="Campus Setu App Preview"
+              className="w-full h-96 object-cover object-center"
             />
           </div>
         </div>

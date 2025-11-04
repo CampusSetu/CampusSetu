@@ -6,13 +6,13 @@ export const getApplications = (studentId) => {
   return localApplications.filter((app) => app.studentId === studentId);
 };
 
-export const patchApplicationStatus = (id, status) => {
-  const index = localApplications.findIndex((a) => a.id === id);
-  if (index !== -1) {
-    localApplications[index].status = status;
-  }
-  return localApplications[index];
-};
+// export const patchApplicationStatus = (id, status) => {
+//   const index = localApplications.findIndex((a) => a.id === id);
+//   if (index !== -1) {
+//     localApplications[index].status = status;
+//   }
+//   return localApplications[index];
+// };
 
 // new addition
 export const createApplication = (newApp) => {
@@ -23,3 +23,14 @@ export const createApplication = (newApp) => {
   localApplications.push(application);
   return application;
 };
+
+export const getApplicationsByJob = (jobId) => {
+  return applications.filter((a) => a.jobId === jobId);
+};
+
+export const patchApplicationStatus = (id, status) => {
+  const app = applications.find((a) => a.id === id);
+  if (app) app.status = status;
+  return app;
+};
+

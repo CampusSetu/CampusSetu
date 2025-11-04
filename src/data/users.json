@@ -1,25 +1,42 @@
 [
   {
     "id": 1,
+    "name": "Riya Sharma",
+    "email": "riya@example.com",
+    "password": "password123",
     "role": "student",
-    "name": "Alice Example",
-    "email": "alice@example.com",
-    "password": "student123",
-    "profile": { "cgpa": 8.5, "skills": ["react","javascript"], "resumeUrl": "" }
+    "skills": ["React", "Tailwind", "Node.js"]
   },
   {
     "id": 2,
-    "role": "recruiter",
-    "name": "Bob Recruit",
-    "email": "bob@acme.com",
-    "password": "recruiter123",
-    "companyId": 1
+    "name": "Arjun Mehta",
+    "email": "arjun@example.com",
+    "password": "password123",
+    "role": "student",
+    "skills": ["Python", "SQL", "Pandas"]
   },
   {
     "id": 3,
-    "role": "placement",
-    "name": "Carol Placement",
-    "email": "carol@college.edu",
-    "password": "placement123"
+    "name": "Ananya Verma",
+    "email": "ananya@example.com",
+    "password": "password123",
+    "role": "student",
+    "skills": ["Java", "Spring Boot", "SQL"]
+  },
+  {
+    "id": 101,
+    "name": "Kunal Sethi",
+    "email": "kunal@techrecruit.com",
+    "password": "password123",
+    "role": "recruiter",
+    "company": "TechRecruit Inc"
+  },
+  {
+    "id": 102,
+    "name": "Neha Kapoor",
+    "email": "neha@devhub.com",
+    "password": "password123",
+    "role": "recruiter",
+    "company": "DevHub Labs"
   }
 ]

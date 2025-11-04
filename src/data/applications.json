@@ -1,29 +1,29 @@
 [
   {
-    "id": 1,
-    "jobId": 101,
-    "studentId": 1,
-    "companyName": "TechNova",
-    "jobTitle": "Frontend Developer Intern",
-    "status": "Under Review",
-    "appliedAt": "2025-10-15T10:00:00Z"
+    "id": 1001,
+    "jobId": 1,
+    "userId": 1,
+    "name": "Riya Sharma",
+    "email": "riya@example.com",
+    "appliedAt": "2025-10-10T09:30:00Z",
+    "status": "Pending"
   },
   {
-    "id": 2,
-    "jobId": 102,
-    "studentId": 1,
-    "companyName": "DataWorks",
-    "jobTitle": "Data Analyst",
-    "status": "Shortlisted",
-    "appliedAt": "2025-10-20T14:30:00Z"
+    "id": 1002,
+    "jobId": 1,
+    "userId": 2,
+    "name": "Arjun Mehta",
+    "email": "arjun@example.com",
+    "appliedAt": "2025-10-11T10:15:00Z",
+    "status": "Shortlisted"
   },
   {
-    "id": 3,
-    "jobId": 103,
-    "studentId": 1,
-    "companyName": "CyberGrid",
-    "jobTitle": "Security Intern",
-    "status": "Rejected",
-    "appliedAt": "2025-10-22T11:45:00Z"
+    "id": 1003,
+    "jobId": 2,
+    "userId": 3,
+    "name": "Ananya Verma",
+    "email": "ananya@example.com",
+    "appliedAt": "2025-10-25T08:45:00Z",
+    "status": "Pending"
   }
 ]

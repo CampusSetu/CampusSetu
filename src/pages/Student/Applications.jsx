@@ -1,13 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { getApplications } from "../../api/mockApplications";
+import { getJobById } from "../../api/mockJobs";
+import { getCompanyById } from "../../api/mockCompanies";
 
 export default function StudentApplications() {
   const [apps, setApps] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = getApplications(1); // mock studentId = 1
-    setApps(data);
+    const fetchApplicationsData = async () => {
+      const studentId = 1; // mock studentId = 1
+      const fetchedApplications = getApplications(studentId);
+
+      const enrichedApplications = await Promise.all(
+        fetchedApplications.map(async (app) => {
+          const job = await getJobById(app.jobId);
+          const company = job ? await getCompanyById(job.companyId) : null;
+          return {
+            ...app,
+            jobTitle: job ? job.title : "Unknown Job",
+            companyName: company ? company.name : "Unknown Company",
+          };
+        })
+      );
+      setApps(enrichedApplications);
+      setLoading(false);
+    };
+
+    fetchApplicationsData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="p-6 text-gray-600 text-center">
+        Loading applications...
+      </div>
+    );
+  }
 
   if (!apps.length)
     return (
