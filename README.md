@@ -1,38 +1,54 @@
 # Campus SETU
 
-This project is a web application for a campus job portal, built with React and Vite.
+Campus SETU is a modern, clean, and user-friendly web application designed to streamline the campus placement process for students and recruiters. This project is built as a frontend prototype using React, Vite, and Tailwind CSS, and features a mock API for data handling.
 
-## Pages
+## Key Features
 
-The application includes the following pages:
+- **Modal-Based Authentication:** A seamless sign-in and sign-up experience that appears as a modal over the homepage, rather than a separate page.
+- **Role-Based Access:** The application is designed with distinct roles for Students and Recruiters (though current development has focused on the student flow).
+- **Dynamic Job Dashboard:** A redesigned, continuous-scrolling student dashboard with a top-mounted filter bar inspired by modern e-commerce sites.
+- **Client-Side Filtering:** Instantly filter the job feed by title, company, location, and job type.
+- **Application Tracking:** A dedicated "My Applications" page for students to track the status of their job applications in a clean, table-based layout with clear status indicators.
+- **Responsive Design:** A mobile-first approach ensuring the application is usable on various screen sizes.
 
-- **Home (`src/pages/Home/Home.jsx`):** The main landing page.
-- **Authentication (Modal):** A modal overlay on the homepage handles user login and registration.
-- **Job Details (`src/pages/JobDetails/JobDetails.jsx`):** Shows the detailed description of a single job posting.
+## Tech Stack
 
-### Student Section
+- **Frontend:** React, Vite
+- **Styling:** Tailwind CSS
+- **State Management:** React Context API (`zustand` is available but the primary flow uses context)
+- **API:** Mock API using local data (`.json` files) to simulate backend interactions.
 
-- **Student Dashboard (`src/pages/Student/Dashboard.jsx`):** The main dashboard for students after logging in.
-- **My Applications (`src/pages/Student/Applications.jsx`):** Lists all the jobs a student has applied to.
-- **My Profile (`src/pages/Student/Profile.jsx`):** Allows students to view and edit their profile information.
+## Getting Started
 
-### Recruiter Section
+To run this project locally, follow these steps:
 
-- **Post a Job (`src/pages/Recruiter/PostJob.jsx`):** A form for recruiters to create new job listings.
-- **Job Listings (`src/pages/Recruiter/JobListings.jsx`):** A view for recruiters to see and manage all the jobs they have posted.
-- **Applicants (`src/pages/Recruiter/Applicants.jsx`):** Allows recruiters to see a table of all students who have applied to a specific job.
+1.  **Clone the repository.**
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application will be available at `http://localhost:5173` (or another port if 5173 is in use).
 
-## Authentication
+## Authentication Flow
 
-This project uses a mock, frontend-only authentication system. User sessions and details are stored in the browser's `localStorage`.
+The project uses a mock, frontend-only authentication system that utilizes the browser's `localStorage` to persist user sessions.
 
-### How it Works
+- **Easy Login:** For development purposes, the **Sign In** form is pre-filled with the credentials of a default student user (`riya@example.com`). You can log in with a single click.
+- **Registration:** You can also toggle to the **Sign Up** form to create a new user with either a 'Student' or 'Recruiter' role.
+- **Protected Routes:** The student-specific pages (`/student`, `/student/applications`, etc.) are protected. Unauthorized users will be redirected to the homepage where they can log in via the authentication modal.
 
-- **Login / Registration:** When a user clicks "Get Started", a modal appears. The default view is for signing in, but users can toggle to a sign-up form.
-- **User Data:** User information is saved to `localStorage` upon registration.
-- **Protected Routes:** The student and recruiter dashboards (e.g., `/student` and `/recruiter`) are protected. If a user is not logged in, they will be redirected to the homepage, and can open the authentication modal from there.
-- **Session Persistence:** The user's session persists across page reloads by loading the authentication state from `localStorage` when the app starts.
+## Project Structure
 
----
+A brief overview of the key directories:
 
-*This README was updated by Gemini.*
+- `src/api`: Contains mock API functions that simulate fetching data.
+- `src/assets`: Static assets like images and SVGs.
+- `src/components`: Reusable React components used throughout the application (e.g., `JobCard`, `AuthModal`, `FilterBar`).
+- `src/contexts`: Global state management using React Context (e.g., `AuthContext`, `UIContext`).
+- `src/data`: JSON files that act as a mock database for users, jobs, etc.
+- `src/pages`: Top-level components for each page or route in the application.
+- `src/routes`: Components related to routing, such as `ProtectedRoute`.

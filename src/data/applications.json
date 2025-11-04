@@ -6,24 +6,33 @@
     "name": "Riya Sharma",
     "email": "riya@example.com",
     "appliedAt": "2025-10-10T09:30:00Z",
-    "status": "Pending"
-  },
-  {
-    "id": 1002,
-    "jobId": 1,
-    "userId": 2,
-    "name": "Arjun Mehta",
-    "email": "arjun@example.com",
-    "appliedAt": "2025-10-11T10:15:00Z",
     "status": "Shortlisted"
   },
   {
-    "id": 1003,
+    "id": 1002,
     "jobId": 2,
-    "userId": 3,
-    "name": "Ananya Verma",
-    "email": "ananya@example.com",
+    "userId": 1,
+    "name": "Riya Sharma",
+    "email": "riya@example.com",
+    "appliedAt": "2025-10-11T10:15:00Z",
+    "status": "Pending"
+  },
+  {
+    "id": 1003,
+    "jobId": 3,
+    "userId": 2,
+    "name": "Arjun Mehta",
+    "email": "arjun@example.com",
     "appliedAt": "2025-10-25T08:45:00Z",
     "status": "Pending"
+  },
+  {
+    "id": 1004,
+    "jobId": 3,
+    "userId": 1,
+    "name": "Riya Sharma",
+    "email": "riya@example.com",
+    "appliedAt": "2025-10-28T14:00:00Z",
+    "status": "Rejected"
   }
 ]

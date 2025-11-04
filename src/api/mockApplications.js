@@ -3,7 +3,7 @@ import applications from "../data/applications.json";
 let localApplications = [...applications];
 
 export const getApplications = (studentId) => {
-  return localApplications.filter((app) => app.studentId === studentId);
+  return localApplications.filter((app) => app.userId === studentId);
 };
 
 // export const patchApplicationStatus = (id, status) => {
