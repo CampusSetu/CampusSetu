@@ -8,6 +8,7 @@ Campus SETU is a modern, clean, and user-friendly web application designed to st
 - **Role-Based Access:** The application is designed with distinct roles for Students and Recruiters (though current development has focused on the student flow).
 - **Dynamic Job Dashboard:** A redesigned, continuous-scrolling student dashboard with a top-mounted filter bar inspired by modern e-commerce sites.
 - **Client-Side Filtering:** Instantly filter the job feed by title, company, location, and job type.
+- **Detailed Job View:** A redesigned job details page with a wider layout, prominent header, and comprehensive job descriptions for a richer user experience.
 - **Application Tracking:** A dedicated "My Applications" page for students to track the status of their job applications in a clean, table-based layout with clear status indicators.
 - **Responsive Design:** A mobile-first approach ensuring the application is usable on various screen sizes.
 
@@ -16,7 +17,7 @@ Campus SETU is a modern, clean, and user-friendly web application designed to st
 - **Frontend:** React, Vite
 - **Styling:** Tailwind CSS
 - **State Management:** React Context API (`zustand` is available but the primary flow uses context)
-- **API:** Mock API using local data (`.json` files) to simulate backend interactions.
+- **API:** Mock API using local data (`.json` files) loaded via the browser's `fetch` API to simulate backend interactions.
 
 ## Getting Started
 

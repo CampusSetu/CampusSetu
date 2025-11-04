@@ -1,12 +1,19 @@
-import seedUsers from '../data/users.json';
-
 const USERS_KEY = 'cs_users';
 
-function loadUsers() {
+async function loadUsers() {
   const raw = localStorage.getItem(USERS_KEY);
   if (raw) return JSON.parse(raw);
-  localStorage.setItem(USERS_KEY, JSON.stringify(seedUsers));
-  return seedUsers.slice();
+
+  try {
+    const response = await fetch('/src/data/users.json');
+    if (!response.ok) throw new Error('Network response was not ok');
+    const seedUsers = await response.json();
+    localStorage.setItem(USERS_KEY, JSON.stringify(seedUsers));
+    return seedUsers;
+  } catch (error) {
+    console.error('Failed to load seed users:', error);
+    return [];
+  }
 }
 
 function saveUsers(users) {
@@ -14,7 +21,7 @@ function saveUsers(users) {
 }
 
 export async function login(email, password) {
-  const users = loadUsers();
+  const users = await loadUsers();
   const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
   await new Promise(r => setTimeout(r, 200));
   if (!user) throw new Error('Invalid credentials');
@@ -23,7 +30,7 @@ export async function login(email, password) {
 }
 
 export async function register({ name, email, password, role }) {
-  const users = loadUsers();
+  const users = await loadUsers();
   if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
     await new Promise(r => setTimeout(r, 120));
     throw new Error('Email already registered');
@@ -38,7 +45,7 @@ export async function register({ name, email, password, role }) {
 }
 
 export async function updateUser(userId, updatedProfile) {
-  const users = loadUsers();
+  const users = await loadUsers();
   const userIndex = users.findIndex(u => u.id === userId);
   if (userIndex === -1) throw new Error("User not found.");
 
