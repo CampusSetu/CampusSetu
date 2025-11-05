@@ -7,6 +7,7 @@ Campus SETU is a modern, clean, and user-friendly web application designed to st
 ### Public Routes
 - `GET /`: The public-facing homepage.
 - `GET /jobs/:id`: A detailed view of a specific job posting.
+- `GET /analytics`: A public dashboard with platform-wide analytics.
 
 ### Student Routes (Protected)
 - `GET /student`: The main dashboard for students, showing a feed of available jobs.
@@ -33,6 +34,7 @@ Campus SETU is a modern, clean, and user-friendly web application designed to st
 - **Recruiter Dashboard:** A comprehensive suite of tools for recruiters to post, manage, and track job listings.
 - **Full Job Lifecycle Management:** Recruiters can create, view, edit, and delete their job postings.
 - **Applicant Tracking System (ATS):** Recruiters can view all applicants for a specific job and change their status (Pending, Shortlisted, Rejected).
+- **Analytics Dashboard:** A comprehensive dashboard visualizing key metrics about jobs, applications, and placements.
 - **Responsive Design:** A mobile-first approach ensuring the application is usable on various screen sizes.
 
 ## Tech Stack
@@ -84,6 +86,16 @@ The placement cell dashboard is designed for administrative oversight of the pla
 - **Dashboard (`/placement/dashboard`):** A central hub for placement cell coordinators.
 - **Job Approvals (`/placement/approvals`):** A critical feature where coordinators can view a queue of all jobs submitted by recruiters that are pending approval. They can approve jobs, which makes them visible to students in the job feed.
 
+## Analytics Dashboard
+
+The application includes a public-facing analytics dashboard available at `/analytics`. It provides a high-level overview of the platform's activity through a variety of charts and KPIs, including:
+
+- **Key Metrics:** KPI cards for total jobs, applications, students, and companies.
+- **Hiring Funnel:** A funnel chart visualizing the candidate progression from application to hiring.
+- **Jobs by Location:** A donut chart showing the geographic distribution of job postings.
+- **Placements by Department:** A bar chart displaying the number of students hired from different academic departments.
+- **Top Skills in Demand:** A word cloud highlighting the most frequently requested skills in job descriptions.
+
 ### Profile Data Persistence
 
 Due to browser security restrictions, the application cannot directly modify local files. Therefore, when you update your profile on the "My Profile" page:
@@ -95,10 +107,10 @@ Due to browser security restrictions, the application cannot directly modify loc
 
 A brief overview of the key directories:
 
-- `src/api`: Contains mock API functions that simulate fetching data.
+- `src/api`: Contains mock API functions that simulate fetching data (e.g., `mockJobs.js`, `mockAnalytics.js`).
 - `src/assets`: Static assets like images and SVGs.
 - `src/components`: Reusable React components (e.g., `JobCard`, `AuthModal`, `JobForm`, `ApplicantsTable`).
 - `src/contexts`: Global state management using React Context (e.g., `AuthContext`, `UIContext`).
 - `src/data`: JSON files that act as a mock database for users, jobs, etc.
-- `src/pages`: Top-level components for each page/route, organized by role (e.g., `Student/Dashboard.jsx`, `Recruiter/Dashboard.jsx`, `Recruiter/EditJob.jsx`).
+- `src/pages`: Top-level components for each page/route, organized by role (e.g., `Student/Dashboard.jsx`, `Recruiter/Dashboard.jsx`, `Analytics/AnalyticsDashboard.jsx`).
 - `src/routes`: Components related to routing, such as `ProtectedRoute`.

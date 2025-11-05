@@ -30,6 +30,9 @@ import {
   ManageStudents,
 } from "./pages/Placement";
 
+// Analytics Page
+import { AnalyticsDashboard } from "./pages/Analytics";
+
 export default function App() {
   return (
     <>
@@ -37,6 +40,7 @@ export default function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
+        <Route path="/analytics" element={<AnalyticsDashboard />} />
 
         {/* Protected Student Routes */}
         <Route

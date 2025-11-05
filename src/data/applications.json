@@ -6,7 +6,7 @@
     "name": "Riya Sharma",
     "email": "riya@example.com",
     "appliedAt": "2025-10-10T09:30:00Z",
-    "status": "Shortlisted"
+    "status": "Hired"
   },
   {
     "id": 1002,
@@ -15,7 +15,7 @@
     "name": "Riya Sharma",
     "email": "riya@example.com",
     "appliedAt": "2025-10-11T10:15:00Z",
-    "status": "Pending"
+    "status": "Interview"
   },
   {
     "id": 1003,
@@ -24,7 +24,7 @@
     "name": "Arjun Mehta",
     "email": "arjun@example.com",
     "appliedAt": "2025-10-25T08:45:00Z",
-    "status": "Pending"
+    "status": "Shortlisted"
   },
   {
     "id": 1004,

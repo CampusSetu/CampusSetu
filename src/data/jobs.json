@@ -46,5 +46,37 @@
     "postedBy": 102,
     "approved": false,
     "createdAt": "2025-09-28T15:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "UX/UI Designer Intern",
+    "companyName": "Creative Minds Studio",
+    "location": "Chicago, IL",
+    "type": "Internship",
+    "minCgpa": 7.0,
+    "shortDescription": "Design intuitive and beautiful user experiences.",
+    "description": "Join our design team to create stunning and user-friendly interfaces for our mobile and web applications.",
+    "skills": ["Figma", "UI/UX", "Prototyping"],
+    "eligibility": "Students with a strong portfolio in UI/UX design.",
+    "deadline": "2025-12-05",
+    "postedBy": 102,
+    "approved": true,
+    "createdAt": "2025-10-15T11:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "DevOps Engineer",
+    "companyName": "Tech Solutions Inc.",
+    "location": "Remote",
+    "type": "Full-time",
+    "minCgpa": 8.0,
+    "shortDescription": "Manage and automate our cloud infrastructure.",
+    "description": "We are looking for a DevOps engineer to help us build and maintain our CI/CD pipelines and cloud infrastructure on AWS.",
+    "skills": ["AWS", "Docker", "Kubernetes", "CI/CD"],
+    "eligibility": "Final year students or recent graduates with relevant experience.",
+    "deadline": "2025-11-25",
+    "postedBy": 101,
+    "approved": true,
+    "createdAt": "2025-10-05T18:00:00Z"
   }
 ]

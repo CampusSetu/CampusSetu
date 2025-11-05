@@ -5,6 +5,7 @@
     "email": "riya@example.com",
     "password": "password123",
     "role": "student",
+    "department": "Computer Science",
     "skills": ["React", "Tailwind", "Node.js"]
   },
   {
@@ -13,6 +14,7 @@
     "email": "arjun@example.com",
     "password": "password123",
     "role": "student",
+    "department": "Mechanical",
     "skills": ["Python", "SQL", "Pandas"]
   },
   {
@@ -21,6 +23,7 @@
     "email": "ananya@example.com",
     "password": "password123",
     "role": "student",
+    "department": "Electronics",
     "skills": ["Java", "Spring Boot", "SQL"]
   },
   {
