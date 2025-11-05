@@ -17,6 +17,7 @@ import {
   PostJob,
   JobListings,
   Applicants,
+  EditJob,
 } from "./pages/Recruiter";
 
 export default function App() {
@@ -49,11 +50,12 @@ export default function App() {
               <RecruiterLayout />
             </ProtectedRoute>
           }
-        >
+        > 
           <Route path="dashboard" element={<RecruiterDashboard />} />
           <Route path="post-job" element={<PostJob />} />
           <Route path="jobs" element={<JobListings />} />
           <Route path="jobs/:id/applicants" element={<Applicants />} />
+          <Route path="edit-job/:id" element={<EditJob />} />
         </Route>
 
         {/* Not Found Route */}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RecruiterDashboard() {
+export function RecruiterDashboard() {
   return (
     <div>
       <header className="mb-8">

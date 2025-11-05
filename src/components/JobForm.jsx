@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-export default function JobForm({ onSubmit }) {
+export default function JobForm({ onSubmit, initialData = {} }) {
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    eligibility: "",
-    skills: "",
-    deadline: "",
+    title: initialData.title || "",
+    description: initialData.description || "",
+    eligibility: initialData.eligibility || "",
+    skills: (initialData.skills || []).join(", "),
+    deadline: initialData.deadline || "",
   });
 
   const handleChange = (e) =>

@@ -51,3 +51,13 @@ export const deleteJob = async (id) => {
   jobs = jobs.filter((j) => j.id !== id);
   return Promise.resolve(true);
 };
+
+export const updateJob = async (id, updatedJob) => {
+  await loadJobs();
+  const index = jobs.findIndex((j) => j.id === Number(id));
+  if (index !== -1) {
+    jobs[index] = { ...jobs[index], ...updatedJob };
+    return Promise.resolve(jobs[index]);
+  }
+  return Promise.reject(new Error("Job not found"));
+};

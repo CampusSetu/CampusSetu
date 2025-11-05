@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function RecruiterLayout() {
+export function RecruiterLayout() {
   const { user, logout } = useAuth();
 
   const activeLinkStyle = { 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function JobListTable({ jobs, onDelete }) {
+export function JobListTable({ jobs, onDelete }) {
   return (
     <table className="w-full border-collapse bg-white shadow rounded-2xl overflow-hidden">
       <thead className="bg-gray-100 text-left">
@@ -26,6 +26,12 @@ export default function JobListTable({ jobs, onDelete }) {
                 className="text-blue-600"
               >
                 View
+              </Link>
+              <Link
+                to={`/recruiter/edit-job/${job.id}`}
+                className="text-green-600"
+              >
+                Edit
               </Link>
               <button onClick={() => onDelete(job.id)} className="text-red-600">
                 Delete
