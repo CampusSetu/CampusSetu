@@ -1,16 +1,32 @@
 import React from "react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 
-export default function Pagination({ page, pageSize, total, onChange }) {
+export default function Pagination({
+  page,
+  pageSize,
+  total,
+  onChange,
+  variant = "contained",
+}) {
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const start = (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, total);
 
+  const containerClass = clsx(
+    "flex flex-col gap-4 text-sm text-slate-500 md:flex-row md:items-center md:justify-between",
+    variant === "contained"
+      ? "rounded-2xl border border-slate-200 bg-white p-4 shadow-card"
+      : "p-0"
+  );
+
+  const badgeClass =
+    variant === "contained"
+      ? "inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-2 font-semibold text-slate-700"
+      : "inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white px-4 py-2 font-semibold text-slate-700 shadow-sm";
+
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-500 shadow-card md:flex-row md:items-center md:justify-between">
+    <div className={containerClass}>
       <div>
         Showing <span className="font-medium text-slate-700">{start}</span> –
         <span className="font-medium text-slate-700"> {end}</span> of
@@ -26,9 +42,11 @@ export default function Pagination({ page, pageSize, total, onChange }) {
         >
           <ChevronLeftIcon className="h-5 w-5" />
         </button>
-  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-2 font-semibold text-slate-700">
+        <div className={badgeClass}>
           <span>{page}</span>
-          <span className="text-xs font-medium text-brand-500">of {totalPages}</span>
+          <span className="text-xs font-medium text-brand-500">
+            of {totalPages}
+          </span>
         </div>
         <button
           type="button"

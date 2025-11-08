@@ -1,71 +1,135 @@
-@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:ital,wght@0,300..900;1,300..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-	:root {
-		color-scheme: light;
-	}
+  :root {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
 
-	body {
-		@apply font-sans text-slate-900 antialiased;
-		background: radial-gradient(circle at 12% 8%, rgba(76, 114, 255, 0.08), transparent 48%),
-			radial-gradient(circle at 85% 12%, rgba(255, 154, 46, 0.08), transparent 52%),
-			radial-gradient(circle at 50% 92%, rgba(76, 114, 255, 0.06), transparent 55%),
-			#f3f4f8;
-		min-height: 100vh;
-	}
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 
-	::selection {
-		@apply bg-brand-200 text-brand-900;
-	}
+  body {
+    @apply font-sans text-slate-900 antialiased;
+    background: radial-gradient(
+        circle at 10% 10%,
+        rgba(59, 130, 246, 0.08),
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 90% 5%,
+        rgba(79, 70, 229, 0.06),
+        transparent 52%
+      ),
+      radial-gradient(
+        circle at 50% 100%,
+        rgba(14, 116, 144, 0.04),
+        transparent 55%
+      ),
+      hsl(var(--background));
+    min-height: 100vh;
+  }
 
-	h1,
-	h2,
-	h3,
-	h4 {
-		@apply font-display text-slate-900 font-semibold tracking-tight;
-	}
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
 
-	p {
-		@apply text-[15px] leading-relaxed text-slate-600;
-	}
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-slate-900 font-semibold tracking-tight;
+  }
 
-	a {
-		@apply transition-colors duration-150 ease-out-expo;
-	}
+  p {
+    @apply text-[15px] leading-relaxed text-slate-600;
+  }
 
-	button {
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-400;
-	}
+  a {
+    @apply transition-colors duration-150 ease-out-expo;
+  }
 
-	input,
-	textarea,
-	select {
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-0;
-	}
+  button {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-400;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-0;
+  }
 }
 
 @layer utilities {
-	.glass-panel {
-		@apply border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur;
-	}
+  .glass-panel {
+    @apply border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur;
+  }
 
-	.card-elevated {
-		@apply rounded-2xl border border-slate-200/80 bg-white shadow-card;
-	}
+  .card-elevated {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-card;
+  }
 
-	.card-lifted {
-		@apply card-elevated transition-transform duration-200 ease-out-expo hover:-translate-y-2 hover:shadow-elevated;
-	}
+  .card-lifted {
+    @apply card-elevated transition-transform duration-200 ease-out-expo hover:-translate-y-2 hover:shadow-elevated;
+  }
 
-	.card-subtle {
-		@apply rounded-2xl border border-slate-200/70 bg-slate-50/80 shadow-card;
-	}
+  .card-subtle {
+    @apply rounded-2xl border border-slate-200/70 bg-slate-50/80 shadow-card;
+  }
 
-	.surface-gradient {
-		@apply bg-gradient-surface backdrop-blur;
-	}
+  .surface-gradient {
+    @apply bg-gradient-surface backdrop-blur;
+  }
 }

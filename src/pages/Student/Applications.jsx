@@ -32,29 +32,52 @@ export function StudentApplications() {
 
   useEffect(() => {
     const studentId = user?.id ?? 1;
+    let active = true;
+
     const fetchApplicationsData = async () => {
-      const fetchedApplications = getApplications(studentId);
-      const enrichedApplications = await Promise.all(
-        fetchedApplications.map(async (application) => {
-          const job = await getJobById(application.jobId);
-          return {
-            ...application,
-            jobTitle: job?.title || "Unknown Job",
-            companyName: job?.companyName || "Unknown Company",
-          };
-        })
-      );
-      setApps(enrichedApplications);
-      setLoading(false);
+      setLoading(true);
+      try {
+        const fetchedApplications = await getApplications(studentId);
+        const enrichedApplications = await Promise.all(
+          fetchedApplications.map(async (application) => {
+            const job = await getJobById(application.jobId);
+            return {
+              ...application,
+              jobTitle: job?.title || "Unknown Job",
+              companyName: job?.companyName || "Unknown Company",
+            };
+          })
+        );
+        if (active) {
+          setApps(enrichedApplications);
+        }
+      } catch (error) {
+        console.error("Failed to load applications", error);
+        if (active) {
+          setApps([]);
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
     };
 
     fetchApplicationsData();
+
+    return () => {
+      active = false;
+    };
   }, [user?.id]);
 
   const stats = useMemo(() => {
     const total = apps.length;
-    const shortlisted = apps.filter((application) => application.status === "Shortlisted").length;
-    const pending = apps.filter((application) => application.status === "Pending").length;
+    const shortlisted = apps.filter(
+      (application) => application.status === "Shortlisted"
+    ).length;
+    const pending = apps.filter(
+      (application) => application.status === "Pending"
+    ).length;
     return [
       { label: "Total", value: total },
       { label: "Shortlisted", value: shortlisted },
@@ -64,22 +87,32 @@ export function StudentApplications() {
 
   return (
     <div className="space-y-6">
-  <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-400">
               Tracker
             </p>
-            <h1 className="mt-2 text-3xl font-semibold text-slate-900">Application pulse</h1>
+            <h1 className="mt-2 text-3xl font-semibold text-slate-900">
+              Application pulse
+            </h1>
             <p className="mt-2 max-w-xl text-sm text-slate-500">
-              Stay aligned with recruiter responses, follow up on pending rounds, and keep momentum across every active pipeline.
+              Stay aligned with recruiter responses, follow up on pending
+              rounds, and keep momentum across every active pipeline.
             </p>
           </div>
           <div className="grid grid-cols-3 gap-3 text-center">
             {stats.map((item) => (
-              <div key={item.label} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">{item.label}</p>
-                <p className="mt-2 text-lg font-semibold text-slate-800">{item.value}</p>
+              <div
+                key={item.label}
+                className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+                  {item.label}
+                </p>
+                <p className="mt-2 text-lg font-semibold text-slate-800">
+                  {item.value}
+                </p>
               </div>
             ))}
           </div>
@@ -93,9 +126,12 @@ export function StudentApplications() {
       ) : apps.length === 0 ? (
         <div className="card-elevated flex flex-col items-center gap-3 p-10 text-center text-slate-500">
           <BriefcaseIcon className="h-10 w-10 text-brand-400" />
-          <p className="text-xl font-semibold text-slate-700">No applications yet</p>
+          <p className="text-xl font-semibold text-slate-700">
+            No applications yet
+          </p>
           <p className="text-sm max-w-md">
-            You have not applied to any opportunities. Explore the job feed to find internships and roles tailored to you.
+            You have not applied to any opportunities. Explore the job feed to
+            find internships and roles tailored to you.
           </p>
           <Link
             to="/student/dashboard"
@@ -126,9 +162,13 @@ export function StudentApplications() {
                     index % 2 === 1 && "bg-slate-50/60"
                   )}
                 >
-                  <td className="px-5 py-4 font-semibold text-slate-800">{application.jobTitle}</td>
+                  <td className="px-5 py-4 font-semibold text-slate-800">
+                    {application.jobTitle}
+                  </td>
                   <td className="px-5 py-4">{application.companyName}</td>
-                  <td className="px-5 py-4">{new Date(application.appliedAt).toLocaleDateString()}</td>
+                  <td className="px-5 py-4">
+                    {new Date(application.appliedAt).toLocaleDateString()}
+                  </td>
                   <td className="px-5 py-4">
                     <StatusBadge status={application.status} />
                   </td>
@@ -150,4 +190,3 @@ export function StudentApplications() {
     </div>
   );
 }
-
