@@ -102,7 +102,7 @@ export function StudentProfile() {
 
       <section className="card-elevated max-w-3xl">
         <form className="space-y-6 p-6" onSubmit={(event) => event.preventDefault()}>
-          <Field label="Full name" description="Use the format shared with recruiters and placement cell.">
+          <Field label="Full name" description="Use the format shared with recruiters and the CGC.">
             <input
               type="text"
               value={form.name}

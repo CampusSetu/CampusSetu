@@ -12,7 +12,7 @@ export default function PersonaSection({ personaSections }) {
             Dedicated spaces for each stakeholder
           </h2>
           <p className="text-base md:text-lg leading-relaxed text-slate-600">
-            Give students, recruiters, and placement cells focused tools that simplify collaboration and highlight outcomes.
+            Give students, recruiters, and CGCs focused tools that simplify collaboration and highlight outcomes.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

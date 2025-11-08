@@ -32,7 +32,7 @@ export function RecruiterLayout() {
           Accelerate campus hiring momentum
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-slate-500">
-          Monitor role performance, manage applicant stages, and collaborate with placement teams in real time.
+          Monitor role performance, manage applicant stages, and collaborate with CGC teams in real time.
         </p>
       </div>
       <div className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">

@@ -26,7 +26,7 @@ export function PlacementLayout() {
     <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-400">
-          Placement Control
+          CGC Oversight
         </p>
         <h1 className="mt-2 text-3xl font-semibold text-slate-900">Coordinate campus hiring with clarity</h1>
         <p className="mt-3 max-w-3xl text-sm text-slate-500">

@@ -21,8 +21,8 @@ CampusSetu is a modern, clean, and user-friendly web application designed to str
 - `GET /recruiter/edit-job/:id`: A form to edit an existing job listing.
 - `GET /recruiter/jobs/:id/applicants`: A list of all applicants for a specific job.
 
-### Placement Cell Routes (Protected)
-- `GET /placement/dashboard`: The main dashboard for the placement cell.
+### CGC Routes (Protected)
+- `GET /placement/dashboard`: The main dashboard for the CGC team.
 - `GET /placement/approvals`: A queue to review and approve pending job listings.
 - `GET /placement/students`: A page to manage student data.
 
@@ -79,11 +79,11 @@ The recruiter dashboard provides a complete set of tools to manage the hiring pr
     - **View Applicants:** Navigate to the applicants page for a specific job.
 - **View Applicants (`/recruiter/jobs/:id/applicants`):** See a list of all students who have applied for a job. You can review their details and update their application status directly from this table.
 
-## Placement Cell Features
+## CGC Features
 
-The placement cell dashboard is designed for administrative oversight of the placement process.
+The CGC dashboard is designed for administrative oversight of the placement process.
 
-- **Dashboard (`/placement/dashboard`):** A central hub for placement cell coordinators.
+- **Dashboard (`/placement/dashboard`):** A central hub for CGC coordinators.
 - **Job Approvals (`/placement/approvals`):** A critical feature where coordinators can view a queue of all jobs submitted by recruiters that are pending approval. They can approve jobs, which makes them visible to students in the job feed.
 
 ## Analytics Dashboard

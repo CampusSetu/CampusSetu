@@ -67,7 +67,7 @@ export function StudentLayout() {
       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
         Support
       </p>
-      <p>Need help? Reach out to <span className="font-medium text-brand-600">placement@campussetu.com</span>.</p>
+  <p>Need help? Reach out to <span className="font-medium text-brand-600">cgc@campussetu.com</span>.</p>
     </div>
   );
 

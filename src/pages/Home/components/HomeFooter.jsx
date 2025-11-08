@@ -14,7 +14,7 @@ export default function HomeFooter({ onAuth }) {
             </div>
             <p className="leading-relaxed">
               CampusSetu is the unified platform connecting students,
-              recruiters, and placement cells with guided workflows and live
+              recruiters, and CGCs with guided workflows and live
               analytics.
             </p>
             <p className="text-xs uppercase tracking-wide text-slate-400">
@@ -24,16 +24,16 @@ export default function HomeFooter({ onAuth }) {
 
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-slate-800 uppercase tracking-wide">
-              Contact Placement Cell
+              Contact CGC
             </h4>
             <div className="space-y-2">
               <p>
                 Email:{" "}
                 <a
                   className="text-brand-600 hover:text-brand-700"
-                  href="mailto:placements@campussetu.in"
+                  href="mailto:cgc@campussetu.in"
                 >
-                  placements@campussetu.in
+                  cgc@campussetu.in
                 </a>
               </p>
               <p>

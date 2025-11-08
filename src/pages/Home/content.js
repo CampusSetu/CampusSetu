@@ -22,8 +22,8 @@ export const personaSections = [
     accent: "from-orange-500/10 to-orange-500/0",
   },
   {
-    id: "placement",
-    title: "Placement Cell",
+    id: "cgc",
+    title: "CGC",
     tagline: "Showcase results, guide stakeholders, and streamline approvals.",
     points: [
       "Publish placement highlights and reports",
@@ -37,7 +37,7 @@ export const personaSections = [
 export const heroHighlights = [
   {
     title: "Unified Workflows",
-    copy: "Coordinate student, recruiter, and placement tasks without juggling spreadsheets.",
+    copy: "Coordinate student, recruiter, and CGC tasks without juggling spreadsheets.",
   },
   {
     title: "Live Dashboards",
@@ -105,7 +105,7 @@ export const workflowSteps = [
   {
     title: "Onboard teams with structure",
     caption: "Day 0 setup",
-    copy: "Invite placement officers, recruiters, and student leads with guided roles and checklists ready to follow.",
+    copy: "Invite CGC officers, recruiters, and student leads with guided roles and checklists ready to follow.",
   },
   {
     title: "Launch coordinated drives",
@@ -127,7 +127,7 @@ export const testimonialHighlight = {
 };
 
 export const calloutBullets = [
-  "Dedicated workspaces for students, recruiters, and placement cells",
+  "Dedicated workspaces for students, recruiters, and CGCs",
   "Real-time analytics with exportable snapshots",
   "Implementation support and campus-ready playbooks",
 ];

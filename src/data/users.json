@@ -44,8 +44,8 @@
   },
   {
     "id": 201,
-    "name": "Admin Cell",
-    "email": "placement@college.edu",
+    "name": "CGC Admin",
+    "email": "cgc@college.edu",
     "password": "password123",
     "role": "placement"
   }

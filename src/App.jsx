@@ -22,7 +22,7 @@ import {
   EditJob,
 } from "./pages/Recruiter";
 
-// Placement Cell Pages
+// CGC Pages
 import {
   PlacementLayout,
   PlacementDashboard,
@@ -72,7 +72,7 @@ export default function App() {
           <Route path="edit-job/:id" element={<EditJob />} />
         </Route>
 
-        {/* Protected Placement Cell Routes */}
+  {/* Protected CGC Routes */}
         <Route
           path="/placement"
           element={
