@@ -4,7 +4,7 @@ export default function AnalyticsSection({ analyticsMetrics, snapshotTiles }) {
   return (
     <section
       id="analytics"
-      className="w-full px-6 md:px-10 lg:px-14 py-20 md:py-26"
+      className="w-full px-6 md:px-10 lg:px-14 py-20 md:py-26 bg-white"
     >
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="max-w-3xl space-y-4">

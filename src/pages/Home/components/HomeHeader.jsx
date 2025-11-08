@@ -19,7 +19,7 @@ export default function HomeHeader({ onAuth }) {
           <a href="#features" className="hover:text-primary transition-colors">
             Features
           </a>
-          <a href="#analytics" className="hover:text-primary transition-colors">
+          <a href="analytics" className="hover:text-primary transition-colors">
             Analytics
           </a>
         </nav>

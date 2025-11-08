@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-[#f5f7ff] to-[#eef2ff] text-slate-900">
+    <div className="min-h-screen bg-white text-slate-900">
       <HomeHeader onAuth={openAuthModal} />
       <main className="w-full">
         <HeroSection

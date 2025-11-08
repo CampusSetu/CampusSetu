@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PersonaSection({ personaSections }) {
   return (
-    <section className="w-full px-6 md:px-10 lg:px-14 py-20 md:py-28">
+  <section className="w-full px-6 md:px-10 lg:px-14 py-20 md:py-28 bg-white">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="max-w-3xl space-y-4">
           <p className="text-primary font-semibold text-sm uppercase tracking-wide">

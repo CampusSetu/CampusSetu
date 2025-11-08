@@ -4,7 +4,7 @@ export default function FeatureSection({ featurePillars }) {
   return (
     <section
       id="features"
-      className="w-full px-6 md:px-10 lg:px-14 py-18 md:py-24"
+      className="w-full px-6 md:px-10 lg:px-14 py-20 md:py-24 bg-gradient-to-b from-white via-primary/5 to-white"
     >
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="max-w-3xl space-y-4">
