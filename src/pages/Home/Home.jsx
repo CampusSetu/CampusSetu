@@ -48,16 +48,24 @@ export default function Home() {
           onPrimaryCTA={handlePrimaryCTA}
           user={user}
         />
-        <TrustedStrip trustedBadges={trustedBadges} />
-        <FeatureSection featurePillars={featurePillars} />
-        <WorkflowSection workflowSteps={workflowSteps} />
-        <AnalyticsSection
-          analyticsMetrics={analyticsMetrics}
-          snapshotTiles={snapshotTiles}
-        />
-        <TestimonialSection testimonial={testimonialHighlight} />
-        <PersonaSection personaSections={personaSections} />
-        <CalloutSection bullets={calloutBullets} onPrimaryCTA={handlePrimaryCTA} />
+        <div className="bg-gradient-to-b from-white via-slate-50/95 to-slate-100/85">
+          <TrustedStrip trustedBadges={trustedBadges} />
+          <FeatureSection featurePillars={featurePillars} />
+        </div>
+        <div className="bg-gradient-to-b from-slate-100/85 via-brand-50/45 to-brand-50/60">
+          <WorkflowSection workflowSteps={workflowSteps} />
+          <AnalyticsSection
+            analyticsMetrics={analyticsMetrics}
+            snapshotTiles={snapshotTiles}
+          />
+        </div>
+        <div className="bg-gradient-to-b from-brand-50/60 via-brand-100/70 to-brand-100/80">
+          <TestimonialSection testimonial={testimonialHighlight} />
+          <PersonaSection personaSections={personaSections} />
+        </div>
+        <div className="bg-gradient-to-b from-brand-100/80 via-brand-100/85 to-brand-100/90">
+          <CalloutSection bullets={calloutBullets} onPrimaryCTA={handlePrimaryCTA} />
+        </div>
       </main>
       <HomeFooter onAuth={openAuthModal} />
     </div>

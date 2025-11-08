@@ -1,382 +1,564 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { LineChart } from '@mui/x-charts/LineChart';
+import { BarChart } from '@mui/x-charts/BarChart';
+import { PieChart } from '@mui/x-charts/PieChart';
 import { getAnalyticsData } from '../../api/mockAnalytics';
 import { getRecruitmentHistory } from '../../api/mockRecruitmentHistory';
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from 'recharts';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-} from '../../components/ui/chart';
-import CompanyTable from './CompanyTable';
 import Navbar from '../../components/Navbar';
+import CompanyTable from './CompanyTable';
 
-const KPICard = ({ title, value }) => (
-  <div className="rounded-2xl border border-white/60 bg-white/90 p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.55)] backdrop-blur">
-    <p className="truncate text-xs font-medium uppercase tracking-wide text-slate-500/90">
-      {title}
-    </p>
-    <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
-  </div>
-);
+const piePalette = ['#737373', '#a1a1aa', '#94a3b8', '#e5e7eb', '#bae6fd', '#c4b5fd'];
 
-const SectionCard = ({ title, children, config }) => (
-  <ChartContainer config={config} className="h-full">
-    <div className="flex items-center justify-between gap-3">
-      <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-        {title}
-      </h3>
-    </div>
-    <div className="mt-4 flex-grow min-h-[240px]">{children}</div>
-  </ChartContainer>
-);
+const numberFormatter = new Intl.NumberFormat('en-IN');
+const formatNumber = (value = 0) => numberFormatter.format(Math.round(value));
 
 const LoadingState = () => (
-  <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.12),_transparent_55%)]">
+  <div className="min-h-screen bg-slate-100">
     <Navbar />
-    <div className="mx-auto max-w-6xl px-4 py-12 lg:px-6">
-      <div className="mb-12 space-y-4 text-center">
-        <div className="mx-auto h-9 w-32 rounded-full bg-white/70 animate-pulse" />
-        <div className="mx-auto h-10 w-2/3 max-w-xl rounded-full bg-white/70 animate-pulse" />
-        <div className="mx-auto h-4 w-3/4 max-w-2xl rounded-full bg-white/60 animate-pulse" />
-      </div>
-      <div className="grid gap-4 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.6)] backdrop-blur md:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, idx) => (
-          <div key={idx} className="h-20 rounded-2xl bg-white/70 animate-pulse" />
-        ))}
-      </div>
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
-        {Array.from({ length: 4 }).map((_, idx) => (
-          <div key={idx} className="h-72 rounded-3xl border border-white/60 bg-white/80 p-6 animate-pulse" />
+    <div className="mx-auto max-w-7xl px-6 py-16">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, idx) => (
+          <div key={idx} className="h-48 rounded-3xl border border-slate-200 bg-white/70" />
         ))}
       </div>
     </div>
   </div>
+);
+
+const Card = ({ className = '', children }) => (
+  <div className={`flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_50px_-35px_rgba(15,23,42,0.4)] ${className}`}>
+    {children}
+  </div>
+);
+
+const SummaryCard = ({ title, value, change, footnote, children }) => (
+  <Card>
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{title}</p>
+        <p className="mt-3 text-3xl font-semibold text-slate-900">{value}</p>
+        {change && (
+          <p className="mt-1 text-xs font-medium text-emerald-600">{change}</p>
+        )}
+      </div>
+      {footnote && <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">{footnote}</span>}
+    </div>
+    <div className="mt-4 grow">{children}</div>
+  </Card>
+);
+
+const ResponsiveChart = ({ minHeight = 140, children }) => {
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        setWidth(entries[0].contentRect.width);
+      }
+    });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="w-full">
+      {width ? (
+        children(width)
+      ) : (
+        <div style={{ height: minHeight }} className="w-full" />
+      )}
+    </div>
+  );
+};
+
+const buildCalendarMatrix = (referenceDate) => {
+  const year = referenceDate.getFullYear();
+  const month = referenceDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const startOffset = firstDay.getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const weeks = [];
+  let cursor = 1 - startOffset;
+
+  while (cursor <= daysInMonth) {
+    const week = Array.from({ length: 7 }, (_, idx) => {
+      const date = new Date(year, month, cursor + idx);
+      return {
+        date,
+        inMonth: date.getMonth() === month,
+      };
+    });
+    weeks.push(week);
+    cursor += 7;
+  }
+
+  return weeks;
+};
+
+const CalendarCard = ({ referenceDate, highlights = [] }) => {
+  const monthLabel = referenceDate.toLocaleString('default', { month: 'long' });
+  const year = referenceDate.getFullYear();
+  const weeks = useMemo(() => buildCalendarMatrix(referenceDate), [referenceDate]);
+  const today = new Date();
+  const isToday = (date) => date.toDateString() === today.toDateString();
+  const highlightSet = new Set(highlights.map((day) => `${year}-${referenceDate.getMonth()}-${day}`));
+
+  return (
+    <Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{monthLabel} {year}</p>
+        </div>
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+          <span>◀</span>
+          <span>▶</span>
+        </div>
+      </div>
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((label) => (
+          <span key={label}>{label}</span>
+        ))}
+      </div>
+      <div className="mt-3 space-y-1 text-sm">
+        {weeks.map((week, idx) => (
+          <div key={idx} className="grid grid-cols-7 gap-1">
+            {week.map(({ date, inMonth }) => {
+              const day = date.getDate();
+              const isHighlighted = inMonth && highlightSet.has(`${year}-${referenceDate.getMonth()}-${day}`);
+              return (
+                <span
+                  key={date.toISOString()}
+                  className={`flex aspect-square items-center justify-center rounded-full text-xs font-medium transition ${
+                    inMonth ? 'text-slate-700' : 'text-slate-300'
+                  } ${
+                    isToday(date)
+                      ? 'bg-slate-900 text-white'
+                      : isHighlighted
+                        ? 'bg-slate-900/10 text-slate-900'
+                        : 'hover:bg-slate-100'
+                  }`}
+                >
+                  {day}
+                </span>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+};
+
+const GoalCard = ({ goal, value, data }) => (
+  <Card>
+    <div className="flex items-start justify-between">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Conversion Goal</p>
+        <p className="mt-4 text-4xl font-semibold text-slate-900">{value}</p>
+        <p className="mt-2 text-xs text-slate-500">Target hires per week</p>
+      </div>
+      <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900">
+        Adjust
+      </button>
+    </div>
+    <div className="mt-6">
+      <ResponsiveChart minHeight={120}>
+        {(width) => (
+          <BarChart
+            width={width}
+            height={140}
+            series={[{ data, color: '#111827', label: 'Hires' }]}
+            xAxis={[{ data: data.map((_, idx) => idx + 1), scaleType: 'band' }]}
+            yAxis={[{ hide: true }]}
+            margin={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            slotProps={{ legend: { hidden: true } }}
+            sx={{
+              '.MuiBarElement-root': { rx: 6 },
+              '.MuiChartsAxis-line': { stroke: 'transparent' },
+              '.MuiChartsAxis-tickLabel': { display: 'none' },
+              '.MuiChartsAxis-tick': { display: 'none' },
+            }}
+          />
+        )}
+      </ResponsiveChart>
+    </div>
+    <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
+      <span>Weekly goal</span>
+      <span>{goal} hires</span>
+    </div>
+  </Card>
+);
+
+const PlanCard = () => (
+  <Card className="gap-4">
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Upgrade your subscription</p>
+      <p className="mt-3 text-sm text-slate-600">Move off the free plan to unlock recruiter collaboration, automated reports, and workflow automations.</p>
+    </div>
+    <form className="grid gap-3 text-sm text-slate-700">
+      <div className="grid gap-2">
+        <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Name</label>
+        <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="Jane Cooper" />
+      </div>
+      <div className="grid gap-2">
+        <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Email</label>
+        <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="jane@campussetu.com" />
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="col-span-2 grid gap-2">
+          <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Card number</label>
+          <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="4242 4242 4242 4242" />
+        </div>
+        <div className="grid gap-2">
+          <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">CVC</label>
+          <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="123" />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <label className="flex items-center gap-2 text-xs text-slate-500">
+          <input type="checkbox" className="rounded border-slate-300" defaultChecked /> Accept terms
+        </label>
+        <label className="flex items-center gap-2 text-xs text-slate-500">
+          <input type="checkbox" className="rounded border-slate-300" defaultChecked /> Email updates
+        </label>
+      </div>
+      <div className="grid gap-2">
+        <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Plan</label>
+        <div className="grid gap-2">
+          <label className="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm">
+            <span>Starter</span>
+            <input type="radio" name="plan" defaultChecked />
+          </label>
+          <label className="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm">
+            <span>Growth</span>
+            <input type="radio" name="plan" />
+          </label>
+        </div>
+      </div>
+      <button
+        type="button"
+        className="mt-2 rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+      >
+        Upgrade to pro
+      </button>
+    </form>
+  </Card>
+);
+
+const InviteCard = () => (
+  <Card className="gap-4">
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Invite a collaborator</p>
+      <p className="mt-3 text-sm text-slate-600">Let hiring managers track funnel health and approvals directly.</p>
+    </div>
+    <div className="flex flex-col gap-3">
+      <button className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+        Continue with GitHub
+      </button>
+      <button className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+        Continue with Google
+      </button>
+      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.28em] text-slate-400">
+        <span className="h-px flex-1 bg-slate-200" />
+        <span>or</span>
+        <span className="h-px flex-1 bg-slate-200" />
+      </div>
+      <input className="rounded-2xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-400 focus:outline-none" placeholder="email@company.com" />
+      <input type="password" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-400 focus:outline-none" placeholder="Temporary password" />
+      <button className="rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+        Send invitation
+      </button>
+    </div>
+  </Card>
+);
+
+const ConversationCard = () => (
+  <Card className="gap-4">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Support</p>
+        <p className="mt-2 text-sm text-slate-600">Sofia Davis • sofia@campussetu.com</p>
+      </div>
+      <button className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-lg text-slate-400">+</button>
+    </div>
+    <div className="grid gap-3 text-sm text-slate-600">
+  <div className="self-start rounded-2xl border border-slate-200 bg-white px-4 py-3">Hi, how can I help you today?</div>
+  <div className="ml-auto rounded-2xl bg-slate-900 px-4 py-3 text-white">We need help configuring the recruiter dashboard for fall hiring.</div>
+  <div className="self-start rounded-2xl border border-slate-200 bg-white px-4 py-3">Sure thing. I've shared the playbook and will stay online for follow ups.</div>
+    </div>
+  </Card>
+);
+
+const PlacementTableCard = ({ companies }) => (
+  <Card>
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Recent placement teams</p>
+        <p className="mt-2 text-sm text-slate-500">Monitor partner activity and committed offers.</p>
+      </div>
+      <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 hover:border-slate-300">Add partner</button>
+    </div>
+    <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+      <table className="min-w-full text-left text-sm">
+        <thead className="bg-slate-50 text-xs uppercase tracking-[0.24em] text-slate-500">
+          <tr>
+            <th className="px-4 py-3 font-semibold">Status</th>
+            <th className="px-4 py-3 font-semibold">Company</th>
+            <th className="px-4 py-3 font-semibold">Offers</th>
+            <th className="px-4 py-3 font-semibold">Hires</th>
+          </tr>
+        </thead>
+        <tbody>
+          {companies.map((company) => (
+            <tr key={company.id} className="border-t border-slate-100">
+              <td className="px-4 py-3 text-xs font-semibold text-emerald-600">{company.successRate > 0.6 ? 'Active' : 'Processing'}</td>
+              <td className="px-4 py-3 font-medium text-slate-700">{company.name}</td>
+              <td className="px-4 py-3 text-slate-500">{company.offers}</td>
+              <td className="px-4 py-3 text-slate-500">{company.hires}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Card>
 );
 
 export function AnalyticsDashboard() {
-  const [data, setData] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
   const [history, setHistory] = useState(null);
   const [loading, setLoading] = useState(true);
-  // Derived insight state
-  const [insights, setInsights] = useState(null);
-  const [selectedYear, setSelectedYear] = useState('All');
 
   useEffect(() => {
     Promise.all([getAnalyticsData(), getRecruitmentHistory()])
-      .then(([analytics, hist]) => {
-        setData(analytics);
-        setHistory(hist);
-        if (hist?.yearlyStats?.length) {
-          const ys = hist.yearlyStats.sort((a,b)=>a.year-b.year);
-          const prev = ys[ys.length - 2];
-          const latest = ys[ys.length - 1];
-          const placementGrowth = prev ? ((latest.totalPlacements - prev.totalPlacements) / prev.totalPlacements) * 100 : null;
-          const successDelta = prev ? (latest.successRate - prev.successRate) * 100 : null;
-          const topCompany = hist.companies.reduce((m,c)=> c.hires > m.hires ? c : m, hist.companies[0]);
-          const topSkill = analytics.topSkills?.[0];
-          setInsights({ placementGrowth, successDelta, topCompany, topSkill, latestYear: latest.year });
-          setSelectedYear('All');
-        }
+      .then(([analyticsResponse, historyResponse]) => {
+        setAnalytics(analyticsResponse);
+        setHistory(historyResponse);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return <LoadingState />;
+  const placements = useMemo(() => history?.yearlyStats ?? [], [history]);
+  const placementChange = useMemo(() => {
+    if (placements.length < 2) return null;
+    const current = placements[placements.length - 1].totalPlacements;
+    const previous = placements[placements.length - 2].totalPlacements;
+    if (!previous) return null;
+    const delta = ((current - previous) / previous) * 100;
+    return `${delta > 0 ? '+' : ''}${delta.toFixed(1)}% vs last year`;
+  }, [placements]);
+
+  const applicationTrend = useMemo(() => history?.funnelByYear ?? [], [history]);
+  const applicationChange = useMemo(() => {
+    if (!applicationTrend.length) return null;
+    const latest = applicationTrend[applicationTrend.length - 1];
+    const total = latest.applied;
+    const previous = applicationTrend[applicationTrend.length - 2]?.applied ?? null;
+    if (!previous) return null;
+    const delta = ((total - previous) / previous) * 100;
+    return `${delta > 0 ? '+' : ''}${delta.toFixed(1)}% vs last year`;
+  }, [applicationTrend]);
+
+  const goalData = useMemo(() => {
+    const hired = analytics?.funnel?.find((stage) => stage.stage === 'Hired')?.count ?? 0;
+    return Array.from({ length: 12 }, (_, idx) => Math.max(Math.round(hired / 12 + (idx % 3) * 3 - 4), 4));
+  }, [analytics]);
+
+  const funnelSeries = useMemo(() => {
+    if (!applicationTrend.length) return null;
+    const years = applicationTrend.map((item) => `${item.year}`);
+    const shortlisted = applicationTrend.map((item) => item.shortlisted);
+    const hired = applicationTrend.map((item) => item.hired);
+    const interview = applicationTrend.map((item) => item.interview);
+    return { years, shortlisted, hired, interview };
+  }, [applicationTrend]);
+
+  const locationSeries = useMemo(() => {
+    if (!analytics?.jobsByLocation) return [];
+    return analytics.jobsByLocation.map((location, idx) => ({
+      id: idx,
+      value: location.value,
+      label: location.type,
+    }));
+  }, [analytics]);
+
+  if (loading) return <LoadingState />;
+  if (!analytics || !history) {
+    return (
+      <div className="min-h-screen bg-slate-100">
+        <Navbar />
+        <div className="mx-auto max-w-4xl px-6 py-32 text-center text-sm text-red-500">
+          Unable to load analytics right now.
+        </div>
+      </div>
+    );
   }
 
-  if (!data) {
-    return <div className="p-8 text-center text-red-500">Could not load analytics data.</div>;
-  }
+  const latestYear = placements[placements.length - 1];
+  const latestPlacements = latestYear?.totalPlacements ?? 0;
+  const totalApplications = analytics.kpis.totalApplications;
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),_transparent_58%)]">
+    <div className="min-h-screen bg-slate-100">
       <Navbar />
-      <header className="border-b border-white/50 bg-white/70 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-14 text-center lg:px-6">
-          <span className="inline-flex items-center justify-center rounded-full border border-white/60 bg-white/70 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
-            Analytics
-          </span>
-          <h1 className="mt-6 text-4xl font-semibold leading-tight text-slate-900 md:text-[2.9rem]">
-            Recruitment intelligence hub
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
-            Explore historical placement patterns, funnel efficiency, and evolving skill demand. Surface the stories recruiters need to collaborate with campus teams and plan proactive engagement.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-2 text-xs text-slate-600">
-            {['Live season', '3-year trend', 'Company activity'].map((chip) => (
-              <span
-                key={chip}
-                className="rounded-full border border-white/60 bg-white/80 px-3 py-1 font-semibold text-slate-500 shadow-[0_8px_20px_-18px_rgba(15,23,42,0.65)]"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-        </div>
-        <nav className="border-t border-white/50 bg-white/65 backdrop-blur">
-          <div className="mx-auto flex max-w-5xl items-center justify-center gap-4 overflow-x-auto px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 lg:gap-6">
-            {[
-              { href: '#overview', label: 'Overview' },
-              { href: '#metrics', label: 'KPIs' },
-              { href: '#charts', label: 'Charts' },
-              { href: '#history', label: 'History' },
-              { href: '#companies', label: 'Companies' },
-              { href: '#insights', label: 'Insights' },
-            ].map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="relative inline-flex items-center transition-colors duration-150 ease-out hover:text-slate-900"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-        </nav>
-      </header>
+      <main className="mx-auto max-w-7xl px-4 pb-16 pt-12 sm:px-6 lg:px-8">
+        <header className="mb-10 space-y-3">
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Analytics</span>
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-900">Placement intelligence</h1>
+          <p className="max-w-2xl text-sm text-slate-500">A calm control center designed with shadcn-inspired cards and Material UI charts to visualize hiring velocity, funnel strength, and partner momentum.</p>
+        </header>
 
-  {/* Overview & Definitions */}
-  <section id="overview" className="mb-12 px-4 scroll-mt-24 lg:px-6">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-          <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-4">
-            <h2 className="text-xl font-semibold text-slate-800">Overview</h2>
-            <p className="text-sm md:text-base text-slate-600 leading-relaxed">Data shown covers the current season and historical traction for the last three academic placement cycles. Metrics are aggregated from mock activity (jobs, applications, and offers) to emulate a production environment and highlight structure, not real institution data.</p>
-            {insights && (
-              <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                <div className="rounded-2xl border border-white/60 bg-white/90 p-4 space-y-1 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
-                  <p className="text-xs uppercase tracking-wide text-slate-500">YoY Placement Growth</p>
-                  <p className="text-2xl font-semibold text-primary">
-                    {insights.placementGrowth ? `${Math.round(insights.placementGrowth)}%` : '—'}
-                  </p>
-                  <p className="text-xs text-slate-500">Compared to previous year</p>
-                </div>
-                <div className="rounded-2xl border border-white/60 bg-white/90 p-4 space-y-1 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
-                  <p className="text-xs uppercase tracking-wide text-slate-500">Success Rate Delta</p>
-                  <p className="text-2xl font-semibold text-emerald-600">
-                    {insights.successDelta ? `${insights.successDelta > 0 ? '+' : ''}${insights.successDelta.toFixed(1)}%` : '—'}
-                  </p>
-                  <p className="text-xs text-slate-500">Change since prior cycle</p>
-                </div>
-              </div>
-            )}
-          </div>
-          <aside className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-5">
-            <h3 className="text-sm font-semibold text-slate-700 tracking-wide uppercase">Definitions</h3>
-            <ul className="space-y-4 text-xs md:text-sm text-slate-600">
-              <li><span className="font-medium text-slate-700">Applications:</span> All submitted student intents across active jobs.</li>
-              <li><span className="font-medium text-slate-700">Hiring Funnel:</span> Progression counts through shortlist → interview → hire stages.</li>
-              <li><span className="font-medium text-slate-700">Success Rate:</span> Hires ÷ Offers accepted; historical values approximate efficiency.</li>
-              <li><span className="font-medium text-slate-700">Skill Demand:</span> Frequency of required skills across posted jobs (top 8 displayed).</li>
-            </ul>
-            {insights?.topCompany && (
-              <div className="mt-2 rounded-2xl border border-white/60 bg-white/85 p-4 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
-                <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">Highlight</p>
-                <p className="mt-1 text-sm text-slate-700"><span className="font-medium">{insights.topCompany.name}</span> leads hires ({insights.topCompany.hires}) with a {Math.round(insights.topCompany.successRate * 100)}% success rate.</p>
-                {insights.topSkill && <p className="mt-1 text-xs text-slate-600">Most requested skill: <span className="font-medium text-slate-700">{insights.topSkill.name}</span>.</p>}
-              </div>
-            )}
-          </aside>
-        </div>
-      </section>
+        <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <SummaryCard title="Total placements" value={formatNumber(latestPlacements)} change={placementChange} footnote="Season">
+            <ResponsiveChart>
+              {(width) => (
+                <LineChart
+                  width={width}
+                  height={140}
+                  series={[{ data: placements.map((item) => item.totalPlacements), area: true, showMark: false, color: '#111827' }]}
+                  xAxis={[{ data: placements.map((item) => `${item.year}`), scaleType: 'point' }]}
+                  yAxis={[{ hide: true }]}
+                  margin={{ top: 10, bottom: 20, left: 10, right: 10 }}
+                  slotProps={{ legend: { hidden: true } }}
+                  sx={{
+                    '.MuiAreaElement-root': { fillOpacity: 0.12 },
+                    '.MuiLineElement-root': { strokeWidth: 2 },
+                    '.MuiChartsAxis-root': { display: 'none' },
+                    '.MuiMarkElement-root': { display: 'none' },
+                  }}
+                />
+              )}
+            </ResponsiveChart>
+          </SummaryCard>
 
-      {/* KPI Section */}
-  <section id="metrics" className="px-4 lg:px-6 scroll-mt-24">
-        <div className="mx-auto mb-10 grid max-w-6xl grid-cols-2 gap-4 md:grid-cols-4">
-          <KPICard title="Total Jobs" value={data.kpis.totalJobs} />
-          <KPICard title="Applications" value={data.kpis.totalApplications} />
-          <KPICard title="Students" value={data.kpis.totalStudents} />
-          <KPICard title="Companies" value={data.kpis.totalCompanies} />
-        </div>
-      </section>
+          <SummaryCard title="Total Applications" value={formatNumber(totalApplications)} change={applicationChange} footnote="YoY">
+            <ResponsiveChart>
+              {(width) => (
+                <LineChart
+                  width={width}
+                  height={140}
+                  series={[{ data: applicationTrend.map((item) => item.applied), color: '#18181b', showMark: false, area: true }]}
+                  xAxis={[{ data: applicationTrend.map((item) => `${item.year}`), scaleType: 'point' }]}
+                  yAxis={[{ hide: true }]}
+                  margin={{ top: 10, bottom: 20, left: 10, right: 10 }}
+                  slotProps={{ legend: { hidden: true } }}
+                  sx={{
+                    '.MuiAreaElement-root': { fillOpacity: 0.12 },
+                    '.MuiLineElement-root': { strokeWidth: 2 },
+                    '.MuiChartsAxis-root': { display: 'none' },
+                    '.MuiMarkElement-root': { display: 'none' },
+                  }}
+                />
+              )}
+            </ResponsiveChart>
+          </SummaryCard>
 
-      {/* Main Charts Section */}
-  <section id="charts" className="px-4 lg:px-6 scroll-mt-24">
-        <div className="mx-auto mb-4 flex max-w-6xl flex-wrap items-center justify-between gap-3">
-          <h2 className="text-lg font-semibold text-slate-800">Charts</h2>
-          {history?.years && (
-            <div className="flex items-center gap-2">
-              {['All', ...history.years].map((y) => (
-                <button
-                  key={y}
-                  onClick={() => setSelectedYear(y)}
-                  className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                    selectedYear === y
-                      ? 'border border-brand-500 bg-brand-500 text-white shadow-[0_10px_24px_-18px_rgba(59,130,246,0.9)]'
-                      : 'border border-white/60 bg-white/80 text-slate-600 backdrop-blur hover:bg-white/90'
-                  }`}
-                >
-                  {y}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <SectionCard
-            title="Hiring Funnel"
-            config={{ applied: { color: 'hsl(220 90% 56%)' }, shortlisted: { color: 'hsl(199 89% 48%)' }, interview: { color: 'hsl(38 92% 50%)' }, hired: { color: 'hsl(142 71% 45%)' } }}
-          >
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={(function(){
-                if(!history || selectedYear==='All') return data.funnel;
-                const fy = history.funnelByYear?.find(f=>f.year===selectedYear);
-                if(!fy) return data.funnel;
-                return [
-                  { stage:'Applied', count: fy.applied },
-                  { stage:'Shortlisted', count: fy.shortlisted },
-                  { stage:'Interview', count: fy.interview },
-                  { stage:'Hired', count: fy.hired },
-                ];
-              })()} accessibilityLayer>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis dataKey="stage" tickLine={false} axisLine={false} tickMargin={8} />
-                <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="count" fill="var(--color-applied)" radius={6} />
-              </BarChart>
-            </ResponsiveContainer>
-          </SectionCard>
+          <CalendarCard referenceDate={new Date()} highlights={[5, 12, 13, 18]} />
 
-          <SectionCard
-            title="Jobs by Location"
-            config={{ location: { color: 'hsl(25 95% 53%)' } }}
-          >
-            <ResponsiveContainer width="100%" height={260}>
-              <PieChart>
-                <Pie data={(function(){
-                  if(!history || selectedYear==='All') return data.jobsByLocation;
-                  const yl = history.jobsByLocationByYear?.find(x=>x.year===selectedYear)?.data;
-                  return yl || data.jobsByLocation;
-                })()} dataKey="value" nameKey="type" innerRadius={60} outerRadius={90} paddingAngle={2}>
-                  {(selectedYear==='All' ? data.jobsByLocation : (history?.jobsByLocationByYear?.find(x=>x.year===selectedYear)?.data || data.jobsByLocation)).map((_, idx) => (
-                    <Cell key={idx} fill={`hsl(${220 + idx * 20} 90% 60%)`} />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent nameKey="type" labelKey="value" />} />
-              </PieChart>
-            </ResponsiveContainer>
-          </SectionCard>
-
-          <SectionCard
-            title="Placements by Department"
-            config={{ value: { color: 'hsl(220 90% 56%)' } }}
-          >
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={(function(){
-                if(!history || selectedYear==='All') return data.placementsByDept;
-                const yd = history.placementsByDeptByYear?.find(x=>x.year===selectedYear)?.data;
-                return yd || data.placementsByDept;
-              })()} accessibilityLayer>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis dataKey="type" tickLine={false} axisLine={false} tickMargin={8} />
-                <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="value" fill="var(--color-value)" radius={6} />
-              </BarChart>
-            </ResponsiveContainer>
-          </SectionCard>
-
-          <SectionCard
-            title="Top Skills in Demand"
-            config={{ value: { color: 'hsl(199 89% 48%)' } }}
-          >
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={data.topSkills.slice(0, 8)} layout="vertical" margin={{ left: 24 }} accessibilityLayer>
-                <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" width={120} tickLine={false} axisLine={false} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="value" fill="var(--color-value)" radius={6} />
-              </BarChart>
-            </ResponsiveContainer>
-          </SectionCard>
-        </div>
-      </section>
-
-      {/* Recruitment History */}
-      {history && (
-  <section id="history" className="px-4 lg:px-6 pb-4 scroll-mt-24">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <SectionCard title="Placements Over 3 Years" config={{ placements: { color: 'hsl(220 90% 56%)' }, rate: { color: 'hsl(142 71% 45%)' } }}>
-              <ResponsiveContainer width="100%" height={260}>
-                <LineChart data={history.yearlyStats} accessibilityLayer>
-                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                  <XAxis dataKey="year" tickLine={false} axisLine={false} />
-                  <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line dataKey="totalPlacements" name="Placements" stroke="var(--color-placements)" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </SectionCard>
-
-            <SectionCard title="Success Rate (Last 3 Years)" config={{ rate: { color: 'hsl(25 95% 53%)' } }}>
-              <ResponsiveContainer width="100%" height={260}>
-                <LineChart data={history.yearlyStats} accessibilityLayer>
-                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                  <XAxis dataKey="year" tickLine={false} axisLine={false} />
-                  <YAxis tickFormatter={(v) => `${Math.round(v * 100)}%`} tickLine={false} axisLine={false} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line dataKey="successRate" name="Success Rate" stroke="var(--color-rate)" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </SectionCard>
-          </div>
-          {/* Running band of companies */}
-          <div className="max-w-6xl mx-auto mt-6">
-            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/90 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur">
-              <div className="pointer-events-none absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white/90 to-transparent" />
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-white/90 to-transparent" />
-              <div className="whitespace-nowrap flex gap-4 py-4 animate-[marquee_25s_linear_infinite]" style={{}}>
-                {[...history.companies, ...history.companies].map((c, idx) => (
-                  <span key={idx} className="px-4 py-2 rounded-full border border-white/60 bg-white/90 text-xs font-medium text-slate-700 shadow-sm backdrop-blur">
-                    {c.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-          <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
-          {/* Narrative Insights */}
-          {insights && (
-            <div id="insights" className="mx-auto mt-12 grid max-w-6xl gap-6 scroll-mt-24 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-3">
-                <h4 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Performance Narrative</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">Year {insights.latestYear} shows a placement growth of <span className="font-semibold text-primary">{Math.round(insights.placementGrowth)}%</span> over the previous cycle, while success efficiency improved by <span className="font-semibold text-emerald-600">{insights.successDelta.toFixed(1)}%</span>. This indicates stronger alignment between candidate preparation and recruiter expectations.</p>
-                <p className="text-sm text-slate-600 leading-relaxed">Top hiring momentum is driven by <span className="font-medium text-slate-700">{insights.topCompany.name}</span>, suggesting deeper partnership leverage opportunities (e.g. early project showcases, curated candidate pools).</p>
-              </div>
-              <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-3">
-                <h4 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Strategic Recommendations</h4>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex gap-2"><span className="mt-2 h-2 w-2 rounded-full bg-primary" />Prioritize workshops around high-demand skill <span className="font-medium text-slate-700">{insights.topSkill?.name}</span> to sustain funnel velocity.</li>
-                  <li className="flex gap-2"><span className="mt-2 h-2 w-2 rounded-full bg-accent" />Expand shortlist calibration with departments showing lower conversion to lift overall success rate.</li>
-                  <li className="flex gap-2"><span className="mt-2 h-2 w-2 rounded-full bg-emerald-500" />Formalize partnership tiering with leading companies for early role previews and feedback loops.</li>
-                </ul>
-              </div>
-            </div>
-          )}
+          <GoalCard goal={Math.round((analytics.funnel.find((stage) => stage.stage === 'Hired')?.count ?? 0) / 12)} value={goalData[goalData.length - 1]} data={goalData} />
         </section>
-      )}
-      {/* Companies Table Section */}
-  <section id="companies" className="px-4 pb-20 lg:px-6">
-        <div className="mx-auto max-w-6xl rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur">
-          <CompanyTable />
-        </div>
-      </section>
+
+        <section className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <Card>
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Funnel velocity</p>
+                <p className="mt-2 text-sm text-slate-500">Compare shortlisted, interview, and hired signals across cohorts.</p>
+              </div>
+              <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 hover:border-slate-300">Download</button>
+            </div>
+            <div className="mt-6">
+              {funnelSeries && (
+                <ResponsiveChart>
+                  {(width) => (
+                    <LineChart
+                      width={width}
+                      height={220}
+                      series={[
+                        { id: 'shortlisted', data: funnelSeries.shortlisted, label: 'Shortlisted', color: '#d4d4d4', showMark: false },
+                        { id: 'interview', data: funnelSeries.interview, label: 'Interview', color: '#737373', showMark: false },
+                        { id: 'hired', data: funnelSeries.hired, label: 'Hired', color: '#0a0a0a', showMark: false },
+                      ]}
+                      xAxis={[{ data: funnelSeries.years, scaleType: 'point' }]}
+                      yAxis={[{ label: 'Count' }]}
+                      margin={{ top: 20, bottom: 30, left: 20, right: 20 }}
+                      slotProps={{ legend: { direction: 'row', position: { vertical: 'top', horizontal: 'right' } } }}
+                      sx={{
+                        '.MuiChartsLegend-root': { marginBottom: -12 },
+                        '.MuiLineElement-root': { strokeWidth: 2 },
+                        '.MuiMarkElement-root': { display: 'none' },
+                        '.MuiChartsAxis-tickLabel': { fontSize: 11, fill: '#475569' },
+                        '.MuiChartsAxis-label': { fontSize: 11, fill: '#94a3b8' },
+                      }}
+                    />
+                  )}
+                </ResponsiveChart>
+              )}
+            </div>
+          </Card>
+
+          <Card>
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Jobs by location</p>
+                <p className="mt-2 text-sm text-slate-500">Where partners are hiring from this season.</p>
+              </div>
+            </div>
+            <div className="mt-6">
+              <ResponsiveChart minHeight={220}>
+                {(width) => (
+                  <PieChart
+                    width={width}
+                    height={240}
+                    series={[{
+                      innerRadius: 40,
+                      outerRadius: 90,
+                      paddingAngle: 4,
+                      cornerRadius: 6,
+                      data: locationSeries,
+                      colors: piePalette,
+                    }]}
+                    slotProps={{ legend: { hidden: false, direction: 'column', position: { vertical: 'middle', horizontal: 'right' } } }}
+                    sx={{
+                      '.MuiChartsLegend-root': { fontSize: 11, color: '#475569' },
+                      '.MuiPieArc-root': { stroke: 'transparent' },
+                    }}
+                  />
+                )}
+              </ResponsiveChart>
+            </div>
+          </Card>
+        </section>
+
+        <section className="mt-8 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <PlanCard />
+          <InviteCard />
+        </section>
+
+        <section className="mt-8 grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+          <ConversationCard />
+          <PlacementTableCard companies={history.companies.slice(0, 5)} />
+        </section>
+
+        <section className="mt-10">
+          <Card>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Partner directory</p>
+                <p className="mt-2 text-sm text-slate-500">Full record of every recruiter actively collaborating with the campus.</p>
+              </div>
+            </div>
+            <div className="mt-6">
+              <CompanyTable />
+            </div>
+          </Card>
+        </section>
+      </main>
     </div>
   );
 }

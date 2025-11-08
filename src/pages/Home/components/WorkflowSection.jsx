@@ -2,8 +2,12 @@ import React from "react";
 
 export default function WorkflowSection({ workflowSteps }) {
   return (
-    <section id="workflow" className="w-full px-4 py-20 lg:px-6">
-      <div className="mx-auto max-w-6xl space-y-12">
+    <section id="workflow" className="relative w-full overflow-hidden px-4 py-20 lg:px-6">
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-100/55 via-brand-100/60 to-brand-200/55"
+        aria-hidden
+      />
+      <div className="relative mx-auto max-w-6xl space-y-12">
         <div className="max-w-3xl space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
             Built-for-campus flow

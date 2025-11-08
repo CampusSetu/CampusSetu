@@ -2,8 +2,12 @@ import React from "react";
 
 export default function FeatureSection({ featurePillars }) {
   return (
-    <section id="features" className="w-full px-4 py-20 lg:px-6">
-      <div className="mx-auto max-w-6xl space-y-12">
+    <section id="features" className="relative w-full overflow-hidden px-4 py-20 lg:px-6">
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-brand-50/45 to-brand-100/50"
+        aria-hidden
+      />
+      <div className="relative mx-auto max-w-6xl space-y-12">
         <div className="max-w-3xl space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
             Why teams choose CampusSetu
@@ -15,7 +19,7 @@ export default function FeatureSection({ featurePillars }) {
             Automate follow-ups, keep stakeholders aligned, and surface insights without losing the human touch.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {featurePillars.map((item) => (
             <div
               key={item.title}
