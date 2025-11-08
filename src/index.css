@@ -1,3 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		color-scheme: light;
+	}
+
+	body {
+		@apply font-sans text-slate-900 antialiased;
+		background: radial-gradient(circle at 12% 8%, rgba(76, 114, 255, 0.08), transparent 48%),
+			radial-gradient(circle at 85% 12%, rgba(255, 154, 46, 0.08), transparent 52%),
+			radial-gradient(circle at 50% 92%, rgba(76, 114, 255, 0.06), transparent 55%),
+			#f3f4f8;
+		min-height: 100vh;
+	}
+
+	::selection {
+		@apply bg-brand-200 text-brand-900;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		@apply font-display text-slate-900 font-semibold tracking-tight;
+	}
+
+	p {
+		@apply text-[15px] leading-relaxed text-slate-600;
+	}
+
+	a {
+		@apply transition-colors duration-150 ease-out-expo;
+	}
+
+	button {
+		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-400;
+	}
+
+	input,
+	textarea,
+	select {
+		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-0;
+	}
+}
+
+@layer utilities {
+	.glass-panel {
+		@apply border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur;
+	}
+
+	.card-elevated {
+		@apply rounded-2xl border border-slate-200/80 bg-white shadow-card;
+	}
+
+	.card-lifted {
+		@apply card-elevated transition-transform duration-200 ease-out-expo hover:-translate-y-2 hover:shadow-elevated;
+	}
+
+	.card-subtle {
+		@apply rounded-2xl border border-slate-200/70 bg-slate-50/80 shadow-card;
+	}
+
+	.surface-gradient {
+		@apply bg-gradient-surface backdrop-blur;
+	}
+}

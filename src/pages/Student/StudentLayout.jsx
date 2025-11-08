@@ -1,48 +1,85 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useMemo } from "react";
+import { Outlet } from "react-router-dom";
+import {
+  Squares2X2Icon,
+  ClipboardDocumentCheckIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import { useAuth } from "../../contexts/AuthContext";
+import DashboardShell from "../../components/layout/DashboardShell";
 
 export function StudentLayout() {
   const { user, logout } = useAuth();
 
-  const activeLinkStyle = { 
-    color: '#1E40AF', // A distinct color for the active link
-    borderBottom: '2px solid #1E40AF',
-    fontWeight: '600'
-  };
+  const navItems = useMemo(
+    () => [
+      {
+        label: "Job Feed",
+        to: "/student/dashboard",
+        icon: Squares2X2Icon,
+      },
+      {
+        label: "My Applications",
+        to: "/student/applications",
+        icon: ClipboardDocumentCheckIcon,
+      },
+      {
+        label: "My Profile",
+        to: "/student/profile",
+        icon: UserCircleIcon,
+      },
+    ],
+    []
+  );
+
+  const headerSlot = (
+    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-400">
+          Opportunity Hub
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold text-slate-900">
+          {user?.name ? `Welcome back, ${user.name.split(" ")[0]}!` : "Welcome to CampusSetu"}
+        </h1>
+        <p className="mt-3 max-w-xl text-sm text-slate-500">
+          Track every application, uncover tailored roles, and keep your profile polished for recruiters actively hiring across campuses.
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-card">
+          <p className="text-xs uppercase tracking-wide text-slate-400">Overall CGPA</p>
+          <p className="mt-1 text-2xl font-semibold text-brand-600">
+            {user?.profile?.cgpa ? Number(user.profile.cgpa).toFixed(1) : "—"}
+          </p>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-card">
+          <p className="text-xs uppercase tracking-wide text-slate-400">Skills Tracked</p>
+          <p className="mt-1 text-2xl font-semibold text-brand-600">
+            {user?.profile?.skills?.length ?? 0}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const footerSlot = (
+    <div className="space-y-1">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
+        Support
+      </p>
+      <p>Need help? Reach out to <span className="font-medium text-brand-600">placement@campussetu.com</span>.</p>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-6">
-              <NavLink to="/" className="font-bold text-xl text-primary">
-                Campus SETU
-              </NavLink>
-              <nav className="hidden md:flex items-center gap-4 h-full">
-                <NavLink to="/student/dashboard" end style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  Job Feed
-                </NavLink>
-                <NavLink to="/student/applications" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  My Applications
-                </NavLink>
-                <NavLink to="/student/profile" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  My Profile
-                </NavLink>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-700">{user ? `Welcome, ${user.name}` : "Guest"}</span>
-              <button onClick={logout} className="text-sm text-gray-500 hover:text-primary">Logout</button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="container mx-auto p-4 sm:p-6 lg:p-8">
-        <Outlet />
-      </main>
-    </div>
+    <DashboardShell
+      navItems={navItems}
+      user={user}
+      onSignOut={logout}
+      headerSlot={headerSlot}
+      footerSlot={footerSlot}
+    >
+      <Outlet />
+    </DashboardShell>
   );
 }

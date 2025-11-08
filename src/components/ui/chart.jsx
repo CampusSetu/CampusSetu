@@ -15,7 +15,7 @@ export function ChartContainer({ config = {}, className = "", children }) {
     <div
       style={style}
       className={
-        "rounded-3xl border border-white/70 bg-white/90 backdrop-blur p-4 shadow-soft " +
+        "rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur " +
         className
       }
     >
@@ -37,9 +37,11 @@ export function ChartTooltipContent({ active, payload, label, labelKey, nameKey 
   }));
   const displayLabel = labelKey ? payload[0]?.payload?.[labelKey] ?? label : label;
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-3 shadow">
+    <div className="rounded-xl border border-white/60 bg-white/90 p-3 shadow-[0_16px_32px_-28px_rgba(15,23,42,0.45)] backdrop-blur">
       {displayLabel && (
-        <div className="text-xs font-medium text-slate-600 mb-2">{displayLabel}</div>
+        <div className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">
+          {displayLabel}
+        </div>
       )}
       <div className="space-y-1">
         {items.map((it, idx) => (
@@ -68,7 +70,10 @@ export function ChartLegendContent({ payload, nameKey }) {
   return (
     <div className="flex flex-wrap gap-3 text-xs">
       {payload.map((entry, idx) => (
-        <div key={idx} className="inline-flex items-center gap-2 px-2 py-1 rounded-full border border-slate-200 bg-white">
+        <div
+          key={idx}
+          className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/85 px-3 py-1 backdrop-blur"
+        >
           <span
             className="inline-block h-2 w-2 rounded-full"
             style={{ backgroundColor: entry.color }}

@@ -19,9 +19,7 @@ export default function HomeHeader({ onAuth }) {
           <div className="h-10 w-10 rounded-full border border-primary/30 flex items-center justify-center text-lg font-semibold text-primary">
             CS
           </div>
-          <span className="text-lg font-semibold tracking-tight">
-            Campus Setu
-          </span>
+          <span className="text-lg font-semibold tracking-tight">CampusSetu</span>
         </div>
 
         {/* Nav Links */}

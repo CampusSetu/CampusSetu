@@ -22,19 +22,49 @@ import {
   ChartLegendContent,
 } from '../../components/ui/chart';
 import CompanyTable from './CompanyTable';
+import Navbar from '../../components/Navbar';
 
 const KPICard = ({ title, value }) => (
-  <div className="rounded-2xl border border-white/70 bg-white/90 backdrop-blur p-5 shadow-soft">
-    <p className="text-xs font-medium text-slate-500 truncate">{title}</p>
-    <p className="mt-1 text-3xl font-semibold text-slate-900">{value}</p>
+  <div className="rounded-2xl border border-white/60 bg-white/90 p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.55)] backdrop-blur">
+    <p className="truncate text-xs font-medium uppercase tracking-wide text-slate-500/90">
+      {title}
+    </p>
+    <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
   </div>
 );
 
 const SectionCard = ({ title, children, config }) => (
   <ChartContainer config={config} className="h-full">
-    <h3 className="text-sm font-semibold mb-3 text-slate-700">{title}</h3>
-    <div className="flex-grow min-h-[240px]">{children}</div>
+    <div className="flex items-center justify-between gap-3">
+      <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+        {title}
+      </h3>
+    </div>
+    <div className="mt-4 flex-grow min-h-[240px]">{children}</div>
   </ChartContainer>
+);
+
+const LoadingState = () => (
+  <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.12),_transparent_55%)]">
+    <Navbar />
+    <div className="mx-auto max-w-6xl px-4 py-12 lg:px-6">
+      <div className="mb-12 space-y-4 text-center">
+        <div className="mx-auto h-9 w-32 rounded-full bg-white/70 animate-pulse" />
+        <div className="mx-auto h-10 w-2/3 max-w-xl rounded-full bg-white/70 animate-pulse" />
+        <div className="mx-auto h-4 w-3/4 max-w-2xl rounded-full bg-white/60 animate-pulse" />
+      </div>
+      <div className="grid gap-4 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.6)] backdrop-blur md:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, idx) => (
+          <div key={idx} className="h-20 rounded-2xl bg-white/70 animate-pulse" />
+        ))}
+      </div>
+      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        {Array.from({ length: 4 }).map((_, idx) => (
+          <div key={idx} className="h-72 rounded-3xl border border-white/60 bg-white/80 p-6 animate-pulse" />
+        ))}
+      </div>
+    </div>
+  </div>
 );
 
 export function AnalyticsDashboard() {
@@ -66,7 +96,7 @@ export function AnalyticsDashboard() {
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center">Loading analytics...</div>;
+    return <LoadingState />;
   }
 
   if (!data) {
@@ -74,54 +104,68 @@ export function AnalyticsDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/15 via-accent/10 to-white">
-      {/* Hero Header */}
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none select-none">
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 h-56 w-[48rem] rounded-full bg-primary/25 blur-3xl opacity-30" />
-          <div className="absolute top-10 right-10 h-40 w-40 rounded-full bg-accent/30 blur-2xl opacity-40" />
-        </div>
-        <div className="px-4 sm:px-6 pt-14 pb-10 relative">
-          <div className="max-w-6xl mx-auto text-center space-y-4">
-            <p className="text-xs font-semibold tracking-[0.25em] text-primary uppercase">Analytics</p>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight text-slate-900">Recruitment Intelligence Hub</h1>
-            <p className="text-slate-600 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">Explore historical placement patterns, funnel efficiency and evolving skill demand – all surfaced to help recruiters collaborate with campus teams and plan proactive engagement.</p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
-              <span className="px-3 py-1 text-xs rounded-full bg-white/70 backdrop-blur border border-white/60 text-slate-700">Live Season</span>
-              <span className="px-3 py-1 text-xs rounded-full bg-white/70 backdrop-blur border border-white/60 text-slate-700">3-Year Trend</span>
-              <span className="px-3 py-1 text-xs rounded-full bg-white/70 backdrop-blur border border-white/60 text-slate-700">Company Activity</span>
-            </div>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),_transparent_58%)]">
+      <Navbar />
+      <header className="border-b border-white/50 bg-white/70 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-4 py-14 text-center lg:px-6">
+          <span className="inline-flex items-center justify-center rounded-full border border-white/60 bg-white/70 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
+            Analytics
+          </span>
+          <h1 className="mt-6 text-4xl font-semibold leading-tight text-slate-900 md:text-[2.9rem]">
+            Recruitment intelligence hub
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">
+            Explore historical placement patterns, funnel efficiency, and evolving skill demand. Surface the stories recruiters need to collaborate with campus teams and plan proactive engagement.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-2 text-xs text-slate-600">
+            {['Live season', '3-year trend', 'Company activity'].map((chip) => (
+              <span
+                key={chip}
+                className="rounded-full border border-white/60 bg-white/80 px-3 py-1 font-semibold text-slate-500 shadow-[0_8px_20px_-18px_rgba(15,23,42,0.65)]"
+              >
+                {chip}
+              </span>
+            ))}
           </div>
         </div>
-        {/* Sticky Sub Navigation */}
-        <nav className="sticky top-0 z-20 backdrop-blur bg-white/80 border-b border-white/60 shadow-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-6 text-sm overflow-x-auto py-2">
-            <a href="#overview" className="text-slate-600 hover:text-slate-900 transition">Overview</a>
-            <a href="#metrics" className="text-slate-600 hover:text-slate-900 transition">KPIs</a>
-            <a href="#charts" className="text-slate-600 hover:text-slate-900 transition">Charts</a>
-            <a href="#history" className="text-slate-600 hover:text-slate-900 transition">History</a>
-            <a href="#companies" className="text-slate-600 hover:text-slate-900 transition">Companies</a>
-            <a href="#insights" className="text-slate-600 hover:text-slate-900 transition">Insights</a>
+        <nav className="border-t border-white/50 bg-white/65 backdrop-blur">
+          <div className="mx-auto flex max-w-5xl items-center justify-center gap-4 overflow-x-auto px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 lg:gap-6">
+            {[
+              { href: '#overview', label: 'Overview' },
+              { href: '#metrics', label: 'KPIs' },
+              { href: '#charts', label: 'Charts' },
+              { href: '#history', label: 'History' },
+              { href: '#companies', label: 'Companies' },
+              { href: '#insights', label: 'Insights' },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="relative inline-flex items-center transition-colors duration-150 ease-out hover:text-slate-900"
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         </nav>
       </header>
 
   {/* Overview & Definitions */}
-  <section id="overview" className="px-4 sm:px-6 mb-12 scroll-mt-24">
-        <div className="max-w-6xl mx-auto grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-          <div className="rounded-3xl border border-white/60 bg-white/90 backdrop-blur p-6 shadow-soft space-y-4">
+  <section id="overview" className="mb-12 px-4 scroll-mt-24 lg:px-6">
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+          <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-4">
             <h2 className="text-xl font-semibold text-slate-800">Overview</h2>
             <p className="text-sm md:text-base text-slate-600 leading-relaxed">Data shown covers the current season and historical traction for the last three academic placement cycles. Metrics are aggregated from mock activity (jobs, applications, and offers) to emulate a production environment and highlight structure, not real institution data.</p>
             {insights && (
               <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-1">
+                <div className="rounded-2xl border border-white/60 bg-white/90 p-4 space-y-1 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
                   <p className="text-xs uppercase tracking-wide text-slate-500">YoY Placement Growth</p>
                   <p className="text-2xl font-semibold text-primary">
                     {insights.placementGrowth ? `${Math.round(insights.placementGrowth)}%` : '—'}
                   </p>
                   <p className="text-xs text-slate-500">Compared to previous year</p>
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-1">
+                <div className="rounded-2xl border border-white/60 bg-white/90 p-4 space-y-1 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
                   <p className="text-xs uppercase tracking-wide text-slate-500">Success Rate Delta</p>
                   <p className="text-2xl font-semibold text-emerald-600">
                     {insights.successDelta ? `${insights.successDelta > 0 ? '+' : ''}${insights.successDelta.toFixed(1)}%` : '—'}
@@ -131,7 +175,7 @@ export function AnalyticsDashboard() {
               </div>
             )}
           </div>
-          <aside className="rounded-3xl border border-white/60 bg-white/90 backdrop-blur p-6 shadow-soft space-y-5">
+          <aside className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-5">
             <h3 className="text-sm font-semibold text-slate-700 tracking-wide uppercase">Definitions</h3>
             <ul className="space-y-4 text-xs md:text-sm text-slate-600">
               <li><span className="font-medium text-slate-700">Applications:</span> All submitted student intents across active jobs.</li>
@@ -140,10 +184,10 @@ export function AnalyticsDashboard() {
               <li><span className="font-medium text-slate-700">Skill Demand:</span> Frequency of required skills across posted jobs (top 8 displayed).</li>
             </ul>
             {insights?.topCompany && (
-              <div className="mt-2 rounded-xl border border-accent/30 bg-accent/10 p-4">
-                <p className="text-xs uppercase tracking-wide text-accent font-semibold">Highlight</p>
-                <p className="text-sm text-slate-700 mt-1"><span className="font-medium">{insights.topCompany.name}</span> leads hires ({insights.topCompany.hires}) with a {Math.round(insights.topCompany.successRate * 100)}% success rate.</p>
-                {insights.topSkill && <p className="text-xs text-slate-600 mt-1">Most requested skill: <span className="font-medium text-slate-700">{insights.topSkill.name}</span>.</p>}
+              <div className="mt-2 rounded-2xl border border-white/60 bg-white/85 p-4 shadow-[0_12px_30px_-24px_rgba(15,23,42,0.45)]">
+                <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">Highlight</p>
+                <p className="mt-1 text-sm text-slate-700"><span className="font-medium">{insights.topCompany.name}</span> leads hires ({insights.topCompany.hires}) with a {Math.round(insights.topCompany.successRate * 100)}% success rate.</p>
+                {insights.topSkill && <p className="mt-1 text-xs text-slate-600">Most requested skill: <span className="font-medium text-slate-700">{insights.topSkill.name}</span>.</p>}
               </div>
             )}
           </aside>
@@ -151,8 +195,8 @@ export function AnalyticsDashboard() {
       </section>
 
       {/* KPI Section */}
-  <section id="metrics" className="px-4 sm:px-6 scroll-mt-24">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+  <section id="metrics" className="px-4 lg:px-6 scroll-mt-24">
+        <div className="mx-auto mb-10 grid max-w-6xl grid-cols-2 gap-4 md:grid-cols-4">
           <KPICard title="Total Jobs" value={data.kpis.totalJobs} />
           <KPICard title="Applications" value={data.kpis.totalApplications} />
           <KPICard title="Students" value={data.kpis.totalStudents} />
@@ -161,8 +205,8 @@ export function AnalyticsDashboard() {
       </section>
 
       {/* Main Charts Section */}
-      <section id="charts" className="px-4 sm:px-6 scroll-mt-24">
-        <div className="max-w-6xl mx-auto mb-4 flex flex-wrap items-center justify-between gap-3">
+  <section id="charts" className="px-4 lg:px-6 scroll-mt-24">
+        <div className="mx-auto mb-4 flex max-w-6xl flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg font-semibold text-slate-800">Charts</h2>
           {history?.years && (
             <div className="flex items-center gap-2">
@@ -170,7 +214,11 @@ export function AnalyticsDashboard() {
                 <button
                   key={y}
                   onClick={() => setSelectedYear(y)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${selectedYear===y ? 'bg-primary text-white border-primary' : 'bg-white/80 border-slate-200 text-slate-700 hover:bg-white'}`}
+                  className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                    selectedYear === y
+                      ? 'border border-brand-500 bg-brand-500 text-white shadow-[0_10px_24px_-18px_rgba(59,130,246,0.9)]'
+                      : 'border border-white/60 bg-white/80 text-slate-600 backdrop-blur hover:bg-white/90'
+                  }`}
                 >
                   {y}
                 </button>
@@ -262,7 +310,7 @@ export function AnalyticsDashboard() {
 
       {/* Recruitment History */}
       {history && (
-        <section id="history" className="px-4 sm:px-6 pb-4 scroll-mt-24">
+  <section id="history" className="px-4 lg:px-6 pb-4 scroll-mt-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
             <SectionCard title="Placements Over 3 Years" config={{ placements: { color: 'hsl(220 90% 56%)' }, rate: { color: 'hsl(142 71% 45%)' } }}>
               <ResponsiveContainer width="100%" height={260}>
@@ -290,12 +338,14 @@ export function AnalyticsDashboard() {
           </div>
           {/* Running band of companies */}
           <div className="max-w-6xl mx-auto mt-6">
-            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/90 backdrop-blur shadow-soft">
-              <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-white to-transparent" />
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white to-transparent" />
+            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/90 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur">
+              <div className="pointer-events-none absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white/90 to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-white/90 to-transparent" />
               <div className="whitespace-nowrap flex gap-4 py-4 animate-[marquee_25s_linear_infinite]" style={{}}>
                 {[...history.companies, ...history.companies].map((c, idx) => (
-                  <span key={idx} className="px-4 py-2 rounded-full border border-slate-200 bg-white text-xs font-medium text-slate-700 shadow-sm">{c.name}</span>
+                  <span key={idx} className="px-4 py-2 rounded-full border border-white/60 bg-white/90 text-xs font-medium text-slate-700 shadow-sm backdrop-blur">
+                    {c.name}
+                  </span>
                 ))}
               </div>
             </div>
@@ -303,13 +353,13 @@ export function AnalyticsDashboard() {
           <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
           {/* Narrative Insights */}
           {insights && (
-            <div id="insights" className="max-w-6xl mx-auto mt-12 grid gap-6 lg:grid-cols-2 scroll-mt-24">
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft space-y-3">
+            <div id="insights" className="mx-auto mt-12 grid max-w-6xl gap-6 scroll-mt-24 lg:grid-cols-2">
+              <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-3">
                 <h4 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Performance Narrative</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">Year {insights.latestYear} shows a placement growth of <span className="font-semibold text-primary">{Math.round(insights.placementGrowth)}%</span> over the previous cycle, while success efficiency improved by <span className="font-semibold text-emerald-600">{insights.successDelta.toFixed(1)}%</span>. This indicates stronger alignment between candidate preparation and recruiter expectations.</p>
                 <p className="text-sm text-slate-600 leading-relaxed">Top hiring momentum is driven by <span className="font-medium text-slate-700">{insights.topCompany.name}</span>, suggesting deeper partnership leverage opportunities (e.g. early project showcases, curated candidate pools).</p>
               </div>
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft space-y-3">
+              <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur space-y-3">
                 <h4 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Strategic Recommendations</h4>
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li className="flex gap-2"><span className="mt-2 h-2 w-2 rounded-full bg-primary" />Prioritize workshops around high-demand skill <span className="font-medium text-slate-700">{insights.topSkill?.name}</span> to sustain funnel velocity.</li>
@@ -322,8 +372,8 @@ export function AnalyticsDashboard() {
         </section>
       )}
       {/* Companies Table Section */}
-      <section className="px-4 sm:px-6 pb-20">
-        <div className="max-w-6xl mx-auto">
+  <section id="companies" className="px-4 pb-20 lg:px-6">
+        <div className="mx-auto max-w-6xl rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.55)] backdrop-blur">
           <CompanyTable />
         </div>
       </section>

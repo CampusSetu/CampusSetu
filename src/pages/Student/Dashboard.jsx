@@ -1,4 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
+import {
+  BriefcaseIcon,
+  BuildingOfficeIcon,
+  CursorArrowRippleIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import FilterBar from "../../components/FilterBar";
 import JobCard from "../../components/JobCard";
 import Pagination from "../../components/Pagination";
@@ -8,13 +14,9 @@ import ApplyModal from "../../components/ApplyModal";
 export function StudentDashboard() {
   const [allJobs, setAllJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // filters state
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const pageSize = 9;
-
-  // modal
   const [selectedJob, setSelectedJob] = useState(null);
 
   useEffect(() => {
@@ -25,15 +27,14 @@ export function StudentDashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  // derive filtered jobs
   const filtered = useMemo(() => {
-    if (!allJobs || allJobs.length === 0) return [];
+    if (!allJobs?.length) return [];
     return allJobs.filter((job) => {
       if (filters.query) {
-        const q = filters.query.toLowerCase();
-        if (
-          !(job.title?.toLowerCase().includes(q) || job.companyName?.toLowerCase().includes(q))
-        ) return false;
+        const query = filters.query.toLowerCase();
+        const matchesTitle = job.title?.toLowerCase().includes(query);
+        const matchesCompany = job.companyName?.toLowerCase().includes(query);
+        if (!matchesTitle && !matchesCompany) return false;
       }
       if (filters.company && job.companyName !== filters.company) return false;
       if (filters.location && job.location !== filters.location) return false;
@@ -42,53 +43,106 @@ export function StudentDashboard() {
     });
   }, [allJobs, filters]);
 
-  // pagination
   const total = filtered.length;
-  const paged = useMemo(() => filtered.slice((page - 1) * pageSize, page * pageSize), [filtered, page]);
+  const paged = useMemo(
+    () => filtered.slice((page - 1) * pageSize, page * pageSize),
+    [filtered, page]
+  );
 
   useEffect(() => {
     setPage(1);
-  }, [filters]); // reset page when filters change
+  }, [filters]);
+
+  const metrics = useMemo(() => {
+    const internshipCount = filtered.filter((job) =>
+      job.type?.toLowerCase().includes("intern")
+    ).length;
+    const remoteCount = filtered.filter((job) =>
+      job.location?.toLowerCase().includes("remote")
+    ).length;
+    const topCompany = filtered[0]?.companyName || "Multiple partners";
+
+    return [
+      {
+        label: "Active openings",
+        value: total,
+        icon: BriefcaseIcon,
+      },
+      {
+        label: "Remote friendly",
+        value: remoteCount,
+        icon: CursorArrowRippleIcon,
+      },
+      {
+        label: "Internships",
+        value: internshipCount,
+        icon: SparklesIcon,
+      },
+      {
+        label: "Top hiring",
+        value: topCompany,
+        icon: BuildingOfficeIcon,
+      },
+    ];
+  }, [filtered, total]);
 
   return (
-    <div>
-      <header className="mb-8">
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-2">Find Your Next Opportunity</h1>
-        <p className="text-lg text-gray-500">Search through hundreds of open roles and find your perfect fit.</p>
-      </header>
+    <div className="space-y-6">
+      <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {metrics.map(({ label, value, icon: Icon }) => (
+          <div
+            key={label}
+            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-card"
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+                {label}
+              </p>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+                <Icon className="h-4 w-4" />
+              </div>
+            </div>
+            <p className="mt-3 text-2xl font-semibold text-slate-900">
+              {typeof value === "number" ? value : <span className="text-base">{value}</span>}
+            </p>
+          </div>
+        ))}
+      </section>
 
       <FilterBar onChange={setFilters} jobs={allJobs} />
 
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold text-gray-700">Job Feed</h2>
-        <div className="text-sm text-gray-500">Showing {paged.length} of {total} results</div>
+      <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 className="text-lg font-semibold text-slate-900">Job feed</h2>
+          <p className="text-xs text-slate-500">{total} curated opportunities based on your filters.</p>
+        </div>
+        <div className="flex items-center gap-3 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 font-medium">
+            <span className="h-2 w-2 rounded-full bg-success" />
+            <span>Approved roles only</span>
+          </span>
+        </div>
       </div>
 
       {loading ? (
-        <div className="p-6 text-center text-gray-500">Loading jobs...</div>
+        <div className="card-elevated flex min-h-[220px] items-center justify-center text-sm text-slate-500">
+          Loading jobs...
+        </div>
       ) : total === 0 ? (
-        <div className="p-10 bg-white rounded-2xl text-center text-gray-600 shadow-lg">
-          <h3 className="text-xl font-semibold">No Jobs Found</h3>
-          <p className="mt-2">Try adjusting your filters to find more opportunities.</p>
+        <div className="card-elevated flex flex-col items-center justify-center gap-3 p-12 text-center text-slate-500">
+          <p className="text-xl font-semibold text-slate-700">No roles match your filters yet</p>
+          <p className="max-w-md text-sm">
+            Adjust filters to broaden your search or check back soon as partner companies add fresh openings.
+          </p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {paged.map((job) => (
-              <JobCard
-                key={job.id}
-                job={job}
-                onApply={() => setSelectedJob(job)}
-              />
+              <JobCard key={job.id} job={job} onApply={() => setSelectedJob(job)} />
             ))}
           </div>
-
-          <Pagination
-            page={page}
-            pageSize={pageSize}
-            total={total}
-            onChange={setPage}
-          />
+          <Pagination page={page} pageSize={pageSize} total={total} onChange={setPage} />
         </>
       )}
 
@@ -96,7 +150,7 @@ export function StudentDashboard() {
         <ApplyModal
           job={selectedJob}
           onClose={() => setSelectedJob(null)}
-          onApplied={() => { /* optionally refresh */ }}
+          onApplied={() => undefined}
         />
       )}
     </div>

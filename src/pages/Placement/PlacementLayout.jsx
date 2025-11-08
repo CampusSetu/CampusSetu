@@ -1,48 +1,63 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useMemo } from "react";
+import { Outlet } from "react-router-dom";
+import {
+  ChartBarSquareIcon,
+  ClipboardDocumentCheckIcon,
+  AcademicCapIcon,
+  GlobeAltIcon,
+} from "@heroicons/react/24/outline";
 import { useAuth } from "../../contexts/AuthContext";
+import DashboardShell from "../../components/layout/DashboardShell";
 
 export function PlacementLayout() {
   const { user, logout } = useAuth();
 
-  const activeLinkStyle = { 
-    color: '#1E40AF',
-    borderBottom: '2px solid #1E40AF',
-    fontWeight: '600'
-  };
+  const navItems = useMemo(
+    () => [
+      { label: "Overview", to: "/placement/dashboard", icon: ChartBarSquareIcon },
+      { label: "Job approvals", to: "/placement/approvals", icon: ClipboardDocumentCheckIcon },
+      { label: "Students", to: "/placement/students", icon: AcademicCapIcon },
+      { label: "External analytics", to: "/analytics", icon: GlobeAltIcon },
+    ],
+    []
+  );
+
+  const headerSlot = (
+    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-400">
+          Placement Control
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold text-slate-900">Coordinate campus hiring with clarity</h1>
+        <p className="mt-3 max-w-3xl text-sm text-slate-500">
+          Approve recruiter requests, align departments, and track outcomes across batches with intelligence surfaced from our analytics hub.
+        </p>
+      </div>
+      <div className="grid gap-3 text-sm">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Upcoming spotlight</p>
+          <p className="mt-2 text-slate-700">TechnoWave Labs pre-placement talk • 28 Aug, 11:00 AM</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const footerSlot = (
+    <div className="space-y-1 text-sm text-slate-500">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Escalations</p>
+      <p>Share recruiter SLA issues at <span className="font-medium text-brand-600">support@campussetu.com</span>.</p>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-6">
-              <NavLink to="/" className="font-bold text-xl text-primary">
-                Campus SETU
-              </NavLink>
-              <nav className="hidden md:flex items-center gap-4 h-full">
-                <NavLink to="/placement/dashboard" end style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  Dashboard
-                </NavLink>
-                <NavLink to="/placement/approvals" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  Job Approvals
-                </NavLink>
-                <NavLink to="/placement/students" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="h-full flex items-center px-2 text-gray-600 hover:text-primary transition-colors">
-                  Manage Students
-                </NavLink>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-700">{user ? `Welcome, ${user.name}` : "Guest"}</span>
-              <button onClick={logout} className="text-sm text-gray-500 hover:text-primary">Logout</button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="container mx-auto p-4 sm:p-6 lg:p-8">
-        <Outlet />
-      </main>
-    </div>
+    <DashboardShell
+      navItems={navItems}
+      user={user}
+      onSignOut={logout}
+      headerSlot={headerSlot}
+      footerSlot={footerSlot}
+    >
+      <Outlet />
+    </DashboardShell>
   );
 }

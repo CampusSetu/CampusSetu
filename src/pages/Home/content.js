@@ -53,6 +53,12 @@ export const heroHighlights = [
   },
 ];
 
+export const heroMetrics = [
+  { label: "Recruiter drives launched", value: "200+" },
+  { label: "Average student adoption", value: "94%" },
+  { label: "Weekly reporting saved", value: "18 hrs" },
+];
+
 export const featurePillars = [
   {
     title: "Campaign Planning",
@@ -84,4 +90,44 @@ export const snapshotTiles = [
   "Department Trends",
   "Recruiter Scorecards",
   "Offer Conversion",
+];
+
+export const trustedBadges = [
+  "IIT Madras",
+  "BITS Pilani",
+  "NIT Trichy",
+  "IIM Bangalore",
+  "Christ University",
+  "IIIT Hyderabad",
+];
+
+export const workflowSteps = [
+  {
+    title: "Onboard teams with structure",
+    caption: "Day 0 setup",
+    copy: "Invite placement officers, recruiters, and student leads with guided roles and checklists ready to follow.",
+  },
+  {
+    title: "Launch coordinated drives",
+    caption: "Plan & execute",
+    copy: "Publish openings, sync interview slots, and automate notifications so everyone stays in lockstep.",
+  },
+  {
+    title: "Report wins instantly",
+    caption: "Share clarity",
+    copy: "Deliver live dashboards and exports to leadership and partners without chasing spreadsheets.",
+  },
+];
+
+export const testimonialHighlight = {
+  quote:
+    "CampusSetu gives us a real-time command centre for every placement season. We finally operate with confidence instead of chasing updates.",
+  name: "Shruti Narayanan",
+  role: "Head of Placements, UrbanTech University",
+};
+
+export const calloutBullets = [
+  "Dedicated workspaces for students, recruiters, and placement cells",
+  "Real-time analytics with exportable snapshots",
+  "Implementation support and campus-ready playbooks",
 ];
