@@ -1,17 +1,9 @@
-let companies = null;
+import companiesData from '../data/companies.json';
+
+let companies = [...companiesData];
 
 async function loadCompanies() {
-  if (companies) return companies;
-  try {
-    const response = await fetch('/src/data/companies.json');
-    if (!response.ok) throw new Error('Network response was not ok');
-    companies = await response.json();
-    return companies;
-  } catch (error) {
-    console.error('Failed to load companies:', error);
-    companies = [];
-    return companies;
-  }
+  return companies;
 }
 
 export async function getCompanyById(id) {

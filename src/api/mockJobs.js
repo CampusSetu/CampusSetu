@@ -1,17 +1,9 @@
-let jobs = null;
+import jobsData from '../data/jobs.json';
+
+let jobs = [...jobsData];
 
 async function loadJobs() {
-  if (jobs) return jobs;
-  try {
-    const response = await fetch('/src/data/jobs.json');
-    if (!response.ok) throw new Error('Network response was not ok');
-    jobs = await response.json();
-    return jobs;
-  } catch (error) {
-    console.error('Failed to load jobs:', error);
-    jobs = []; // Set to empty array on failure
-    return jobs;
-  }
+  return jobs;
 }
 
 export const getJobs = async (filter = {}) => {

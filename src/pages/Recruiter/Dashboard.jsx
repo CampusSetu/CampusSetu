@@ -20,6 +20,8 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import { getJobs } from "../../api/mockJobs";
 import { getApplicationsByJob } from "../../api/mockApplications";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import { dashboardNavConfig } from "../../components/dashboard/navConfig";
 
 const STATUS_LABELS = {
   Applied: "Applied",
@@ -241,7 +243,77 @@ export function RecruiterDashboard() {
   }, [jobs]);
 
   return (
-    <div className="space-y-10">
+    <DashboardLayout
+      title="Recruiter Dashboard"
+      navItems={dashboardNavConfig.recruiter}
+      role="recruiter"
+    >
+      <div className="space-y-6">
+        {/* Welcome Banner */}
+        <section className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-white via-blue-50/70 to-indigo-100/50 px-8 py-10 shadow-[0_40px_90px_-65px_rgba(15,23,42,0.55)]">
+          <div className="pointer-events-none absolute -top-24 left-6 h-56 w-56 rounded-full bg-blue-200/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 right-0 h-72 w-72 rounded-full bg-indigo-200/35 blur-3xl" />
+          <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+            <div className="space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500" />
+                <span>Recruiter workspace</span>
+              </div>
+              <div className="space-y-3">
+                <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+                  {user?.name
+                    ? `Welcome back, ${user.name.split(" ")[0]}!`
+                    : "Your hiring control tower"}
+                </h1>
+                <p className="max-w-xl text-sm leading-relaxed text-slate-600">
+                  Launch new roles in minutes, monitor candidate traction, and stay in sync with placement teams across campus.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => window.location.href = '/recruiter/post-job'}
+                  className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-500"
+                >
+                  Create a new role
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.location.href = '/recruiter/jobs'}
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300"
+                >
+                  Review pipeline
+                </button>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 xl:w-auto">
+              <div className="rounded-2xl border border-white/60 bg-white/85 p-5 shadow-sm backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  Live roles
+                </p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                  {activeRoles}
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Approved and visible to students right now.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/60 bg-white/85 p-5 shadow-sm backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  Awaiting approval
+                </p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                  {pendingRoles}
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Placement team will nudge you for clarifications if needed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      <div className="space-y-10">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div className="card-elevated relative overflow-hidden p-6">
           <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-blue-100/60" />
@@ -669,6 +741,8 @@ export function RecruiterDashboard() {
           </div>
         ))}
       </section>
-    </div>
+      </div>
+      </div>
+    </DashboardLayout>
   );
 }

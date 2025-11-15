@@ -74,6 +74,9 @@ export default function HeroSection({ heroHighlights, heroMetrics, onPrimaryCTA,
                 {metric.label}
               </p>
               <p className="text-2xl font-semibold text-slate-900">{metric.value}</p>
+              {metric.note && (
+                <p className="text-xs text-slate-500">{metric.note}</p>
+              )}
             </div>
           ))}
         </div>

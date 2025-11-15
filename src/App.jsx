@@ -7,14 +7,13 @@ import AuthModal from "./components/AuthModal";
 
 // Student Pages
 import {
-  StudentLayout,
   StudentDashboard,
   StudentApplications,
   StudentProfile,
 } from "./pages/Student";
 
+// Recruiter Pages
 import {
-  RecruiterLayout,
   RecruiterDashboard,
   PostJob,
   JobListings,
@@ -22,9 +21,8 @@ import {
   EditJob,
 } from "./pages/Recruiter";
 
-// CGC Pages
+// Placement (CGC) Pages
 import {
-  PlacementLayout,
   PlacementDashboard,
   JobApprovals,
   ManageStudents,
@@ -44,47 +42,97 @@ export default function App() {
 
         {/* Protected Student Routes */}
         <Route
-          path="/student"
+          path="/student/dashboard"
           element={
             <ProtectedRoute>
-              <StudentLayout />
+              <StudentDashboard />
             </ProtectedRoute>
           }
-        >
-          <Route path="dashboard" element={<StudentDashboard />} />
-          <Route path="profile" element={<StudentProfile />} />
-          <Route path="applications" element={<StudentApplications />} />
-        </Route>
+        />
+        <Route
+          path="/student/profile"
+          element={
+            <ProtectedRoute>
+              <StudentProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/applications"
+          element={
+            <ProtectedRoute>
+              <StudentApplications />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Protected Recruiter Routes */}
         <Route
-          path="/recruiter"
+          path="/recruiter/dashboard"
           element={
             <ProtectedRoute>
-              <RecruiterLayout />
+              <RecruiterDashboard />
             </ProtectedRoute>
           }
-        > 
-          <Route path="dashboard" element={<RecruiterDashboard />} />
-          <Route path="post-job" element={<PostJob />} />
-          <Route path="jobs" element={<JobListings />} />
-          <Route path="jobs/:id/applicants" element={<Applicants />} />
-          <Route path="edit-job/:id" element={<EditJob />} />
-        </Route>
-
-  {/* Protected CGC Routes */}
+        />
         <Route
-          path="/placement"
+          path="/recruiter/post-job"
           element={
             <ProtectedRoute>
-              <PlacementLayout />
+              <PostJob />
             </ProtectedRoute>
           }
-        >
-          <Route path="dashboard" element={<PlacementDashboard />} />
-          <Route path="approvals" element={<JobApprovals />} />
-          <Route path="students" element={<ManageStudents />} />
-        </Route>
+        />
+        <Route
+          path="/recruiter/jobs"
+          element={
+            <ProtectedRoute>
+              <JobListings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recruiter/jobs/:id/applicants"
+          element={
+            <ProtectedRoute>
+              <Applicants />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recruiter/edit-job/:id"
+          element={
+            <ProtectedRoute>
+              <EditJob />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected CGC Routes */}
+        <Route
+          path="/placement/dashboard"
+          element={
+            <ProtectedRoute>
+              <PlacementDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/placement/approvals"
+          element={
+            <ProtectedRoute>
+              <JobApprovals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/placement/students"
+          element={
+            <ProtectedRoute>
+              <ManageStudents />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Not Found Route */}
         <Route

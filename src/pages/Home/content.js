@@ -54,9 +54,9 @@ export const heroHighlights = [
 ];
 
 export const heroMetrics = [
-  { label: "Recruiter drives launched", value: "200+" },
-  { label: "Average student adoption", value: "94%" },
-  { label: "Weekly reporting saved", value: "18 hrs" },
+  { label: "Active job postings", value: "5", note: "Live opportunities" },
+  { label: "Registered companies", value: "10", note: "Partner recruiters" },
+  { label: "Student profiles", value: "3+", note: "Growing network" },
 ];
 
 export const featurePillars = [

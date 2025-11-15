@@ -1,22 +1,37 @@
 import React from "react";
 import JobForm from "../../components/JobForm";
 import { createJob } from "../../api/mockJobs";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import { dashboardNavConfig } from "../../components/dashboard/navConfig";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function PostJob() {
+  const { user } = useAuth();
+
   const handleSubmit = (job) => {
-    const recruiterId = 101; // mock user
+    const recruiterId = user?.id ?? 101;
     createJob({ ...job, postedBy: recruiterId });
     alert("Job posted successfully");
     // todo: redirect or clear form
   };
 
   return (
-    <>
-      <header className="mb-8">
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-2">Post a New Job</h1>
-        <p className="text-lg text-gray-500">Fill out the details below to create a new job listing.</p>
-      </header>
-      <JobForm onSubmit={handleSubmit} />
-    </>
+    <DashboardLayout
+      title="Post a New Job"
+      navItems={dashboardNavConfig.recruiter}
+      role="recruiter"
+    >
+      <div className="space-y-8">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+          <h1 className="text-3xl font-semibold text-slate-900">Create a new opportunity</h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Share role details, expectations, and logistics to reach qualified students instantly.
+          </p>
+        </section>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+          <JobForm onSubmit={handleSubmit} />
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }

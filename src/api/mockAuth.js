@@ -1,19 +1,15 @@
+import usersData from '../data/users.json';
+
 const USERS_KEY = 'cs_users';
 
 async function loadUsers() {
   const raw = localStorage.getItem(USERS_KEY);
   if (raw) return JSON.parse(raw);
 
-  try {
-    const response = await fetch(`/src/data/users.json?t=${new Date().getTime()}`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    const seedUsers = await response.json();
-    localStorage.setItem(USERS_KEY, JSON.stringify(seedUsers));
-    return seedUsers;
-  } catch (error) {
-    console.error('Failed to load seed users:', error);
-    return [];
-  }
+  // Use imported seed data instead of fetch
+  const seedUsers = usersData;
+  localStorage.setItem(USERS_KEY, JSON.stringify(seedUsers));
+  return seedUsers;
 }
 
 function saveUsers(users) {

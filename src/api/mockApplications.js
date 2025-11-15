@@ -1,17 +1,9 @@
-let applications = null;
+import applicationsData from '../data/applications.json';
+
+let applications = [...applicationsData];
 
 async function loadApplications() {
-  if (applications) return applications;
-  try {
-    const response = await fetch('/src/data/applications.json');
-    if (!response.ok) throw new Error('Network response was not ok');
-    applications = await response.json();
-    return applications;
-  } catch (error) {
-    console.error('Failed to load applications:', error);
-    applications = [];
-    return applications;
-  }
+  return applications;
 }
 
 export const getApplications = async (studentId) => {

@@ -5,6 +5,8 @@ import { getApplications } from "../../api/mockApplications";
 import { getJobById } from "../../api/mockJobs";
 import { useAuth } from "../../contexts/AuthContext";
 import { ArrowUpRightIcon, BriefcaseIcon } from "@heroicons/react/24/outline";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import { dashboardNavConfig } from "../../components/dashboard/navConfig";
 
 const StatusBadge = ({ status }) => {
   const variants = {
@@ -86,7 +88,12 @@ export function StudentApplications() {
   }, [apps]);
 
   return (
-    <div className="space-y-6">
+    <DashboardLayout
+      title="My Applications"
+      navItems={dashboardNavConfig.student}
+      role="student"
+    >
+      <div className="space-y-6">
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
@@ -187,6 +194,7 @@ export function StudentApplications() {
           </table>
         </div>
       )}
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

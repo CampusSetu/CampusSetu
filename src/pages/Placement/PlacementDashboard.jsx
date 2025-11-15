@@ -20,6 +20,9 @@ import {
   TrophyIcon,
 } from "@heroicons/react/24/outline";
 import { getRecruitmentHistory } from "../../api/mockRecruitmentHistory";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import { dashboardNavConfig } from "../../components/dashboard/navConfig";
+import { useAuth } from "../../contexts/AuthContext";
 
 const toPercentDelta = (current, previous) => {
   if (previous === undefined || previous === null) {
@@ -32,7 +35,24 @@ const toPercentDelta = (current, previous) => {
   return `${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`;
 };
 
+const getInitials = (name = "") =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((segment) => segment[0])
+    .join("")
+    .toUpperCase() || "C";
+
+const pipelineStageAccent = {
+  Applied: "bg-brand-500",
+  Shortlisted: "bg-emerald-500",
+  Interview: "bg-indigo-500",
+  Hired: "bg-amber-500",
+};
+
 export function PlacementDashboard() {
+  const { user } = useAuth();
   const [history, setHistory] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -140,6 +160,10 @@ export function PlacementDashboard() {
         { stage: "Hired", value: selectedFunnel.hired },
       ]
     : [];
+  const maxFunnelValue = funnelData.reduce(
+    (max, stage) => Math.max(max, stage.value),
+    1
+  );
 
   const maxDeptValue = selectedDepartments.reduce(
     (max, item) => Math.max(max, item.value),
@@ -152,7 +176,77 @@ export function PlacementDashboard() {
   );
 
   return (
-    <div className="space-y-10">
+    <DashboardLayout
+      title="Placement Dashboard"
+      navItems={dashboardNavConfig.placement}
+      role="placement"
+    >
+      <div className="space-y-6">
+        {/* Welcome Banner */}
+        <section className="relative overflow-hidden rounded-2xl border border-slate-100 bg-gradient-to-br from-white via-brand-50/80 to-slate-50 px-8 py-10 shadow-[0_40px_90px_-65px_rgba(15,23,42,0.55)]">
+          <div className="pointer-events-none absolute -top-24 left-6 h-56 w-56 rounded-full bg-brand-200/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 right-0 h-72 w-72 rounded-full bg-brand-100/50 blur-3xl" />
+          <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+            <div className="max-w-2xl space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-xs font-medium text-brand-600 shadow-sm">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+                <span>Placement workspace</span>
+              </div>
+              <div className="space-y-3">
+                <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+                  {user?.name
+                    ? `Welcome back, ${user.name.split(" ")[0]}!`
+                    : "Campus recruitment command center"}
+                </h1>
+                <p className="max-w-xl text-sm leading-relaxed text-slate-600">
+                  Oversee student placements, approve job postings, and track recruitment metrics across all departments.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => (window.location.href = "/placement/approvals")}
+                  className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-500"
+                >
+                  Review job approvals
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (window.location.href = "/placement/students")}
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300"
+                >
+                  Manage students
+                </button>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 xl:w-auto">
+              <div className="rounded-2xl border border-white/60 bg-white/85 p-5 shadow-sm backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  Success rate
+                </p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                  {successRate}%
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Students successfully placed this session.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/60 bg-white/85 p-5 shadow-sm backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  Total placements
+                </p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                  {placementsTotal}
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Offers accepted across all departments.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      <div className="space-y-10">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div className="card-elevated relative overflow-hidden p-6">
           <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-100/60" />
@@ -346,10 +440,12 @@ export function PlacementDashboard() {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
-        <div className="card-elevated p-6">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_1fr]">
+        <div className="card-elevated relative overflow-hidden border border-slate-100 bg-white/95 p-6">
+          <div className="pointer-events-none absolute -top-24 right-10 h-48 w-48 rounded-full bg-brand-100/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-0 h-48 w-48 rounded-full bg-brand-50/60 blur-3xl" />
+          <div className="relative flex flex-wrap items-center gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
               <TrophyIcon className="h-6 w-6" />
             </div>
             <div>
@@ -361,15 +457,15 @@ export function PlacementDashboard() {
               </p>
             </div>
             {history?.years && (
-              <div className="ml-auto flex items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1">
+              <div className="ml-auto flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-2 py-1">
                 {history.years.map((year) => (
                   <button
                     key={year}
                     type="button"
                     onClick={() => setSelectedYear(year)}
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
                       year === selectedYear
-                        ? "bg-brand-600 text-white shadow"
+                        ? "bg-brand-600 text-white shadow shadow-brand-500/40"
                         : "text-slate-500 hover:text-brand-600"
                     }`}
                   >
@@ -379,51 +475,90 @@ export function PlacementDashboard() {
               </div>
             )}
           </div>
-          <div className="mt-6 h-[240px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={funnelData}
-                margin={{ top: 10, right: 16, bottom: 0, left: -10 }}
-              >
-                <CartesianGrid
-                  strokeDasharray="4 4"
-                  stroke="rgba(148,163,184,0.35)"
-                  vertical={false}
-                />
-                <XAxis
-                  dataKey="stage"
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "#64748b", fontSize: 12 }}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "#94a3b8", fontSize: 12 }}
-                  width={36}
-                  allowDecimals={false}
-                />
-                <Tooltip
-                  cursor={{ fill: "rgba(148,163,184,0.08)" }}
-                  contentStyle={{
-                    borderRadius: 16,
-                    border: "1px solid rgba(203,213,225,0.6)",
-                    background: "rgba(255,255,255,0.95)",
-                    backdropFilter: "blur(12px)",
-                  }}
-                />
-                <Bar
-                  dataKey="value"
-                  fill="hsl(221,83%,53%)"
-                  radius={[8, 8, 0, 0]}
-                  maxBarSize={64}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="relative mt-6 flex flex-col gap-6 lg:flex-row">
+            <div className="flex flex-col rounded-3xl border border-slate-100 bg-gradient-to-br from-white via-brand-50/50 to-white px-5 py-4 shadow-soft lg:w-[42%]">
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                <span>Stages</span>
+                <span className="text-slate-500">{selectedYear || "—"}</span>
+              </div>
+              <div className="mt-3 h-[240px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={funnelData}
+                    margin={{ top: 5, right: 12, bottom: 5, left: -10 }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="4 4"
+                      stroke="rgba(148,163,184,0.35)"
+                      vertical={false}
+                    />
+                    <XAxis
+                      dataKey="stage"
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: "#64748b", fontSize: 11 }}
+                    />
+                    <YAxis
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: "#94a3b8", fontSize: 11 }}
+                      width={32}
+                      allowDecimals={false}
+                    />
+                    <Tooltip
+                      cursor={{ fill: "rgba(148,163,184,0.08)" }}
+                      contentStyle={{
+                        borderRadius: 16,
+                        border: "1px solid rgba(203,213,225,0.6)",
+                        background: "rgba(255,255,255,0.95)",
+                        backdropFilter: "blur(12px)",
+                      }}
+                    />
+                    <Bar
+                      dataKey="value"
+                      fill="hsl(221,83%,53%)"
+                      radius={[10, 10, 0, 0]}
+                      maxBarSize={56}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            {selectedFunnel && (
+              <div className="grid flex-1 grid-cols-2 gap-3 content-start">
+                {funnelData.map((stage) => {
+                  const progress = Math.round((stage.value / maxFunnelValue) * 100);
+                  const barColor = pipelineStageAccent[stage.stage] || "bg-slate-400";
+                  return (
+                    <div
+                      key={stage.stage}
+                      className="flex flex-col gap-2 rounded-3xl border border-slate-100 bg-white/95 px-4 py-3 shadow-soft"
+                    >
+                      <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
+                        <span>{stage.stage}</span>
+                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] tracking-[0.2em] text-slate-500">
+                          {progress}%
+                        </span>
+                      </div>
+                      <p className="text-2xl font-semibold text-slate-900">
+                        {stage.value}
+                      </p>
+                      <p className="text-xs text-slate-500">{progress}% of funnel</p>
+                      <div className="h-1.5 rounded-full bg-slate-100">
+                        <div
+                          className={`h-full rounded-full ${barColor}`}
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           <div className="card-elevated p-6">
             <h2 className="text-lg font-semibold text-slate-900">
               Top hiring partners
@@ -431,28 +566,36 @@ export function PlacementDashboard() {
             <p className="text-sm text-slate-500">
               Focus on accounts driving offer momentum.
             </p>
-            <div className="mt-5 space-y-4">
+            <div className="mt-5 grid gap-3 grid-cols-2">
               {topCompanies.length > 0 ? (
                 topCompanies.map((company) => (
                   <div
                     key={company.id}
-                    className="flex items-center justify-between"
+                    className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-soft"
                   >
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">
-                        {company.name}
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        {company.hires} hires · {company.offers} offers
-                      </p>
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-sm font-semibold text-brand-600">
+                        {getInitials(company.name)}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-900 truncate">
+                          {company.name}
+                        </p>
+                        <p className="text-xs text-slate-500">
+                          {company.hires} hires · {company.offers} offers
+                        </p>
+                      </div>
                     </div>
-                    <span className="text-xs font-semibold text-emerald-600">
-                      {(company.successRate * 100).toFixed(0)}% success
-                    </span>
+                    <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+                      <span>Conversion</span>
+                      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
+                        {(company.successRate * 100).toFixed(0)}% success
+                      </span>
+                    </div>
                   </div>
                 ))
               ) : (
-                <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-10 text-center text-sm text-slate-500">
+                <div className="col-span-2 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-10 text-center text-sm text-slate-500">
                   No partner data yet—sync analytics to populate.
                 </div>
               )}
@@ -468,16 +611,20 @@ export function PlacementDashboard() {
             </p>
             <div className="mt-5 space-y-3">
               {selectedLocations.map((location) => (
-                <div key={location.type}>
+                <div
+                  key={location.type}
+                  className="rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-soft"
+                >
                   <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium text-slate-700">
+                    <div className="flex items-center gap-2 font-semibold text-slate-800">
+                      <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
                       {location.type}
-                    </span>
+                    </div>
                     <span className="text-sm font-semibold text-slate-900">
                       {location.value}
                     </span>
                   </div>
-                  <div className="mt-2 h-2 rounded-full bg-slate-100">
+                  <div className="mt-2 h-1.5 rounded-full bg-slate-100">
                     <div
                       className="h-full rounded-full bg-brand-500"
                       style={{
@@ -494,28 +641,31 @@ export function PlacementDashboard() {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="card-elevated p-6">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_1fr]">
+        <div className="card-elevated p-6 h-fit">
           <h2 className="text-lg font-semibold text-slate-900">
             Department performance
           </h2>
           <p className="text-sm text-slate-500">
             Align program interventions with placement outcomes.
           </p>
-          <div className="mt-5 space-y-4">
+          <div className="mt-5 grid gap-3 grid-cols-2">
             {selectedDepartments.map((dept) => (
-              <div key={dept.type}>
+              <div
+                key={dept.type}
+                className="rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-soft"
+              >
                 <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-slate-700">
+                  <span className="font-semibold text-slate-800">
                     {dept.type}
                   </span>
                   <span className="text-sm font-semibold text-slate-900">
                     {dept.value}
                   </span>
                 </div>
-                <div className="mt-2 h-2 rounded-full bg-slate-100">
+                <div className="mt-2 h-1.5 rounded-full bg-slate-100">
                   <div
-                    className="h-full rounded-full bg-indigo-500"
+                    className="h-full rounded-full bg-brand-500"
                     style={{
                       width: `${Math.round(
                         (dept.value / maxDeptValue) * 100
@@ -528,16 +678,17 @@ export function PlacementDashboard() {
           </div>
         </div>
 
-        <div className="card-elevated p-6">
+        <div className="card-elevated p-6 h-fit">
           <h2 className="text-lg font-semibold text-slate-900">
             Global outreach
           </h2>
           <p className="text-sm text-slate-500">
             Partner with alumni chapters to unlock new regional cohorts.
           </p>
-          <div className="mt-6 rounded-2xl border border-dashed border-slate-200 bg-gradient-to-br from-blue-50/80 via-white to-indigo-50/70 p-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+          <div className="relative mt-6 overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 via-white to-emerald-50 p-6 shadow-soft">
+            <div className="pointer-events-none absolute -top-16 right-0 h-32 w-32 rounded-full bg-brand-200/40 blur-3xl" />
+            <div className="relative flex items-center gap-3">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-brand-600 shadow">
                 <GlobeAltIcon className="h-6 w-6" />
               </div>
               <div>
@@ -549,15 +700,32 @@ export function PlacementDashboard() {
                 </p>
               </div>
             </div>
+            <div className="relative mt-5 grid gap-3 text-sm text-slate-600">
+              {["Compile cohort-specific wins and testimonials.", "Coordinate campus + alumni roadshows for Q1."].map(
+                (item, idx) => (
+                  <div
+                    key={item}
+                    className="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/60 px-4 py-3"
+                  >
+                    <span className="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-100 text-[11px] font-semibold text-brand-600">
+                      {idx + 1}
+                    </span>
+                    <p>{item}</p>
+                  </div>
+                )
+              )}
+            </div>
             <button
               type="button"
-              className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-500"
+              className="relative mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-500"
             >
               Share campaign kit
             </button>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      </div>
+    </DashboardLayout>
   );
 }

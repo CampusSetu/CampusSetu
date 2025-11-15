@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import {
   Squares2X2Icon,
   ClipboardDocumentCheckIcon,
@@ -66,18 +66,18 @@ export function StudentLayout() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
+            <Link
+              to="/student/dashboard"
               className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-500"
             >
               Browse curated roles
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
+              to="/student/profile"
               className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300"
             >
               Update profile
-            </button>
+            </Link>
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -89,8 +89,16 @@ export function StudentLayout() {
               {cgpaValue}
             </p>
             <p className="mt-2 text-xs text-slate-500">
-              Sync your semester results to keep this score current.
+              {cgpaValue === "—" ? "Add your CGPA to get started" : "Synced from profile"}
             </p>
+            {cgpaValue === "—" && (
+              <Link 
+                to="/student/profile"
+                className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700"
+              >
+                Add CGPA →
+              </Link>
+            )}
           </div>
           <div className="rounded-2xl border border-white/60 bg-white/85 p-5 shadow-sm backdrop-blur">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">

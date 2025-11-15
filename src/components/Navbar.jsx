@@ -86,6 +86,12 @@ const Navbar = () => {
           <div className="hidden items-center gap-2 lg:flex">
           {user ? (
             <>
+                <div className="flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/70 px-3 py-1.5">
+                  <span className="text-xs font-medium text-slate-500">{user.name}</span>
+                  <span className="inline-flex rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-700">
+                    {user.role}
+                  </span>
+                </div>
                 <Button
                   variant="ghost"
                   onClick={goToDashboard}

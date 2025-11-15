@@ -6,6 +6,8 @@ import {
   LinkIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import { dashboardNavConfig } from "../../components/dashboard/navConfig";
 
 const Field = ({ label, description, children }) => (
   <div className="space-y-1">
@@ -77,8 +79,13 @@ export function StudentProfile() {
   };
 
   return (
-    <div className="space-y-6">
-  <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+    <DashboardLayout
+      title="My Profile"
+      navItems={dashboardNavConfig.student}
+      role="student"
+    >
+      <div className="space-y-6">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-400">
@@ -193,6 +200,7 @@ export function StudentProfile() {
           </div>
         </form>
       </section>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
