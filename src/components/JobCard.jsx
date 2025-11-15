@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import {
   MapPinIcon,
   BriefcaseIcon,
@@ -10,7 +10,7 @@ import Button from "./Button";
 const JobCard = ({ job, onApply }) => {
   const tags = job.skills?.slice(0, 4) ?? [];
   return (
-    <motion.article
+    <Motion.article
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 320, damping: 24 }}
       className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-card"
@@ -65,7 +65,7 @@ const JobCard = ({ job, onApply }) => {
           </Button>
         </div>
       </div>
-    </motion.article>
+    </Motion.article>
   );
 };
 

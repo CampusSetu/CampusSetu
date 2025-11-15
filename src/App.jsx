@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import JobDetails from "./pages/JobDetails/JobDetails";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -33,11 +33,17 @@ import { AnalyticsDashboard } from "./pages/Analytics";
 
 // Feature Pages
 import {
-  CompanyInsights,
   AlumniNetwork,
   InterviewScheduling,
   ResumeIntelligence,
 } from "./pages/Features";
+
+// Insights System
+import InsightsLayout from "./pages/Insights/InsightsLayout";
+import Overview from "./pages/Insights/Overview";
+import Explorer from "./pages/Insights/Explorer";
+import Stories from "./pages/Insights/Stories";
+import Share from "./pages/Insights/Share";
 
 export default function App() {
   return (
@@ -47,9 +53,18 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/analytics" element={<AnalyticsDashboard />} />
+        <Route path="/insights" element={<InsightsLayout />}>
+          <Route index element={<Overview />} />
+          <Route path="explorer" element={<Explorer />} />
+          <Route path="stories" element={<Stories />} />
+          <Route path="share" element={<Share />} />
+        </Route>
         
         {/* Feature Pages */}
-        <Route path="/features/company-insights" element={<CompanyInsights />} />
+        <Route
+          path="/features/company-insights"
+          element={<Navigate to="/insights" replace />}
+        />
         <Route path="/features/alumni-network" element={<AlumniNetwork />} />
         <Route path="/features/interview-scheduling" element={<InterviewScheduling />} />
         <Route path="/features/resume-intelligence" element={<ResumeIntelligence />} />

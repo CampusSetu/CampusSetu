@@ -23,6 +23,12 @@ export const dashboardNavConfig = {
     { title: "Manage Students", icon: UserCircleIcon, path: "/placement/students" },
     { title: "Analytics", icon: ChartBarIcon, path: "/analytics" },
   ],
+  insights: [
+    { title: "Overview", icon: Squares2X2Icon, path: "/insights" },
+    { title: "Explorer", icon: ChartBarIcon, path: "/insights/explorer" },
+    { title: "Stories", icon: ClipboardDocumentCheckIcon, path: "/insights/stories" },
+    { title: "Share", icon: BriefcaseIcon, path: "/insights/share" },
+  ],
 };
 
 export const getDashboardNav = (role) => {

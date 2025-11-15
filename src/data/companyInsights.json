@@ -1,0 +1,715 @@
+[
+  {
+    "id": "aurora-tech",
+    "name": "Aurora Tech Labs",
+    "logo": "ATL",
+    "tier": "Product",
+    "domain": "AI Platforms",
+    "locations": ["Bengaluru", "Remote"],
+    "ratings": {
+      "transparency": 4.7,
+      "difficulty": 3.8,
+      "negotiation": 4.1,
+      "culture": 4.6
+    },
+    "roles": [
+      {
+        "title": "Software Engineer",
+        "level": "New Grad",
+        "medianCtc": 48.5,
+        "base": 26,
+        "bonus": 6,
+        "stock": 12,
+        "other": 4.5,
+        "location": "Bengaluru",
+        "offersMade": 18,
+        "offersAccepted": 11,
+        "dropouts": 2,
+        "internConversions": 7
+      },
+      {
+        "title": "Product Analyst",
+        "level": "Graduate",
+        "medianCtc": 32,
+        "base": 18,
+        "bonus": 4,
+        "stock": 6,
+        "other": 4,
+        "location": "Remote",
+        "offersMade": 9,
+        "offersAccepted": 6,
+        "dropouts": 1,
+        "internConversions": 3
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "atl-exp-1",
+        "role": "Software Engineer",
+        "batch": "2024",
+        "location": "Bengaluru",
+        "difficulty": "Moderate",
+        "summary": "Four rounds focusing on system design fundamentals and ML-adjacent coding.",
+        "roundHighlights": [
+          "OA: 3 coding questions on data streams",
+          "Tech round: Kubernetes-focused debugging",
+          "System design: Building a feature flag service",
+          "Culture fit with Director"
+        ],
+        "tips": "Know vector DB basics and articulate trade-offs clearly.",
+        "overallScore": 4.4
+      },
+      {
+        "id": "atl-exp-2",
+        "role": "Product Analyst",
+        "batch": "2025",
+        "location": "Remote",
+        "difficulty": "Challenging",
+        "summary": "Mini case study with live SQL evaluation.",
+        "roundHighlights": [
+          "Case prep on DAU churn",
+          "SQL live coding on joins",
+          "Presentation to panel"
+        ],
+        "tips": "Time-box your approach and narrate thinking aloud.",
+        "overallScore": 4.0
+      }
+    ]
+  },
+  {
+    "id": "zephyr-networks",
+    "name": "Zephyr Networks",
+    "logo": "ZN",
+    "tier": "Unicorn",
+    "domain": "Cloud Security",
+    "locations": ["Hyderabad", "Pune"],
+    "ratings": {
+      "transparency": 4.2,
+      "difficulty": 4.5,
+      "negotiation": 3.9,
+      "culture": 4.1
+    },
+    "roles": [
+      {
+        "title": "Security Engineer",
+        "level": "Graduate",
+        "medianCtc": 36,
+        "base": 20,
+        "bonus": 6,
+        "stock": 5,
+        "other": 5,
+        "location": "Hyderabad",
+        "offersMade": 14,
+        "offersAccepted": 9,
+        "dropouts": 3,
+        "internConversions": 4
+      },
+      {
+        "title": "Site Reliability Engineer",
+        "level": "Graduate",
+        "medianCtc": 40,
+        "base": 22,
+        "bonus": 7,
+        "stock": 7,
+        "other": 4,
+        "location": "Pune",
+        "offersMade": 12,
+        "offersAccepted": 8,
+        "dropouts": 1,
+        "internConversions": 5
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "zn-exp-1",
+        "role": "Security Engineer",
+        "batch": "2024",
+        "location": "Hyderabad",
+        "difficulty": "Hard",
+        "summary": "Heavy on threat modeling and zero-day simulations.",
+        "roundHighlights": [
+          "Capture-the-flag style assessment",
+          "Incident response tabletop",
+          "Panel interview with CISO"
+        ],
+        "tips": "Prepare concrete incident stories and metrics.",
+        "overallScore": 3.8
+      },
+      {
+        "id": "zn-exp-2",
+        "role": "Site Reliability Engineer",
+        "batch": "2025",
+        "location": "Pune",
+        "difficulty": "Moderate",
+        "summary": "Focus on observability trade-offs and load testing.",
+        "roundHighlights": [
+          "Terraform debugging",
+          "Pager escalation simulation",
+          "Behavioral deep dive"
+        ],
+        "tips": "Highlight on-call maturity and tooling depth.",
+        "overallScore": 4.1
+      }
+    ]
+  },
+  {
+    "id": "pulse-fintech",
+    "name": "Pulse Fintech",
+    "logo": "PF",
+    "tier": "FinTech Scale-up",
+    "domain": "Payments",
+    "locations": ["Mumbai", "Gurugram"],
+    "ratings": {
+      "transparency": 3.9,
+      "difficulty": 3.6,
+      "negotiation": 3.4,
+      "culture": 4.0
+    },
+    "roles": [
+      {
+        "title": "Backend Engineer",
+        "level": "Graduate",
+        "medianCtc": 28,
+        "base": 16,
+        "bonus": 5,
+        "stock": 3,
+        "other": 4,
+        "location": "Mumbai",
+        "offersMade": 22,
+        "offersAccepted": 15,
+        "dropouts": 5,
+        "internConversions": 6
+      },
+      {
+        "title": "Risk Analyst",
+        "level": "Graduate",
+        "medianCtc": 24,
+        "base": 14,
+        "bonus": 4,
+        "stock": 2,
+        "other": 4,
+        "location": "Gurugram",
+        "offersMade": 16,
+        "offersAccepted": 10,
+        "dropouts": 3,
+        "internConversions": 4
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "pf-exp-1",
+        "role": "Backend Engineer",
+        "batch": "2023",
+        "location": "Mumbai",
+        "difficulty": "Moderate",
+        "summary": "API design exercise plus live coding on settlements.",
+        "roundHighlights": [
+          "DSA OA",
+          "Low-level design for ledger",
+          "CTO culture call"
+        ],
+        "tips": "Stress on financial correctness and idempotency.",
+        "overallScore": 3.9
+      },
+      {
+        "id": "pf-exp-2",
+        "role": "Risk Analyst",
+        "batch": "2024",
+        "location": "Gurugram",
+        "difficulty": "Easy",
+        "summary": "Excel modeling with real merchant cohort data.",
+        "roundHighlights": [
+          "Case + SQL",
+          "Behavioral",
+          "Leadership panel"
+        ],
+        "tips": "Speak about stakeholder collaboration.",
+        "overallScore": 4.2
+      }
+    ]
+  },
+  {
+    "id": "northwind-systems",
+    "name": "Northwind Systems",
+    "logo": "NS",
+    "tier": "Legacy Enterprise",
+    "domain": "ERP",
+    "locations": ["Chennai", "Bengaluru"],
+    "ratings": {
+      "transparency": 4.1,
+      "difficulty": 3.2,
+      "negotiation": 3.5,
+      "culture": 3.7
+    },
+    "roles": [
+      {
+        "title": "Implementation Consultant",
+        "level": "Graduate",
+        "medianCtc": 18,
+        "base": 12,
+        "bonus": 3,
+        "stock": 0,
+        "other": 3,
+        "location": "Chennai",
+        "offersMade": 30,
+        "offersAccepted": 23,
+        "dropouts": 4,
+        "internConversions": 12
+      },
+      {
+        "title": "QA Engineer",
+        "level": "Graduate",
+        "medianCtc": 16,
+        "base": 10,
+        "bonus": 3,
+        "stock": 0,
+        "other": 3,
+        "location": "Bengaluru",
+        "offersMade": 26,
+        "offersAccepted": 19,
+        "dropouts": 5,
+        "internConversions": 10
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "ns-exp-1",
+        "role": "Implementation Consultant",
+        "batch": "2025",
+        "location": "Chennai",
+        "difficulty": "Easy",
+        "summary": "Business case plus stakeholder role play.",
+        "roundHighlights": [
+          "Case on supply chain",
+          "Client handling simulation"
+        ],
+        "tips": "Be structured and quantify impact.",
+        "overallScore": 3.6
+      }
+    ]
+  },
+  {
+    "id": "stellar-commerce",
+    "name": "Stellar Commerce",
+    "logo": "SC",
+    "tier": "Hyper-growth",
+    "domain": "E-commerce",
+    "locations": ["Bengaluru", "Remote"],
+    "ratings": {
+      "transparency": 4.4,
+      "difficulty": 4.0,
+      "negotiation": 4.2,
+      "culture": 4.5
+    },
+    "roles": [
+      {
+        "title": "SDE",
+        "level": "Graduate",
+        "medianCtc": 52,
+        "base": 28,
+        "bonus": 10,
+        "stock": 10,
+        "other": 4,
+        "location": "Bengaluru",
+        "offersMade": 12,
+        "offersAccepted": 9,
+        "dropouts": 1,
+        "internConversions": 5
+      },
+      {
+        "title": "Data Scientist",
+        "level": "Graduate",
+        "medianCtc": 46,
+        "base": 24,
+        "bonus": 8,
+        "stock": 10,
+        "other": 4,
+        "location": "Remote",
+        "offersMade": 10,
+        "offersAccepted": 7,
+        "dropouts": 1,
+        "internConversions": 3
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "sc-exp-1",
+        "role": "SDE",
+        "batch": "2024",
+        "location": "Bengaluru",
+        "difficulty": "Hard",
+        "summary": "Live pair programming with Staff engineers.",
+        "roundHighlights": [
+          "System design for flash sales",
+          "Pair programming on Golang",
+          "Product sense discussion"
+        ],
+        "tips": "Demonstrate ownership stories.",
+        "overallScore": 4.5
+      },
+      {
+        "id": "sc-exp-2",
+        "role": "Data Scientist",
+        "batch": "2025",
+        "location": "Remote",
+        "difficulty": "Moderate",
+        "summary": "Case on personalization uplift with notebook review.",
+        "roundHighlights": [
+          "Python notebook walk-through",
+          "Experiment design",
+          "Culture add"
+        ],
+        "tips": "Show communication clarity.",
+        "overallScore": 4.2
+      }
+    ]
+  },
+  {
+    "id": "quantum-biologics",
+    "name": "Quantum Biologics",
+    "logo": "QB",
+    "tier": "DeepTech",
+    "domain": "BioTech",
+    "locations": ["Pune", "Hyderabad"],
+    "ratings": {
+      "transparency": 3.8,
+      "difficulty": 4.4,
+      "negotiation": 3.2,
+      "culture": 4.3
+    },
+    "roles": [
+      {
+        "title": "ML Scientist",
+        "level": "Graduate",
+        "medianCtc": 38,
+        "base": 22,
+        "bonus": 5,
+        "stock": 7,
+        "other": 4,
+        "location": "Hyderabad",
+        "offersMade": 8,
+        "offersAccepted": 5,
+        "dropouts": 1,
+        "internConversions": 2
+      },
+      {
+        "title": "Research Engineer",
+        "level": "Graduate",
+        "medianCtc": 34,
+        "base": 20,
+        "bonus": 4,
+        "stock": 6,
+        "other": 4,
+        "location": "Pune",
+        "offersMade": 10,
+        "offersAccepted": 6,
+        "dropouts": 2,
+        "internConversions": 2
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "qb-exp-1",
+        "role": "ML Scientist",
+        "batch": "2024",
+        "location": "Hyderabad",
+        "difficulty": "Hard",
+        "summary": "Research paper defense plus math heavy rounds.",
+        "roundHighlights": [
+          "Paper walkthrough",
+          "Differential equations whiteboard",
+          "Hiring manager"
+        ],
+        "tips": "Revise probability rigorously.",
+        "overallScore": 4.1
+      }
+    ]
+  },
+  {
+    "id": "astra-space",
+    "name": "Astra Space Systems",
+    "logo": "AS",
+    "tier": "Hardware",
+    "domain": "AeroSpace",
+    "locations": ["Bengaluru", "Chennai"],
+    "ratings": {
+      "transparency": 4.5,
+      "difficulty": 3.5,
+      "negotiation": 3.9,
+      "culture": 4.2
+    },
+    "roles": [
+      {
+        "title": "Embedded Engineer",
+        "level": "Graduate",
+        "medianCtc": 30,
+        "base": 18,
+        "bonus": 4,
+        "stock": 3,
+        "other": 5,
+        "location": "Chennai",
+        "offersMade": 20,
+        "offersAccepted": 14,
+        "dropouts": 3,
+        "internConversions": 6
+      },
+      {
+        "title": "Avionics Analyst",
+        "level": "Graduate",
+        "medianCtc": 28,
+        "base": 16,
+        "bonus": 3,
+        "stock": 3,
+        "other": 6,
+        "location": "Bengaluru",
+        "offersMade": 12,
+        "offersAccepted": 8,
+        "dropouts": 1,
+        "internConversions": 4
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "as-exp-1",
+        "role": "Embedded Engineer",
+        "batch": "2023",
+        "location": "Chennai",
+        "difficulty": "Moderate",
+        "summary": "Firmware debugging plus hardware lab visit.",
+        "roundHighlights": [
+          "C programming challenge",
+          "Oscilloscope measurement task"
+        ],
+        "tips": "Revise control systems.",
+        "overallScore": 3.8
+      }
+    ]
+  },
+  {
+    "id": "lumen-analytics",
+    "name": "Lumen Analytics",
+    "logo": "LA",
+    "tier": "Analytics Consultancy",
+    "domain": "Data",
+    "locations": ["Delhi", "Remote"],
+    "ratings": {
+      "transparency": 4.0,
+      "difficulty": 3.4,
+      "negotiation": 3.7,
+      "culture": 4.3
+    },
+    "roles": [
+      {
+        "title": "Data Analyst",
+        "level": "Graduate",
+        "medianCtc": 20,
+        "base": 12,
+        "bonus": 3,
+        "stock": 0,
+        "other": 5,
+        "location": "Delhi",
+        "offersMade": 28,
+        "offersAccepted": 18,
+        "dropouts": 6,
+        "internConversions": 9
+      },
+      {
+        "title": "Analytics Consultant",
+        "level": "Graduate",
+        "medianCtc": 26,
+        "base": 15,
+        "bonus": 4,
+        "stock": 0,
+        "other": 7,
+        "location": "Remote",
+        "offersMade": 16,
+        "offersAccepted": 11,
+        "dropouts": 2,
+        "internConversions": 5
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "la-exp-1",
+        "role": "Data Analyst",
+        "batch": "2024",
+        "location": "Delhi",
+        "difficulty": "Easy",
+        "summary": "Excel modeling plus stakeholder presentation.",
+        "roundHighlights": [
+          "Analytics case",
+          "Storytelling interview"
+        ],
+        "tips": "Make charts clean and cite numbers.",
+        "overallScore": 3.7
+      }
+    ]
+  },
+  {
+    "id": "orbit-robotics",
+    "name": "Orbit Robotics",
+    "logo": "OR",
+    "tier": "Robotics Startup",
+    "domain": "Robotics",
+    "locations": ["Mumbai", "Bengaluru"],
+    "ratings": {
+      "transparency": 4.3,
+      "difficulty": 4.1,
+      "negotiation": 3.8,
+      "culture": 4.4
+    },
+    "roles": [
+      {
+        "title": "Robotics Engineer",
+        "level": "Graduate",
+        "medianCtc": 42,
+        "base": 24,
+        "bonus": 6,
+        "stock": 7,
+        "other": 5,
+        "location": "Bengaluru",
+        "offersMade": 10,
+        "offersAccepted": 7,
+        "dropouts": 1,
+        "internConversions": 3
+      },
+      {
+        "title": "Controls Engineer",
+        "level": "Graduate",
+        "medianCtc": 34,
+        "base": 20,
+        "bonus": 4,
+        "stock": 5,
+        "other": 5,
+        "location": "Mumbai",
+        "offersMade": 9,
+        "offersAccepted": 6,
+        "dropouts": 1,
+        "internConversions": 2
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "or-exp-1",
+        "role": "Robotics Engineer",
+        "batch": "2025",
+        "location": "Bengaluru",
+        "difficulty": "Hard",
+        "summary": "Simulation + ROS live coding.",
+        "roundHighlights": [
+          "Kinodynamics quiz",
+          "ROS bag debugging",
+          "Leadership round"
+        ],
+        "tips": "Have demo-ready projects.",
+        "overallScore": 4.3
+      }
+    ]
+  },
+  {
+    "id": "copper-ventures",
+    "name": "Copper Ventures",
+    "logo": "CV",
+    "tier": "Consulting Boutique",
+    "domain": "Strategy",
+    "locations": ["Gurugram", "Mumbai"],
+    "ratings": {
+      "transparency": 4.6,
+      "difficulty": 3.9,
+      "negotiation": 4.0,
+      "culture": 4.2
+    },
+    "roles": [
+      {
+        "title": "Associate Consultant",
+        "level": "Graduate",
+        "medianCtc": 22,
+        "base": 14,
+        "bonus": 4,
+        "stock": 0,
+        "other": 4,
+        "location": "Gurugram",
+        "offersMade": 24,
+        "offersAccepted": 17,
+        "dropouts": 3,
+        "internConversions": 8
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "cv-exp-1",
+        "role": "Associate Consultant",
+        "batch": "2023",
+        "location": "Gurugram",
+        "difficulty": "Moderate",
+        "summary": "Case + presentation on sustainability ops.",
+        "roundHighlights": [
+          "Case interview",
+          "Partner fit round"
+        ],
+        "tips": "Structure + MECE is evaluated heavily.",
+        "overallScore": 4.0
+      }
+    ]
+  },
+  {
+    "id": "helix-health",
+    "name": "Helix Health",
+    "logo": "HH",
+    "tier": "HealthTech",
+    "domain": "Healthcare",
+    "locations": ["Bengaluru", "Pune"],
+    "ratings": {
+      "transparency": 4.1,
+      "difficulty": 3.3,
+      "negotiation": 3.8,
+      "culture": 4.5
+    },
+    "roles": [
+      {
+        "title": "Full Stack Engineer",
+        "level": "Graduate",
+        "medianCtc": 26,
+        "base": 16,
+        "bonus": 4,
+        "stock": 2,
+        "other": 4,
+        "location": "Pune",
+        "offersMade": 20,
+        "offersAccepted": 14,
+        "dropouts": 2,
+        "internConversions": 6
+      },
+      {
+        "title": "Clinical Data Associate",
+        "level": "Graduate",
+        "medianCtc": 18,
+        "base": 12,
+        "bonus": 2,
+        "stock": 0,
+        "other": 4,
+        "location": "Bengaluru",
+        "offersMade": 18,
+        "offersAccepted": 12,
+        "dropouts": 3,
+        "internConversions": 5
+      }
+    ],
+    "interviewExperiences": [
+      {
+        "id": "hh-exp-1",
+        "role": "Full Stack Engineer",
+        "batch": "2024",
+        "location": "Pune",
+        "difficulty": "Moderate",
+        "summary": "React + Node pairing plus HIPAA compliance round.",
+        "roundHighlights": [
+          "Live pair programming",
+          "Security questionnaire"
+        ],
+        "tips": "Mention healthcare exposure.",
+        "overallScore": 3.9
+      }
+    ]
+  }
+]

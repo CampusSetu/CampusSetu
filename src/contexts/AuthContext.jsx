@@ -4,6 +4,7 @@ import * as mockAuth from '../api/mockAuth';
 const KEY = 'cs_auth_state';
 const AuthContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }

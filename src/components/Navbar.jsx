@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
 import { useUI } from "../contexts/UIContext";
@@ -183,14 +183,14 @@ const Navbar = () => {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <Motion.div
             className="fixed inset-0 z-40 bg-slate-900/25 backdrop-blur"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setMenuOpen(false)}
           >
-            <motion.div
+            <Motion.div
               className="absolute right-4 top-20 w-[85vw] max-w-sm rounded-2xl border border-white/40 bg-white/85 p-6 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.6)] ring-1 ring-white/50 backdrop-blur"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -232,8 +232,8 @@ const Navbar = () => {
                   </>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </Motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </header>

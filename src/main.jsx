@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { UIProvider } from "./contexts/UIContext";
+import { InsightsProvider } from "./contexts/InsightsContext";
 import App from "./App";
 import "./index.css";
 
@@ -18,7 +19,9 @@ createRoot(container).render(
     <BrowserRouter>
       <AuthProvider>
         <UIProvider>
-          <App />
+          <InsightsProvider>
+            <App />
+          </InsightsProvider>
         </UIProvider>
       </AuthProvider>
     </BrowserRouter>
