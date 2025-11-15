@@ -440,8 +440,8 @@ export function PlacementDashboard() {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.15fr_1fr]">
-        <div className="card-elevated relative overflow-hidden border border-slate-100 bg-white/95 p-6">
+      <section className="grid grid-cols-1 gap-6">
+        <div className="card-elevated relative col-span-2 overflow-hidden border border-slate-100 bg-white/95 p-6">
           <div className="pointer-events-none absolute -top-24 right-10 h-48 w-48 rounded-full bg-brand-100/40 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 left-0 h-48 w-48 rounded-full bg-brand-50/60 blur-3xl" />
           <div className="relative flex flex-wrap items-center gap-4">
@@ -557,86 +557,86 @@ export function PlacementDashboard() {
             )}
           </div>
         </div>
+      </section>
 
-        <div className="flex flex-col gap-6">
-          <div className="card-elevated p-6">
-            <h2 className="text-lg font-semibold text-slate-900">
-              Top hiring partners
-            </h2>
-            <p className="text-sm text-slate-500">
-              Focus on accounts driving offer momentum.
-            </p>
-            <div className="mt-5 grid gap-3 grid-cols-2">
-              {topCompanies.length > 0 ? (
-                topCompanies.map((company) => (
-                  <div
-                    key={company.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-soft"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-sm font-semibold text-brand-600">
-                        {getInitials(company.name)}
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-slate-900 truncate">
-                          {company.name}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          {company.hires} hires · {company.offers} offers
-                        </p>
-                      </div>
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <div className="card-elevated p-6">
+          <h2 className="text-lg font-semibold text-slate-900">
+            Top hiring partners
+          </h2>
+          <p className="text-sm text-slate-500">
+            Focus on accounts driving offer momentum.
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            {topCompanies.length > 0 ? (
+              topCompanies.map((company) => (
+                <div
+                  key={company.id}
+                  className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-soft"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-sm font-semibold text-brand-600">
+                      {getInitials(company.name)}
                     </div>
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
-                      <span>Conversion</span>
-                      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
-                        {(company.successRate * 100).toFixed(0)}% success
-                      </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-slate-900">
+                        {company.name}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        {company.hires} hires · {company.offers} offers
+                      </p>
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="col-span-2 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-10 text-center text-sm text-slate-500">
-                  No partner data yet—sync analytics to populate.
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="card-elevated p-6">
-            <h2 className="text-lg font-semibold text-slate-900">
-              Geographic coverage
-            </h2>
-            <p className="text-sm text-slate-500">
-              See where opportunities emerged for this batch.
-            </p>
-            <div className="mt-5 space-y-3">
-              {selectedLocations.map((location) => (
-                <div
-                  key={location.type}
-                  className="rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-soft"
-                >
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2 font-semibold text-slate-800">
-                      <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
-                      {location.type}
-                    </div>
-                    <span className="text-sm font-semibold text-slate-900">
-                      {location.value}
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+                    <span>Conversion</span>
+                    <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
+                      {(company.successRate * 100).toFixed(0)}% success
                     </span>
                   </div>
-                  <div className="mt-2 h-1.5 rounded-full bg-slate-100">
-                    <div
-                      className="h-full rounded-full bg-brand-500"
-                      style={{
-                        width: `${Math.round(
-                          (location.value / maxLocationValue) * 100
-                        )}%`,
-                      }}
-                    />
-                  </div>
                 </div>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div className="col-span-2 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-10 text-center text-sm text-slate-500">
+                No partner data yet—sync analytics to populate.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="card-elevated p-6">
+          <h2 className="text-lg font-semibold text-slate-900">
+            Geographic coverage
+          </h2>
+          <p className="text-sm text-slate-500">
+            See where opportunities emerged for this batch.
+          </p>
+          <div className="mt-5 space-y-3">
+            {selectedLocations.map((location) => (
+              <div
+                key={location.type}
+                className="rounded-2xl border border-slate-100 bg-white/90 px-4 py-3 shadow-soft"
+              >
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2 font-semibold text-slate-800">
+                    <span className="inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
+                    {location.type}
+                  </div>
+                  <span className="text-sm font-semibold text-slate-900">
+                    {location.value}
+                  </span>
+                </div>
+                <div className="mt-2 h-1.5 rounded-full bg-slate-100">
+                  <div
+                    className="h-full rounded-full bg-brand-500"
+                    style={{
+                      width: `${Math.round(
+                        (location.value / maxLocationValue) * 100
+                      )}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
