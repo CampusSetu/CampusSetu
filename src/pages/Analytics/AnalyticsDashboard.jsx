@@ -211,13 +211,13 @@ const PlanCard = () => (
         <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="jane@campussetu.com" />
       </div>
       <div className="grid grid-cols-3 gap-3">
-        <div className="col-span-2 grid gap-2">
+        <div className="col-span-2 grid min-w-0 gap-2">
           <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">Card number</label>
-          <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="4242 4242 4242 4242" />
+          <input className="w-full rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="4242 4242 4242 4242" />
         </div>
-        <div className="grid gap-2">
+        <div className="grid min-w-0 gap-2">
           <label className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">CVC</label>
-          <input className="rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="123" />
+          <input className="w-full rounded-xl border border-slate-200 px-3 py-2 focus:border-slate-400 focus:outline-none" placeholder="123" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
