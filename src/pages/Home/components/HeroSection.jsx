@@ -54,7 +54,7 @@ export default function HeroSection({ heroHighlights, heroMetrics, onPrimaryCTA,
                 className="card-lifted bg-slate-50/70 p-6 shadow-soft"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
-                  {item.category || "Capability"}
+                  {item.category || "Core Feature"}
                 </p>
                 <p className="mt-3 text-2xl font-semibold text-slate-900">{item.title}</p>
                 <p className="mt-2 text-sm text-slate-500">

@@ -25,14 +25,50 @@ export default function HomeHeader({ onAuth }) {
         {/* Nav Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
           <a href="#about" className="hover:text-primary transition-colors">
-            About
+            Overview
           </a>
-          <a href="#features" className="hover:text-primary transition-colors">
-            Features
+          <div className="group relative">
+            <button className="flex items-center gap-1 hover:text-primary transition-colors">
+              Features
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div className="invisible group-hover:visible absolute left-0 top-full pt-2 w-64">
+              <div className="rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
+                <Link 
+                  to="/features/company-insights" 
+                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                >
+                  Company Insights & Ratings
+                </Link>
+                <Link 
+                  to="/features/alumni-network" 
+                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                >
+                  Alumni Network & Mentorship
+                </Link>
+                <Link 
+                  to="/features/interview-scheduling" 
+                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                >
+                  Smart Interview Scheduling
+                </Link>
+                <Link 
+                  to="/features/resume-intelligence" 
+                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                >
+                  Resume Intelligence
+                </Link>
+              </div>
+            </div>
+          </div>
+          <a href="#workflow" className="hover:text-primary transition-colors">
+            How It Works
           </a>
-          <Link to="/analytics" className="hover:text-primary transition-colors">
-            Analytics
-          </Link>
+          <a href="#personas" className="hover:text-primary transition-colors">
+            For Teams
+          </a>
         </nav>
 
         {/* Right Section */}

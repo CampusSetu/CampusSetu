@@ -15,10 +15,18 @@ const Navbar = () => {
   const links = useMemo(
     () => [
       { label: "Overview", href: "/#about", type: "anchor" },
-      { label: "Features", href: "/#features", type: "anchor" },
-      { label: "Workflow", href: "/#workflow", type: "anchor" },
-      { label: "Personas", href: "/#personas", type: "anchor" },
-      { label: "Analytics", href: "/analytics", type: "route" },
+      { 
+        label: "Features", 
+        type: "dropdown",
+        items: [
+          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route" },
+          { label: "Alumni Network & Mentorship", href: "/features/alumni-network", type: "route" },
+          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route" },
+          { label: "Resume Intelligence", href: "/features/resume-intelligence", type: "route" },
+        ]
+      },
+      { label: "How It Works", href: "/#workflow", type: "anchor" },
+      { label: "For Teams", href: "/#personas", type: "anchor" },
     ],
     []
   );
@@ -37,8 +45,44 @@ const Navbar = () => {
   const renderLinks = (className = "") => (
     <ul className={`flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 ${className}`}>
       {links.map((link) => (
-        <li key={link.label}>
-          {link.type === "route" ? (
+        <li key={link.label} className={link.type === "dropdown" ? "relative group" : ""}>
+          {link.type === "dropdown" ? (
+            <div className="relative">
+              <button className="relative inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors duration-150 ease-out hover:text-slate-900">
+                {link.label}
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="invisible group-hover:visible absolute left-0 top-full pt-2 w-64 lg:block hidden">
+                <div className="rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
+                  {link.items.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              {/* Mobile dropdown - shown inline */}
+              <div className="mt-2 ml-4 space-y-2 lg:hidden">
+                {link.items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block text-sm text-slate-600 hover:text-primary"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : link.type === "route" ? (
             <Link
               to={link.href}
               className="group relative inline-flex items-center text-sm font-medium text-slate-500 transition-colors duration-150 ease-out hover:text-slate-900"

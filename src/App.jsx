@@ -31,6 +31,14 @@ import {
 // Analytics Page
 import { AnalyticsDashboard } from "./pages/Analytics";
 
+// Feature Pages
+import {
+  CompanyInsights,
+  AlumniNetwork,
+  InterviewScheduling,
+  ResumeIntelligence,
+} from "./pages/Features";
+
 export default function App() {
   return (
     <>
@@ -39,6 +47,12 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/analytics" element={<AnalyticsDashboard />} />
+        
+        {/* Feature Pages */}
+        <Route path="/features/company-insights" element={<CompanyInsights />} />
+        <Route path="/features/alumni-network" element={<AlumniNetwork />} />
+        <Route path="/features/interview-scheduling" element={<InterviewScheduling />} />
+        <Route path="/features/resume-intelligence" element={<ResumeIntelligence />} />
 
         {/* Protected Student Routes */}
         <Route

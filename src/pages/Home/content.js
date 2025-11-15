@@ -36,20 +36,20 @@ export const personaSections = [
 
 export const heroHighlights = [
   {
-    title: "Unified Workflows",
-    copy: "Coordinate student, recruiter, and CGC tasks without juggling spreadsheets.",
+    title: "Transparent Insights",
+    copy: "Real compensation data and interview experiences from your campus community.",
   },
   {
-    title: "Live Dashboards",
-    copy: "Monitor offers, participation, and interview progress in real time.",
+    title: "Alumni Connections",
+    copy: "Direct access to mentors and job opportunities through your alumni network.",
   },
   {
-    title: "Guided Processes",
-    copy: "Follow ready-made checklists so every drive runs on schedule.",
+    title: "Streamlined Scheduling",
+    copy: "Automated interview coordination with calendar sync and virtual meeting support.",
   },
   {
-    title: "Secure Access",
-    copy: "Role-aware permissions keep approvals and sensitive data controlled.",
+    title: "Resume Optimization",
+    copy: "AI-powered compatibility analysis and personalized improvement recommendations.",
   },
 ];
 
@@ -61,20 +61,20 @@ export const heroMetrics = [
 
 export const featurePillars = [
   {
-    title: "Campaign Planning",
-    copy: "Plan drives, info sessions, and deadlines with calm, structured timelines.",
+    title: "Company Insights & Ratings",
+    copy: "Access transparent compensation data, interview experiences, and company ratings from peers to make informed decisions.",
   },
   {
-    title: "Candidate Management",
-    copy: "Track applications, resumes, and decisions without manual updates.",
+    title: "Alumni Network & Mentorship",
+    copy: "Connect with alumni for career guidance, job referrals, and industry insights through intelligent matching.",
   },
   {
-    title: "Approvals & Compliance",
-    copy: "Grant visibility only where needed and keep every change auditable.",
+    title: "Smart Interview Scheduling",
+    copy: "Coordinate assessment rounds with calendar integration, virtual interview links, and conflict-free scheduling.",
   },
   {
-    title: "Insights & Reporting",
-    copy: "Share quick summaries of placement performance with leadership and partners.",
+    title: "Resume Intelligence",
+    copy: "Build optimized resumes, analyze compatibility scores for job postings, and receive targeted improvement suggestions.",
   },
 ];
 
@@ -87,9 +87,9 @@ export const analyticsMetrics = [
 
 export const snapshotTiles = [
   "Application Pipeline",
-  "Department Trends",
-  "Recruiter Scorecards",
-  "Offer Conversion",
+  "Company Ratings",
+  "Alumni Network Activity",
+  "Resume Match Analytics",
 ];
 
 export const trustedBadges = [
@@ -103,19 +103,19 @@ export const trustedBadges = [
 
 export const workflowSteps = [
   {
-    title: "Onboard teams with structure",
-    caption: "Day 0 setup",
-    copy: "Invite CGC officers, recruiters, and student leads with guided roles and checklists ready to follow.",
+    title: "Build your profile",
+    caption: "Get started",
+    copy: "Create your resume, connect with alumni mentors, and explore company insights shared by your peers.",
   },
   {
-    title: "Launch coordinated drives",
-    caption: "Plan & execute",
-    copy: "Publish openings, sync interview slots, and automate notifications so everyone stays in lockstep.",
+    title: "Discover opportunities",
+    caption: "Find matches",
+    copy: "Review compatibility scores for openings, access interview experiences, and schedule assessments seamlessly.",
   },
   {
-    title: "Report wins instantly",
-    caption: "Share clarity",
-    copy: "Deliver live dashboards and exports to leadership and partners without chasing spreadsheets.",
+    title: "Track your progress",
+    caption: "Stay informed",
+    copy: "Monitor applications, receive mentor guidance, and analyze your performance with actionable insights.",
   },
 ];
 
