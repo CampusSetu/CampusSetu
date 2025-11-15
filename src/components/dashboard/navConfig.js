@@ -6,11 +6,18 @@ import {
   ChartBarIcon,
   CalendarDaysIcon,
   DocumentTextIcon,
+  UserGroupIcon,
+  AcademicCapIcon,
 } from "@heroicons/react/24/outline";
 
 export const dashboardNavConfig = {
   student: [
     { title: "Dashboard", icon: Squares2X2Icon, path: "/student/dashboard" },
+    {
+      title: "Alumni Network",
+      icon: UserGroupIcon,
+      path: "/student/mentorship",
+    },
     {
       title: "Interview Hub",
       icon: CalendarDaysIcon,
@@ -66,6 +73,13 @@ export const dashboardNavConfig = {
     { title: "Explorer", icon: ChartBarIcon, path: "/insights/explorer" },
     { title: "Stories", icon: ClipboardDocumentCheckIcon, path: "/insights/stories" },
     { title: "Share", icon: BriefcaseIcon, path: "/insights/share" },
+  ],
+  alumni: [
+    { title: "Dashboard", icon: Squares2X2Icon, path: "/alumni/dashboard" },
+    { title: "My Mentees", icon: UserGroupIcon, path: "/alumni/mentees" },
+    { title: "Job Referrals", icon: BriefcaseIcon, path: "/alumni/referrals" },
+    { title: "Post Referral", icon: AcademicCapIcon, path: "/alumni/post-referral" },
+    { title: "Profile", icon: UserCircleIcon, path: "/alumni/profile" },
   ],
 };
 
