@@ -1,0 +1,50 @@
+[
+  {
+    "name": "React",
+    "category": "Frontend",
+    "demand": 94,
+    "trend": "+12%",
+    "useCases": ["Student Dashboard", "Interview Hub"],
+    "keywords": ["Hooks", "Server Components", "Accessibility"]
+  },
+  {
+    "name": "TypeScript",
+    "category": "Frontend",
+    "demand": 88,
+    "trend": "+9%",
+    "useCases": ["Design Systems", "Micro-frontends"],
+    "keywords": ["Types", "Generics", "Zod"]
+  },
+  {
+    "name": "Node.js",
+    "category": "Backend",
+    "demand": 81,
+    "trend": "+6%",
+    "useCases": ["GraphQL APIs", "Mock services"],
+    "keywords": ["Express", "Prisma", "Testing"]
+  },
+  {
+    "name": "SQL",
+    "category": "Data",
+    "demand": 87,
+    "trend": "+7%",
+    "useCases": ["Analytics", "Reporting"],
+    "keywords": ["Window functions", "CTEs", "Query tuning"]
+  },
+  {
+    "name": "Python",
+    "category": "Data",
+    "demand": 90,
+    "trend": "+10%",
+    "useCases": ["ML", "Automation"],
+    "keywords": ["Pandas", "NumPy", "FastAPI"]
+  },
+  {
+    "name": "Figma",
+    "category": "Design",
+    "demand": 74,
+    "trend": "+3%",
+    "useCases": ["Design Systems", "Prototyping"],
+    "keywords": ["Components", "Auto-layout", "Tokens"]
+  }
+]

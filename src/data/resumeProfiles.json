@@ -1,0 +1,79 @@
+[
+  {
+    "userId": 1,
+    "headline": "Frontend Engineer · React + Product UX",
+    "summary": "Frontend-focused engineer with a love for crafting accessible, micro-interaction rich experiences. Delivered UI revamps that improved conversion and performance for SaaS teams.",
+    "experience": [
+      {
+        "role": "Frontend Intern",
+        "company": "Tech Solutions Inc.",
+        "duration": "May 2025 - Aug 2025",
+        "impact": [
+          "Rebuilt candidate dashboard widgets in React 19, cutting load time by 28%",
+          "Led accessibility sweep that fixed 35 WCAG blockers across the hiring portal"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "BITS Pilani",
+        "degree": "B.E. Computer Science",
+        "year": "2026",
+        "gpa": "8.6"
+      }
+    ],
+    "projects": [
+      {
+        "name": "Placement Pulse",
+        "description": "Realtime dashboard for tracking campus hiring metrics with charting overlays",
+        "skills": ["React", "Recharts", "Tailwind"]
+      }
+    ],
+    "certifications": ["AWS Cloud Practitioner", "Google UX Foundations"],
+    "skills": [
+      "React",
+      "JavaScript",
+      "Tailwind",
+      "Node.js",
+      "TypeScript",
+      "Figma"
+    ],
+    "resumeFile": null,
+    "lastUpdated": "2025-11-10T09:00:00.000Z"
+  },
+  {
+    "userId": 2,
+    "headline": "Data Analyst · Python + BI",
+    "summary": "Data storyteller who enjoys turning raw telemetry into campus placement insights. Comfortable with SQL tuning and visualization stacks.",
+    "experience": [
+      {
+        "role": "Analytics Fellow",
+        "company": "Data Insights Co.",
+        "duration": "Jan 2025 - Jul 2025",
+        "impact": [
+          "Automated Tableau refresh jobs that saved the team 5 hrs/week",
+          "Built anomaly detectors that surfaced 4 critical retention issues"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "IIT Roorkee",
+        "degree": "B.Tech Mechanical",
+        "year": "2026",
+        "gpa": "8.1"
+      }
+    ],
+    "projects": [
+      {
+        "name": "Campus Talent Graph",
+        "description": "Knowledge graph linking students, skills, and job outcomes",
+        "skills": ["Python", "Neo4j", "SQL"]
+      }
+    ],
+    "certifications": ["Tableau Analyst", "Google Data Analytics"],
+    "skills": ["Python", "SQL", "Pandas", "Tableau", "PowerBI"],
+    "resumeFile": null,
+    "lastUpdated": "2025-11-11T08:30:00.000Z"
+  }
+]

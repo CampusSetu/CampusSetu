@@ -1,0 +1,152 @@
+[
+  {
+    "jobId": 1,
+    "role": "Frontend Developer Intern",
+    "companyName": "Tech Solutions Inc.",
+    "coordinator": "Neha Kapoor",
+    "tools": ["Google Meet", "HackerRank", "Calendly"],
+    "rounds": [
+      {
+        "label": "Aptitude & UI Quiz",
+        "mode": "Virtual",
+        "duration": 30,
+        "window": "15 Nov",
+        "owner": "Placement Cell"
+      },
+      {
+        "label": "Technical Interview",
+        "mode": "Virtual",
+        "duration": 45,
+        "window": "18 Nov",
+        "owner": "Tech Solutions Panel"
+      },
+      {
+        "label": "Final HR",
+        "mode": "Virtual",
+        "duration": 25,
+        "window": "24 Nov",
+        "owner": "Campus HR"
+      }
+    ]
+  },
+  {
+    "jobId": 2,
+    "role": "Data Analyst Intern",
+    "companyName": "Data Insights Co.",
+    "coordinator": "Placement Cell",
+    "tools": ["Microsoft Teams", "Tableau", "Google Calendar"],
+    "rounds": [
+      {
+        "label": "Case Kick-off",
+        "mode": "Hybrid",
+        "duration": 40,
+        "window": "12 Nov",
+        "owner": "Recruiter"
+      },
+      {
+        "label": "Case Study Evaluation",
+        "mode": "Hybrid",
+        "duration": 60,
+        "window": "21 Nov",
+        "owner": "Analytics Lead"
+      },
+      {
+        "label": "Offer Discussion",
+        "mode": "Virtual",
+        "duration": 30,
+        "window": "28 Nov",
+        "owner": "HR"
+      }
+    ]
+  },
+  {
+    "jobId": 3,
+    "role": "Backend Engineer Intern",
+    "companyName": "Server Systems LLC",
+    "coordinator": "Server Systems TA Team",
+    "tools": ["Zoom", "Miro", "Slack"],
+    "rounds": [
+      {
+        "label": "Coding Challenge",
+        "mode": "Virtual",
+        "duration": 60,
+        "window": "16 Nov",
+        "owner": "Tech Recruiter"
+      },
+      {
+        "label": "System Design",
+        "mode": "On-site",
+        "duration": 60,
+        "window": "19 Nov",
+        "owner": "Architecture Panel"
+      },
+      {
+        "label": "CTO Connect",
+        "mode": "On-site",
+        "duration": 30,
+        "window": "24 Nov",
+        "owner": "Leadership"
+      }
+    ]
+  },
+  {
+    "jobId": 4,
+    "role": "UX/UI Designer Intern",
+    "companyName": "Creative Minds Studio",
+    "coordinator": "Maya Kapoor",
+    "tools": ["Figma", "Zoom", "Notion"],
+    "rounds": [
+      {
+        "label": "Portfolio Walkthrough",
+        "mode": "Virtual",
+        "duration": 45,
+        "window": "17 Nov",
+        "owner": "Design Lead"
+      },
+      {
+        "label": "Live Whiteboard",
+        "mode": "Virtual",
+        "duration": 60,
+        "window": "20 Nov",
+        "owner": "Product Team"
+      },
+      {
+        "label": "Culture Dialogue",
+        "mode": "Virtual",
+        "duration": 30,
+        "window": "26 Nov",
+        "owner": "People Ops"
+      }
+    ]
+  },
+  {
+    "jobId": 5,
+    "role": "DevOps Engineer",
+    "companyName": "Tech Solutions Inc.",
+    "coordinator": "Placement Cell",
+    "tools": ["Zoom", "Notion", "Google Calendar"],
+    "rounds": [
+      {
+        "label": "Automation Deep Dive",
+        "mode": "Virtual",
+        "duration": 50,
+        "window": "14 Nov",
+        "owner": "DevOps Manager"
+      },
+      {
+        "label": "Panel Interview",
+        "mode": "Hybrid",
+        "duration": 60,
+        "window": "19 Nov",
+        "owner": "Engineering Panel"
+      },
+      {
+        "label": "HR Closure",
+        "mode": "Virtual",
+        "duration": 30,
+        "window": "25 Nov",
+        "owner": "Campus HR"
+      }
+    ]
+  }
+]

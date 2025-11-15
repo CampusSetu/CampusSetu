@@ -10,6 +10,8 @@ import {
   StudentDashboard,
   StudentApplications,
   StudentProfile,
+  StudentInterviewHub,
+  StudentResumeLab,
 } from "./pages/Student";
 
 // Recruiter Pages
@@ -19,6 +21,8 @@ import {
   JobListings,
   Applicants,
   EditJob,
+  RecruiterInterviewHub,
+  RecruiterResumeHub,
 } from "./pages/Recruiter";
 
 // Placement (CGC) Pages
@@ -59,15 +63,25 @@ export default function App() {
           <Route path="stories" element={<Stories />} />
           <Route path="share" element={<Share />} />
         </Route>
-        
+
         {/* Feature Pages */}
         <Route
           path="/features/company-insights"
           element={<Navigate to="/insights" replace />}
         />
+        <Route
+          path="/features/company-insights"
+          element={<Navigate to="/insights" replace />}
+        />
         <Route path="/features/alumni-network" element={<AlumniNetwork />} />
-        <Route path="/features/interview-scheduling" element={<InterviewScheduling />} />
-        <Route path="/features/resume-intelligence" element={<ResumeIntelligence />} />
+        <Route
+          path="/features/interview-scheduling"
+          element={<InterviewScheduling />}
+        />
+        <Route
+          path="/features/resume-intelligence"
+          element={<ResumeIntelligence />}
+        />
 
         {/* Protected Student Routes */}
         <Route
@@ -91,6 +105,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <StudentApplications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/interview-hub"
+          element={
+            <ProtectedRoute>
+              <StudentInterviewHub />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/resume-lab"
+          element={
+            <ProtectedRoute>
+              <StudentResumeLab />
             </ProtectedRoute>
           }
         />
@@ -133,6 +163,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <EditJob />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recruiter/interview-hub"
+          element={
+            <ProtectedRoute>
+              <RecruiterInterviewHub />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recruiter/resume-hub"
+          element={
+            <ProtectedRoute>
+              <RecruiterResumeHub />
             </ProtectedRoute>
           }
         />
