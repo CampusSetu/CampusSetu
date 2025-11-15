@@ -39,6 +39,7 @@ const AuthModal = () => {
       student: '/student/dashboard',
       recruiter: '/recruiter/dashboard',
       placement: '/placement/dashboard',
+      alumni: '/alumni/dashboard',
     };
     navigate(destinations[role] || '/');
   };

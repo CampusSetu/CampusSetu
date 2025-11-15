@@ -11,6 +11,15 @@ export default function HomeHeader({ onAuth }) {
     navigate("/");
   };
 
+  const handleFeatureClick = (path, dashboardPath = null) => {
+    // If user is logged in and this feature has a specific dashboard for their role
+    if (user && dashboardPath && dashboardPath[user.role]) {
+      navigate(dashboardPath[user.role]);
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-20 bg-white/85 backdrop-blur border-b border-slate-200/60">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
@@ -36,30 +45,30 @@ export default function HomeHeader({ onAuth }) {
             </button>
             <div className="invisible group-hover:visible absolute left-0 top-full pt-2 w-64">
               <div className="rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
-                <Link 
-                  to="/features/company-insights" 
-                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                <button 
+                  onClick={() => handleFeatureClick("/features/company-insights", { student: "/insights/overview" })}
+                  className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
                 >
                   Company Insights & Ratings
-                </Link>
-                <Link 
-                  to="/features/alumni-network" 
-                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                </button>
+                <button 
+                  onClick={() => handleFeatureClick("/features/alumni-network", { alumni: "/alumni/dashboard", student: "/student/mentorship" })}
+                  className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
                 >
                   Alumni Network & Mentorship
-                </Link>
-                <Link 
-                  to="/features/interview-scheduling" 
-                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                </button>
+                <button 
+                  onClick={() => handleFeatureClick("/features/interview-scheduling", { student: "/student/interviews" })}
+                  className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
                 >
                   Smart Interview Scheduling
-                </Link>
-                <Link 
-                  to="/features/resume-intelligence" 
-                  className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                </button>
+                <button 
+                  onClick={() => handleFeatureClick("/features/resume-intelligence", { student: "/student/resume-lab" })}
+                  className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
                 >
                   Resume Intelligence
-                </Link>
+                </button>
               </div>
             </div>
           </div>

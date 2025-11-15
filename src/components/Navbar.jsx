@@ -19,10 +19,10 @@ const Navbar = () => {
         label: "Features", 
         type: "dropdown",
         items: [
-          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route" },
-          { label: "Alumni Network & Mentorship", href: "/features/alumni-network", type: "route" },
-          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route" },
-          { label: "Resume Intelligence", href: "/features/resume-intelligence", type: "route" },
+          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route", dashboardPath: { student: "/insights/overview" } },
+          { label: "Alumni Network & Mentorship", href: "/features/alumni-network", type: "route", dashboardPath: { alumni: "/alumni/dashboard", student: "/student/mentorship" } },
+          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route", dashboardPath: { student: "/student/interviews" } },
+          { label: "Resume Intelligence", href: "/features/resume-intelligence", type: "route", dashboardPath: { student: "/student/resume-lab" } },
         ]
       },
       { label: "How It Works", href: "/#workflow", type: "anchor" },
@@ -42,6 +42,17 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const handleLinkClick = (item) => {
+    setMenuOpen(false);
+    
+    // Check if user is logged in and this link has a dashboard path for their role
+    if (user && item.dashboardPath && item.dashboardPath[user.role]) {
+      navigate(item.dashboardPath[user.role]);
+    } else {
+      navigate(item.href);
+    }
+  };
+
   const renderLinks = (className = "") => (
     <ul className={`flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 ${className}`}>
       {links.map((link) => (
@@ -57,28 +68,26 @@ const Navbar = () => {
               <div className="invisible group-hover:visible absolute left-0 top-full pt-2 w-64 lg:block hidden">
                 <div className="rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
                   {link.items.map((item) => (
-                    <Link
+                    <button
                       key={item.label}
-                      to={item.href}
-                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => handleLinkClick(item)}
+                      className="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
                     >
                       {item.label}
-                    </Link>
+                    </button>
                   ))}
                 </div>
               </div>
               {/* Mobile dropdown - shown inline */}
               <div className="mt-2 ml-4 space-y-2 lg:hidden">
                 {link.items.map((item) => (
-                  <Link
+                  <button
                     key={item.label}
-                    to={item.href}
-                    className="block text-sm text-slate-600 hover:text-primary"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => handleLinkClick(item)}
+                    className="block w-full text-left text-sm text-slate-600 hover:text-primary"
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>

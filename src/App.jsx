@@ -12,6 +12,7 @@ import {
   StudentProfile,
   StudentInterviewHub,
   StudentResumeLab,
+  StudentMentorshipHub,
 } from "./pages/Student";
 
 // Recruiter Pages
@@ -41,6 +42,15 @@ import {
   InterviewScheduling,
   ResumeIntelligence,
 } from "./pages/Features";
+
+// Alumni Pages
+import {
+  AlumniDashboard,
+  AlumniMentees,
+  AlumniReferrals,
+  PostReferral,
+  AlumniProfile,
+} from "./pages/Alumni";
 
 // Insights System
 import InsightsLayout from "./pages/Insights/InsightsLayout";
@@ -121,6 +131,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <StudentResumeLab />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/mentorship"
+          element={
+            <ProtectedRoute>
+              <StudentMentorshipHub />
             </ProtectedRoute>
           }
         />
@@ -205,6 +223,48 @@ export default function App() {
           element={
             <ProtectedRoute>
               <ManageStudents />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected Alumni Routes */}
+        <Route
+          path="/alumni/dashboard"
+          element={
+            <ProtectedRoute>
+              <AlumniDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/alumni/mentees"
+          element={
+            <ProtectedRoute>
+              <AlumniMentees />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/alumni/referrals"
+          element={
+            <ProtectedRoute>
+              <AlumniReferrals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/alumni/post-referral"
+          element={
+            <ProtectedRoute>
+              <PostReferral />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/alumni/profile"
+          element={
+            <ProtectedRoute>
+              <AlumniProfile />
             </ProtectedRoute>
           }
         />

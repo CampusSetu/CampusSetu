@@ -48,5 +48,39 @@
     "email": "cgc@college.edu",
     "password": "password123",
     "role": "placement"
+  },
+  {
+    "id": 301,
+    "name": "Rahul Kumar",
+    "email": "rahul@alumni.com",
+    "password": "password123",
+    "role": "alumni",
+    "graduationYear": "2018",
+    "currentCompany": "Google",
+    "profile": {
+      "currentCompany": "Google",
+      "designation": "Senior Software Engineer",
+      "graduationYear": "2018",
+      "department": "Computer Science",
+      "expertise": ["Full Stack Development", "Cloud Architecture", "System Design"],
+      "yearsOfExperience": 6
+    }
+  },
+  {
+    "id": 307,
+    "name": "Dr. Priya Malhotra",
+    "email": "priya.malhotra@techcorp.com",
+    "password": "password123",
+    "role": "alumni",
+    "graduationYear": "2017",
+    "currentCompany": "Meta",
+    "profile": {
+      "currentCompany": "Meta",
+      "designation": "Staff Software Engineer",
+      "graduationYear": "2017",
+      "department": "Computer Science",
+      "expertise": ["React", "Node.js", "System Design", "Cloud Architecture"],
+      "yearsOfExperience": 8
+    }
   }
 ]
