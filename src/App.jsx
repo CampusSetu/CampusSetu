@@ -38,6 +38,7 @@ import { AnalyticsDashboard } from "./pages/Analytics";
 
 // Feature Pages
 import {
+  CompanyInsights,
   AlumniNetwork,
   InterviewScheduling,
   ResumeIntelligence,
@@ -75,14 +76,7 @@ export default function App() {
         </Route>
 
         {/* Feature Pages */}
-        <Route
-          path="/features/company-insights"
-          element={<Navigate to="/insights" replace />}
-        />
-        <Route
-          path="/features/company-insights"
-          element={<Navigate to="/insights" replace />}
-        />
+        <Route path="/features/company-insights" element={<CompanyInsights />} />
         <Route path="/features/alumni-network" element={<AlumniNetwork />} />
         <Route
           path="/features/interview-scheduling"

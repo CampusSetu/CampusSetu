@@ -19,9 +19,9 @@ const Navbar = () => {
         label: "Features", 
         type: "dropdown",
         items: [
-          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route", dashboardPath: { student: "/insights/overview" } },
+          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route", dashboardPath: { student: "/insights" } },
           { label: "Alumni Network & Mentorship", href: "/features/alumni-network", type: "route", dashboardPath: { alumni: "/alumni/dashboard", student: "/student/mentorship" } },
-          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route", dashboardPath: { student: "/student/interviews" } },
+          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route", dashboardPath: { student: "/student/interview-hub" } },
           { label: "Resume Intelligence", href: "/features/resume-intelligence", type: "route", dashboardPath: { student: "/student/resume-lab" } },
         ]
       },
