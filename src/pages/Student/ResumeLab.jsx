@@ -93,8 +93,12 @@ export default function ResumeLab() {
         <LoadingState />
       ) : (
         <div className="space-y-6">
-          <section className="rounded-3xl border border-white/70 bg-gradient-to-br from-white via-blue-50/70 to-indigo-100/40 p-6 shadow-[0_20px_60px_-45px_rgba(15,23,42,0.95)]">
-            <div className="flex flex-wrap items-center gap-4">
+          <section className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-white via-blue-50/70 to-indigo-100/50 p-8 shadow-lg shadow-blue-500/5">
+            {/* Decorative blur effects */}
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-200/40 blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-indigo-200/35 blur-3xl" />
+            
+            <div className="relative flex flex-wrap items-center gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
                   Resume Intelligence
@@ -110,7 +114,7 @@ export default function ResumeLab() {
                 </p>
               </div>
               <div className="ml-auto flex gap-4 text-center">
-                <div className="rounded-2xl border border-white/70 bg-white/80 px-5 py-3">
+                <div className="rounded-2xl border border-white/60 bg-white/85 backdrop-blur px-5 py-3">
                   <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                     Skills logged
                   </p>
@@ -118,7 +122,7 @@ export default function ResumeLab() {
                     {skillCoverage}
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/70 bg-white/80 px-5 py-3">
+                <div className="rounded-2xl border border-white/60 bg-white/85 backdrop-blur px-5 py-3">
                   <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                     Avg score
                   </p>

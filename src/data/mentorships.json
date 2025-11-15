@@ -1,0 +1,105 @@
+[
+  {
+    "id": 1,
+    "mentorId": 301,
+    "menteeId": 1,
+    "status": "active",
+    "matchedOn": "2025-10-15T10:00:00Z",
+    "matchScore": 95,
+    "matchReasons": ["Both interested in React", "Frontend Development alignment", "Same department"],
+    "sessions": [
+      {
+        "id": 1,
+        "date": "2025-10-20T15:00:00Z",
+        "duration": 60,
+        "topic": "React Best Practices",
+        "notes": "Discussed component composition and state management patterns",
+        "rating": 5
+      },
+      {
+        "id": 2,
+        "date": "2025-11-05T15:00:00Z",
+        "duration": 45,
+        "topic": "Career Planning",
+        "notes": "Reviewed resume and discussed interview preparation strategies",
+        "rating": 5
+      }
+    ],
+    "goals": ["Land frontend developer internship", "Master React and modern web development", "Prepare for technical interviews"],
+    "nextSessionDate": "2025-11-20T15:00:00Z"
+  },
+  {
+    "id": 2,
+    "mentorId": 303,
+    "menteeId": 2,
+    "status": "active",
+    "matchedOn": "2025-10-10T10:00:00Z",
+    "matchScore": 88,
+    "matchReasons": ["Interest in Product Management", "Career transition guidance"],
+    "sessions": [
+      {
+        "id": 1,
+        "date": "2025-10-18T18:00:00Z",
+        "duration": 60,
+        "topic": "Introduction to Product Management",
+        "notes": "Overview of PM role and key responsibilities",
+        "rating": 4
+      }
+    ],
+    "goals": ["Understand PM career path", "Develop product thinking", "Build portfolio projects"],
+    "nextSessionDate": "2025-11-18T18:00:00Z"
+  },
+  {
+    "id": 3,
+    "mentorId": 304,
+    "menteeId": 3,
+    "status": "active",
+    "matchedOn": "2025-09-25T10:00:00Z",
+    "matchScore": 92,
+    "matchReasons": ["Machine Learning interest", "Research aspirations", "Computer Science background"],
+    "sessions": [
+      {
+        "id": 1,
+        "date": "2025-10-01T10:00:00Z",
+        "duration": 90,
+        "topic": "ML Fundamentals",
+        "notes": "Discussed supervised vs unsupervised learning with practical examples",
+        "rating": 5
+      },
+      {
+        "id": 2,
+        "date": "2025-10-15T10:00:00Z",
+        "duration": 60,
+        "topic": "Deep Learning Basics",
+        "notes": "Introduction to neural networks and backpropagation",
+        "rating": 5
+      }
+    ],
+    "goals": ["Build ML project portfolio", "Prepare for research internships", "Understand graduate school options"],
+    "nextSessionDate": "2025-11-22T10:00:00Z"
+  },
+  {
+    "id": 4,
+    "mentorId": 302,
+    "menteeId": 2,
+    "status": "active",
+    "matchedOn": "2025-10-01T10:00:00Z",
+    "matchScore": 90,
+    "matchReasons": ["Mechanical Engineering alignment", "Automotive industry interest"],
+    "sessions": [],
+    "goals": ["Explore automotive industry opportunities", "Learn about US job market"],
+    "nextSessionDate": "2025-11-16T20:00:00Z"
+  },
+  {
+    "id": 5,
+    "mentorId": 303,
+    "menteeId": 1,
+    "status": "pending",
+    "matchedOn": "2025-11-10T10:00:00Z",
+    "matchScore": 85,
+    "matchReasons": ["Interest in tech careers", "Career guidance needed"],
+    "sessions": [],
+    "goals": ["Explore different tech career paths", "Understand role transitions"],
+    "nextSessionDate": null
+  }
+]
