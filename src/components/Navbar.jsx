@@ -15,15 +15,38 @@ const Navbar = () => {
   const links = useMemo(
     () => [
       { label: "Overview", href: "/#about", type: "anchor" },
-      { 
-        label: "Features", 
+      {
+        label: "Features",
         type: "dropdown",
         items: [
-          { label: "Company Insights & Ratings", href: "/features/company-insights", type: "route", dashboardPath: { student: "/insights" } },
-          { label: "Alumni Network & Mentorship", href: "/features/alumni-network", type: "route", dashboardPath: { alumni: "/alumni/dashboard", student: "/student/mentorship" } },
-          { label: "Smart Interview Scheduling", href: "/features/interview-scheduling", type: "route", dashboardPath: { student: "/student/interview-hub" } },
-          { label: "Resume Intelligence", href: "/features/resume-intelligence", type: "route", dashboardPath: { student: "/student/resume-lab" } },
-        ]
+          {
+            label: "Company Insights & Ratings",
+            href: "/features/company-insights",
+            type: "route",
+            dashboardPath: { student: "/insights" },
+          },
+          {
+            label: "Alumni Network & Mentorship",
+            href: "/features/alumni-network",
+            type: "route",
+            dashboardPath: {
+              alumni: "/alumni/dashboard",
+              student: "/student/mentorship",
+            },
+          },
+          {
+            label: "Smart Interview Scheduling",
+            href: "/features/interview-scheduling",
+            type: "route",
+            dashboardPath: { student: "/student/interview-hub" },
+          },
+          {
+            label: "Resume Intelligence",
+            href: "/features/resume-intelligence",
+            type: "route",
+            dashboardPath: { student: "/student/resume-lab" },
+          },
+        ],
       },
       { label: "How It Works", href: "/#workflow", type: "anchor" },
       { label: "For Teams", href: "/#personas", type: "anchor" },
@@ -44,7 +67,7 @@ const Navbar = () => {
 
   const handleLinkClick = (item) => {
     setMenuOpen(false);
-    
+
     // Check if user is logged in and this link has a dashboard path for their role
     if (user && item.dashboardPath && item.dashboardPath[user.role]) {
       navigate(item.dashboardPath[user.role]);
@@ -54,15 +77,30 @@ const Navbar = () => {
   };
 
   const renderLinks = (className = "") => (
-    <ul className={`flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 ${className}`}>
+    <ul
+      className={`flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 ${className}`}
+    >
       {links.map((link) => (
-        <li key={link.label} className={link.type === "dropdown" ? "relative group" : ""}>
+        <li
+          key={link.label}
+          className={link.type === "dropdown" ? "relative group" : ""}
+        >
           {link.type === "dropdown" ? (
             <div className="relative">
               <button className="relative inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors duration-150 ease-out hover:text-slate-900">
                 {link.label}
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
               <div className="invisible group-hover:visible absolute left-0 top-full pt-2 w-64 lg:block hidden">
@@ -125,22 +163,26 @@ const Navbar = () => {
         <nav className="relative flex h-16 items-center justify-between rounded-full border border-white/40 bg-gradient-to-r from-white/75 via-white/55 to-white/75 px-4 shadow-[0_22px_50px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/50 backdrop-blur lg:h-[68px] lg:px-6">
           <Link to="/" className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-full border border-brand-500/40 bg-white/90 text-sm font-semibold text-brand-600 shadow-[0_10px_30px_-20px_rgba(59,130,246,0.8)]">
-            C
-          </span>
-          <div className="leading-tight">
-            <p className="font-display text-lg font-semibold text-slate-900">CampusSetu</p>
-          </div>
-        </Link>
+              C
+            </span>
+            <div className="leading-tight">
+              <p className="font-display text-lg font-semibold text-slate-900">
+                CampusSetu
+              </p>
+            </div>
+          </Link>
 
-        <div className="hidden flex-1 items-center justify-center lg:flex">
+          <div className="hidden flex-1 items-center justify-center lg:flex">
             {renderLinks("justify-center")}
-        </div>
+          </div>
 
           <div className="hidden items-center gap-2 lg:flex">
-          {user ? (
-            <>
+            {user ? (
+              <>
                 <div className="flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/70 px-3 py-1.5">
-                  <span className="text-xs font-medium text-slate-500">{user.name}</span>
+                  <span className="text-xs font-medium text-slate-500">
+                    {user.name}
+                  </span>
                   <span className="inline-flex rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-700">
                     {user.role}
                   </span>
@@ -159,9 +201,9 @@ const Navbar = () => {
                 >
                   Logout
                 </Button>
-            </>
-          ) : (
-            <>
+              </>
+            ) : (
+              <>
                 <Button
                   variant="ghost"
                   onClick={() => navigate("/analytics")}
@@ -175,32 +217,32 @@ const Navbar = () => {
                 >
                   Get started
                 </Button>
-            </>
-          )}
-        </div>
+              </>
+            )}
+          </div>
 
-        <button
-          type="button"
+          <button
+            type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-white/70 text-slate-600 transition duration-150 ease-out hover:bg-white/90 lg:hidden"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          <Bars3BottomRightIcon className="h-6 w-6" />
-        </button>
-      </nav>
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Bars3BottomRightIcon className="h-6 w-6" />
+          </button>
+        </nav>
       </div>
 
       <AnimatePresence>
         {menuOpen && (
           <Motion.div
-            className="fixed inset-0 z-40 bg-slate-900/25 backdrop-blur"
+            className="fixed inset-0 z-40 bg-slate-900/50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setMenuOpen(false)}
           >
             <Motion.div
-              className="absolute right-4 top-20 w-[85vw] max-w-sm rounded-2xl border border-white/40 bg-white/85 p-6 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.6)] ring-1 ring-white/50 backdrop-blur"
+              className="absolute inset-x-4 top-24 mx-auto w-[calc(100%-2rem)] max-w-sm rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_28px_60px_-35px_rgba(15,23,42,0.6)]"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -12, opacity: 0 }}
@@ -212,7 +254,9 @@ const Navbar = () => {
                   <p className="font-display text-lg font-semibold text-slate-900">
                     CampusSetu
                   </p>
-                  <p className="text-xs text-slate-400">Unified campus hiring workspace</p>
+                  <p className="text-xs text-slate-400">
+                    Unified campus hiring workspace
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -235,7 +279,10 @@ const Navbar = () => {
                 ) : (
                   <>
                     <Button onClick={openAuthModal}>Create account</Button>
-                    <Button variant="secondary" onClick={() => navigate("/analytics")}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => navigate("/analytics")}
+                    >
                       Explore analytics
                     </Button>
                   </>
